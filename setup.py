@@ -38,9 +38,9 @@ if __name__ == "__main__":
 
     # Cython modules
     ext_modules = [
-             Extension('cn_hyperarr.one_cython_file',
-             sources = [os.path.join('cn_hyperarr','one_cython_file.pyx')],
-             include_dirs=sage_include_directories())
+             # Extension('cn_hyperarr.one_cython_file',
+             #sources = [os.path.join('cn_hyperarr','one_cython_file.pyx')],
+             #include_dirs=sage_include_directories())
     ]
 
     # Specify the required Sage version
