@@ -1,0 +1,6 @@
+prune cn_hyperarr
+include VERSION
+include cn_hyperarr/*.py
+include cn_hyperarr/*.pyx
+include cn_hyperarr/*.pxd
+
