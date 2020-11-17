@@ -3,7 +3,7 @@
 Ultimate question
 =================
 
-.. automodule:: cn_hyperarr.ultimate_question
+.. automodule:: cn_hyperarr.main
    :members:
    :undoc-members:
    :show-inheritance:

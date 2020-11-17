@@ -40,7 +40,9 @@ Congruence Normality for Hyperplane Arrangements
 .. toctree::
    :maxdepth: 2
 
-   ultimate_question
+   main
+   infinite_families
+   vector_classes
 
 
 Indices and Tables
