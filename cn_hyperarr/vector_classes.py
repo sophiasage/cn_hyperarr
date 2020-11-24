@@ -184,7 +184,7 @@ class VectorConfiguration():
             self._dimension = len(self._vectors[0])
         # add that empty configuration has dim -1
         self._backend = backend
-        if self._nb_vectors is not 0:
+        if self._nb_vectors != 0:
             assert set([len(v) for v in self._vectors]) == set([self._dimension]), "The vectors are not all of the same dimension"
 
     def __getitem__(self, key):
