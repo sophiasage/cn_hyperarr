@@ -14,6 +14,7 @@ EXAMPLES:
 This vector configuration is congruence normal for any choice of base region in
 the corresponding hyperplane arrangement::
 
+    sage: from cn_hyperarr import *
     sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]]);
     sage: h = vectorconf_to_hyperplane_arrangement(vc);
     sage: h.n_regions()
@@ -69,6 +70,7 @@ def vectorconf_to_hyperplane_arrangement(vector_conf,backend=None):
     This arrangement with 10 hyperplanes is the smallest rank-three simplicial 
     arrangement that is not congruence normal::
     
+        sage: from cn_hyperarr import *
         sage: tau = AA((1+sqrt(5))/2)
         sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]
         sage: ncn_conf = VectorConfiguration(ncn);
@@ -119,6 +121,7 @@ def wrapper_forcing_acyclic(vectorconf):
     This arrangement with 10 hyperplanes is not congruence normal for the
     implicit choice of base region::
 
+        sage: from cn_hyperarr import *
         sage: tau = AA((1+sqrt(5))/2)
         sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]
         sage: ncn_conf = VectorConfiguration(ncn);
@@ -155,6 +158,7 @@ def check_all_regions(vector_conf, backend=None, verbose=False):
 
     An example of an arrangement that is always congruence normal::
 
+        sage: from cn_hyperarr import *
         sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
         sage: h = vectorconf_to_hyperplane_arrangement(vc);
         sage: h.n_regions()
@@ -249,6 +253,7 @@ def report_on_congnorm(vector_conf, cuntz_index, folder):
 
     An example of an arrangement that is always congruence normal::
 
+        sage: from cn_hyperarr import *
         sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
 
     TESTS::

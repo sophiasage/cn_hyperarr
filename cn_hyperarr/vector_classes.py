@@ -5,6 +5,7 @@ uniformity/normality of posets of regions of hyperplane arrangements.
 
 EXAMPLES::
 
+    sage: from cn_hyperarr import *
     sage: tau = AA((1+sqrt(5))/2)
     sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]
     sage: ncn_conf = VectorConfiguration(ncn);
@@ -64,6 +65,7 @@ class VectorConfiguration():
 
     EXAMPLES::
 
+        sage: from cn_hyperarr import *
         sage: v = [[1, -1, -1], [1, 1, -1], [1, 1, 1], [1, -1, 1], [-1, -1, 1],
         ....:  [-1, -1, -1], [-1, 1, -1], [-1, 1, 1]]
         sage: vc = VectorConfiguration(v); vc
@@ -133,6 +135,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc
             Vector configuration of 6 vectors in dimension 3
@@ -197,6 +200,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc[3]
             (1, 1, 0)
@@ -215,6 +219,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc
             Vector configuration of 6 vectors in dimension 3
@@ -232,6 +237,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.ambient_dimension()
             3
@@ -256,6 +262,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc1 = VectorConfiguration([[1,0,0],[0,1,0],[3,0,0]])
             sage: vc1.base_ring()
             Integer Ring
@@ -291,6 +298,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]], backend='normaliz')    # optional - pynormaliz
             sage: vc.backend()   # optional - pynormaliz
             'normaliz'
@@ -310,6 +318,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.vectors()
             ((1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 1, 0), (0, 1, 1), (1, 1, 1))
@@ -328,6 +337,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.n_vectors()
             6
@@ -350,6 +360,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.is_acyclic()
             True
@@ -405,6 +416,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.is_totally_cyclic()
             False
@@ -450,6 +462,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.three_dim_cocircuits()
             (((), (0, 1, 3), (2, 4, 5)),
@@ -522,6 +535,7 @@ class VectorConfiguration():
 
         EXAMPLES:
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.underlying_matroid()
             Matroid of rank 3 on 6 elements with 16 bases
@@ -553,6 +567,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.underlying_hypergraph()
             Incidence structure with 6 points and 7 blocks
@@ -584,6 +599,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.dominating_pairs()
             {0: set(), 1: set(), 2: set(), 3: {(0, 1)}, 4: {(1, 2)}, 5: {(0, 4), (2, 3)}}
@@ -655,6 +671,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.line_vertices()
             [(0, 1), (1, 2), (2, 3), (0, 4)]
@@ -699,6 +716,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.shard_covectors()
             ((1, 3, -1, 1, -1, 0),
@@ -792,6 +810,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.line_covectors()
             {{4, 5}: ((0, 1, -1, 1, 0, 0), (0, -1, 1, -1, 0, 0)),
@@ -865,6 +884,7 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: fog = vc.forcing_oriented_graph(); fog
             Digraph on 11 vertices
@@ -930,6 +950,7 @@ class VectorConfiguration():
 
         EXAMPLES:
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.is_congruence_normal()
             True
@@ -968,6 +989,7 @@ class VectorConfiguration():
         The standard basis vectors are the rays of the following acyclic
         configuration::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.affine_basis()
             {0, 1, 2}
@@ -1008,6 +1030,7 @@ class Covector(tuple):
     It is possible to create a covector from various input. The first
     possibility is a list of signs and stars::
 
+        sage: from cn_hyperarr import *
         sage: c = Covector([1,3,1,0,-1,3,0,-1,1]); c
         (1, 3, 1, 0, -1, 3, 0, -1, 1)
         sage: c.stars()
@@ -1040,6 +1063,7 @@ class Covector(tuple):
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: Covector([1,3,1,0,-1])
             (1, 3, 1, 0, -1)
 
@@ -1076,6 +1100,7 @@ class Covector(tuple):
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: c = vector([1,1,1])
             sage: a = -3/2
@@ -1122,6 +1147,7 @@ class Covector(tuple):
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: Covector([[0, 2], [5], [4, 3]], 6)
             (-1, 3, -1, 1, 1, 0)
 
@@ -1159,6 +1185,7 @@ class Covector(tuple):
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: Covector([0,3,3,0,-1,1]).stars()
             (1, 2)
 
@@ -1177,6 +1204,7 @@ class Covector(tuple):
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: Covector([0,3,3,0,-1,1]).as_vector()
             (0, 3, 3, 0, -1, 1)
 
@@ -1201,6 +1229,7 @@ class Covector(tuple):
 
         EXAMPLES::
 
+            sage: from cn_hyperarr import *
             sage: a = Covector([-1]*5)
             sage: b = Covector([1]*5)
             sage: a.intersection(b)
@@ -1267,6 +1296,7 @@ def inter_binary(left, right):
 
     EXAMPLES::
 
+        sage: from cn_hyperarr import *
         sage: from itertools import product
         sage: for i,j in product([-1,0,1,3],repeat=2):
         ....:     print(i,j,inter_binary(i,j))

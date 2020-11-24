@@ -8,6 +8,7 @@ EXAMPLES:
 The first infinite family is the family of near pencils. All lines except for
 one share a common intersection point, as may be seen in the hypergraph::
 
+    sage: from cn_hyperarr import *
     sage: np4 = near_pencil_family([4,'normaliz']); np4             # optional - pynormaliz
     Vector configuration of 4 vectors in dimension 3
     sage: np4_hypergraph = near_pencil_hypergraph([4, 'normaliz']); # optional - pynormaliz
@@ -77,6 +78,7 @@ def near_pencil_family(input_data):
 
     The near pencil with three hyperplanes::
 
+        sage: from cn_hyperarr import *
         sage: np = near_pencil_family([3,'normaliz']); np         # optional - pynormaliz
         Vector configuration of 3 vectors in dimension 3
 
@@ -116,6 +118,7 @@ def near_pencil_matroid(input_data):
 
     The matroid of the near pencil with three hyperplanes::
 
+        sage: from cn_hyperarr import *
         sage: np_mat = near_pencil_matroid([3, 'normaliz']); np_mat   # optional - pynormaliz
         Matroid of rank 3 on 3 elements with 1 bases
 
@@ -153,7 +156,8 @@ def near_pencil_hypergraph(input_data):
 
     EXAMPLES::
 
-        sage: np_hyp = near_pencil_hypgergraph([3,'normaliz']); np_hyp   # optional - pynormaliz
+        sage: from cn_hyperarr import *
+        sage: np_hyp = near_pencil_hypergraph([3,'normaliz']); np_hyp   # optional - pynormaliz
         Incidence structure with 3 points and 3 blocks
 
     TESTS::
@@ -192,7 +196,8 @@ def family_two(input_data):
 
     EXAMPLES::
 
-        sage: pf = family_two([4,'normaliz']); pf   # optional - pynormaliz
+        sage: from cn_hyperarr import *
+        sage: pf = family_two([8,'normaliz']); pf   # optional - pynormaliz
         Vector configuration of 8 vectors in dimension 3
 
     TESTS:
@@ -238,6 +243,7 @@ def family_two_matroid(input_data):
 
     EXAMPLES::
 
+        sage: from cn_hyperarr import *
         sage: pm = family_two_matroid([6,'normaliz']); pm        # optional - pynormaliz
         Matroid of rank 3 on 6 elements with 16 bases
 
@@ -278,6 +284,7 @@ def family_two_hypergraph(input_data):
 
     EXAMPLES::
 
+        sage: from cn_hyperarr import *
         sage: ph6 = family_two_hypergraph([6, 'normaliz']); ph6   # optional - pynormaliz
         Incidence structure with 6 points and 7 blocks
         sage: ph6.blocks()                                        # optional - pynormaliz
@@ -321,8 +328,9 @@ def family_three(input_data):
 
     EXAMPLES::
 
-        sage: f3_7 = family_three([7,'normaliz']); f3_7    # optional - pynormaliz
-        Vector configuration of 7 vectors in dimension 3
+        sage: from cn_hyperarr import *
+        sage: f3_9 = family_three([9,'normaliz']); f3_9    # optional - pynormaliz
+        Vector configuration of 9 vectors in dimension 3
 
     TESTS:
 
@@ -358,13 +366,14 @@ def family_three_matroid(input_data):
 
     EXAMPLES::
 
-        sage: f3_7_mat = family_three_matroid([7, 'normaliz']); f3_7_mat  # optional - pynormaliz
-        Matroid of rank 3 on 7 elements with 31 bases
+        sage: from cn_hyperarr import *
+        sage: f3_9_mat = family_three_matroid([9, 'normaliz']); f3_9_mat  # optional - pynormaliz
+        Matroid of rank 3 on 9 elements with 68 bases
 
     TESTS::
 
-        sage: f11 = family_three_matroid([11, None]); f11
-        Matroid of rank 3 on 11 elements with 145 bases
+        sage: f13 = family_three_matroid([13, None]); f13
+        Matroid of rank 3 on 13 elements with 242 bases
     """
     n, backend = input_data
     try:
@@ -400,17 +409,18 @@ def family_three_hypergraph(input_data):
 
     EXAMPLES::
 
-        sage: f3_7 = family_three_hypergraph([7, 'normaliz']); f3_7   # optional - pynormaliz
-        Incidence structure with 7 points and 13 blocks
+        sage: from cn_hyperarr import *
+        sage: f3_9 = family_three_hypergraph([9, 'normaliz']); f3_9   # optional - pynormaliz
+        Incidence structure with 9 points and 13 blocks
 
     TESTS:
 
-    The triangle has three vertices where three lines intersect, and also
-    the center of the triangle has three intersecting lines. All other
+    The square has four vertices where three lines intersect. The center of the
+    square and two points at infinity also have 4 lines intersecting. All other
     instersections involve two lines::
 
-        sage: f3_7.block_sizes()                                      # optional - pynormaliz
-        [3, 3, 2, 2, 3, 2, 2, 2, 2, 3, 2, 2, 2]
+        sage: f3_9.block_sizes()                                      # optional - pynormaliz
+        [3, 3, 4, 2, 4, 3, 2, 3, 2, 2, 4, 2, 2]
     """
     n, backend = input_data
     try:
