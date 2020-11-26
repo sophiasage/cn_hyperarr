@@ -49,6 +49,8 @@ AUTHORS:
 import time, multiprocessing
 from .vector_classes import *
 from .infinite_families import *
+from sage.rings.integer_ring import ZZ
+from sage.geometry.hyperplane_arrangement.arrangement import HyperplaneArrangements
 
 def vectorconf_to_hyperplane_arrangement(vector_conf,backend=None):
     r"""
@@ -75,7 +77,7 @@ def vectorconf_to_hyperplane_arrangement(vector_conf,backend=None):
         sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]
         sage: ncn_conf = VectorConfiguration(ncn);
         sage: ncn_arr = vectorconf_to_hyperplane_arrangement(ncn_conf); ncn_arr
-        sage: Arrangement of 10 hyperplanes of dimension 3 and rank 3
+        Arrangement of 10 hyperplanes of dimension 3 and rank 3
 
     TESTS:
 
@@ -179,7 +181,7 @@ def check_all_regions(vector_conf, backend=None, verbose=False):
         sage: check = check_all_regions(ncn_conf)
         sage: vals_list = list(check[0].values())
         sage: [vals_list.count(True), vals_list.count(False)]
-        [40 20]
+        [40, 20]
     """
     A = vectorconf_to_hyperplane_arrangement(vector_conf, backend)
     
