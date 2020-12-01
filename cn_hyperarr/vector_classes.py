@@ -108,7 +108,7 @@ class VectorConfiguration():
         sage: ncn_conf.base_ring()
         Algebraic Real Field
 
-    Tests:
+    TESTS:
 
     The vectors should all have the same dimension::
 
@@ -144,15 +144,13 @@ class VectorConfiguration():
             sage: vc.vectors()
             ((1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 1, 0), (0, 1, 1), (1, 1, 1))
 
-        The same vector configuration with backend ``'normaliz'``.
+        The same vector configuration with backend ``'normaliz'``::
 
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]], backend = 'normaliz')  # optional - pynormaliz
             sage: vc                                    # optional - pynormaliz
             Vector configuration of 6 vectors in dimension 3
             sage: vc.backend()                          # optional - pynormaliz
             'normaliz'
-
-        TESTS:
 
         The vectors should all have the same dimension::
 
@@ -167,7 +165,9 @@ class VectorConfiguration():
             sage: vc
             Vector configuration of 2 vectors in dimension 2
 
-        An empty vector configuration:
+        TESTS:
+
+        An empty vector configuration::
 
             sage: vc = VectorConfiguration([])
             sage: vc.vectors()
@@ -204,12 +204,6 @@ class VectorConfiguration():
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc[3]
             (1, 1, 0)
-
-        TESTS:
-
-            sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
-            sage: vc[-1]
-            (1, 1, 1)
         """
         return self._vectors.__getitem__(key)
 
@@ -223,11 +217,6 @@ class VectorConfiguration():
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc
             Vector configuration of 6 vectors in dimension 3
-
-        TESTS::
-
-            sage: print(vc.__repr__().upper())
-            VECTOR CONFIGURATION OF 6 VECTORS IN DIMENSION 3
         """
         return "Vector configuration of {} vectors in dimension {}".format(self._nb_vectors, self._dimension)
 
@@ -241,17 +230,7 @@ class VectorConfiguration():
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.ambient_dimension()
             3
-
-        TESTS::
-
-            sage: vc1 = VectorConfiguration([[0]])
-            sage: vc1.ambient_dimension()
-            1
-            sage: vc2 = VectorConfiguration([[0,0]])
-            sage: vc2.ambient_dimension()
-            2
-            sage: vc3 = VectorConfiguration([])
-            sage: vc3.ambient_dimension()
+            sage: VectorConfiguration([]).ambient_dimension()
             -1
         """
         return self._dimension
@@ -280,8 +259,6 @@ class VectorConfiguration():
             sage: vc4.base_ring()
             Number Field in a with defining polynomial x^2 + 5 with a = 2.236067977499790?*I
 
-        TESTS::
-
             sage: vc5 = VectorConfiguration([[1,0,0],[0,1,0],[3,0,1e-10]])
             sage: vc5.base_ring()
             Real Field with 53 bits of precision
@@ -298,17 +275,17 @@ class VectorConfiguration():
 
         EXAMPLES::
 
+        The default backend is None::
+
             sage: from cn_hyperarr import *
+            sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
+            sage: vc.backend()
+
+        You can specify any backend that Polyhedron objects accept::
+
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]], backend='normaliz')    # optional - pynormaliz
             sage: vc.backend()   # optional - pynormaliz
             'normaliz'
-
-        TESTS:
-
-        The default backend is None::
-
-            sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
-            sage: vc.backend()
         """
         return self._backend
 
@@ -322,12 +299,6 @@ class VectorConfiguration():
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.vectors()
             ((1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 1, 0), (0, 1, 1), (1, 1, 1))
-
-        TESTS:
-
-            sage: vc = VectorConfiguration([])
-            sage: vc.vectors()
-            ()
         """
         return self._vectors
 
@@ -341,12 +312,6 @@ class VectorConfiguration():
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.n_vectors()
             6
-
-        TESTS::
-
-            sage: vc = VectorConfiguration([])
-            sage: vc.n_vectors()
-            0
         """
         return self._nb_vectors
 
@@ -357,6 +322,8 @@ class VectorConfiguration():
 
         A vector configuration is acyclic if the origin is not in the relative
         interior of the cone spanned by the vectors.
+
+        SEEALSO::
 
         EXAMPLES::
 
@@ -375,8 +342,6 @@ class VectorConfiguration():
             sage: vc = VectorConfiguration(v)
             sage: vc.is_acyclic()
             False
-
-        SEEALSO::
 
         TESTS::
 
@@ -533,7 +498,7 @@ class VectorConfiguration():
         Doesn't work if the matrix is not full dimensional
         why not use Matroid(matrix = mat) to define?
 
-        EXAMPLES:
+        EXAMPLES::
 
             sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
@@ -621,7 +586,7 @@ class VectorConfiguration():
         TESTS:
 
         The vector [0,0,1] is in the positive linear span of [-1,0,1] and
-        [1,0,1]:
+        [1,0,1]::
 
             sage: vc = VectorConfiguration([[0,0,1],[-1,0,1],[1,0,1]])
             sage: vc.dominating_pairs()
@@ -679,7 +644,7 @@ class VectorConfiguration():
         TESTS:
 
         The vectors [-1,0,1] and [1,0,1] are the vertices of the line containing
-        [0,0,1]:
+        [0,0,1]::
 
             sage: vc = VectorConfiguration([[0,0,1],[-1,0,1],[1,0,1]])
             sage: vc.line_vertices()
@@ -719,22 +684,22 @@ class VectorConfiguration():
             sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.shard_covectors()
-            ((1, 3, -1, 1, -1, 0),
-             (3, 0, 3, 3, 3, 3),
-             (1, -1, 3, 0, 3, 3),
+            ((-1, 1, 3, 0, 3, 3),
              (-1, 3, 1, -1, 1, 0),
-             (-1, 1, 3, 0, 3, 3),
-             (3, 3, 0, 3, 3, 3),
-             (1, 3, 1, -1, -1, 0),
-             (-1, 3, -1, 1, 1, 0),
+             (1, 3, -1, 1, -1, 0),
              (3, -1, 1, 3, 0, 3),
+             (1, -1, 3, 0, 3, 3),
+             (1, 3, 1, -1, -1, 0),
              (0, 3, 3, 3, 3, 3),
+             (3, 0, 3, 3, 3, 3),
+             (3, 3, 0, 3, 3, 3),
+             (-1, 3, -1, 1, 1, 0),
              (3, 1, -1, 3, 0, 3))
 
-    TESTS:
+        TESTS:
 
-    The following vector configuration is not congruence normal and has 29
-    shards::
+        The following vector configuration is not congruence normal and has 29
+        shards::
 
             sage: tau = AA((1+sqrt(5))/2)
             sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]
@@ -742,16 +707,12 @@ class VectorConfiguration():
             sage: len(ncn_conf.shard_covectors())
             29
 
-        TESTS:
-
-        The vector configuration [[-1,0,1],[1,0,1],[0,0,1]] has five shards.
+        The vector configuration [[-1,0,1],[1,0,1],[0,0,1]] has five shards::
 
             sage: vc = VectorConfiguration([[-1,0,1],[1,0,1],[0,0,1],[0,1,0]])
             sage: len(vc.shard_covectors())
             5
         """
-        # import pdb
-        # pdb.set_trace()
         nb_pts = self.n_vectors()
         dom_dict = self.dominating_pairs()
         cocircuits = self.three_dim_cocircuits()
@@ -786,7 +747,6 @@ class VectorConfiguration():
                     l_minres_coc += [[restricted_coc1[0] + [p2], [index], restricted_coc1[2] + [p1]]]
                     l_minres_coc += [[restricted_coc2[0] + [p1], [index], restricted_coc2[2] + [p2]]]
                     l_minres_coc += [[restricted_coc2[0] + [p2], [index], restricted_coc2[2] + [p1]]]
-                    # breakpoint()
 
                     # From the indices, get the covectors
                     for r_coc in l_minres_coc:
@@ -948,7 +908,7 @@ class VectorConfiguration():
         An acyclic vector configuration corresponds to a hyperplane arrangement
         with selected base region.
 
-        EXAMPLES:
+        EXAMPLES::
 
             sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
@@ -1118,7 +1078,6 @@ class Covector(tuple):
             sage: stars = [4]
             sage: Covector(vc,c,a,stars) # indirect doctest
             (0, 0, 0, 0, 3, 0)
-
         """
         vectorconf = VectorConfiguration(data[0])
         normal = vector(data[1])

@@ -19,11 +19,11 @@ class build(build_module.build):
         check_version(sage_required_version)
         build_module.build.run(self)
 
-
 # For the tests
 class SageTest(TestCommand):
     def run_tests(self):
-        errno = os.system("sage -t --force-lib cn_hyperarr cn_hyperarr/*.pyx")
+        # errno = os.system("sage -t --force-lib cn_hyperarr cn_hyperarr/*.pyx")
+        errno = os.system("sage -t --force-lib cn_hyperarr")
         if errno != 0:
             sys.exit(1)
 

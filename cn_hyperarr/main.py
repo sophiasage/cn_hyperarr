@@ -86,10 +86,6 @@ def vectorconf_to_hyperplane_arrangement(vector_conf,backend=None):
         sage: ncn_conf_norm = VectorConfiguration(ncn, 'normaliz')   # optional - pynormaliz
         sage: ncn_conf_norm.backend()                                # optional - pynormaliz
         'normaliz'
-
-    There is a problem here::
-
-        sage: ncn_arr.n_regions()
     """
     if not isinstance(vector_conf,VectorConfiguration):
         vector_conf = VectorConfiguration(vector_conf, backend=backend)
@@ -257,8 +253,6 @@ def report_on_congnorm(vector_conf, cuntz_index, folder):
 
         sage: from cn_hyperarr import *
         sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
-
-    TESTS::
     """
     sys.stdout = open('{}/arr_{}.txt'.format(folder,cuntz_index), 'w')
     verbose = True
