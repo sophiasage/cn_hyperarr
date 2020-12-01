@@ -71,7 +71,7 @@ def near_pencil_family(input_data):
 
     - ``input_data`` -- list. consists of [n, backend = None]:
       - ``n`` -- integer. $n \geq 3$. The number of lines in the near pencil.
-      - ``backend`` -- string (default = None). The backend to use.
+      - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES:
 
@@ -110,7 +110,7 @@ def near_pencil_matroid(input_data):
 
     - ``input_data`` -- list. consists of [n, backend = None]:
       - ``n`` -- integer. $n \geq 3$. The number of lines in the near pencil.
-      - ``backend`` -- string (default = None). The backend to use.
+      - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES:
 
@@ -150,7 +150,7 @@ def near_pencil_hypergraph(input_data):
 
     - ``input_data`` -- list. consists of [n, backend = None]:
       - ``n`` -- integer. $n \geq 3$. The number of lines in the near pencil.
-      - ``backend`` -- string (default = None). The backend to use.
+      - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES::
 
@@ -190,15 +190,13 @@ def family_two(input_data):
 
     - ``input_data`` -- list. consists of [n, backend = None]:
       - ``n`` -- integer. $n \geq 6$. The number of lines in the arrangement.
-      - ``backend`` -- string (default = None). The backend to use.
+      - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES::
 
         sage: from cn_hyperarr import *
         sage: pf = family_two([8,'normaliz']); pf   # optional - pynormaliz
         Vector configuration of 8 vectors in dimension 3
-
-    TESTS:
 
     The number of lines must be even::
 
@@ -237,7 +235,7 @@ def family_two_matroid(input_data):
 
     - ``input_data`` -- list. consists of [n, backend = None]:
       - ``n`` -- integer. $n \geq 6$. The number of lines in the arrangement.
-      - ``backend`` -- string (default = None). The backend to use.
+      - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES::
 
@@ -278,7 +276,7 @@ def family_two_hypergraph(input_data):
 
     - ``input_data`` -- list. consists of [n, backend = None]:
       - ``n`` -- integer. $n \geq 6$. The number of lines in the arrangement.
-      - ``backend`` -- string (default = None). The backend to use.
+      - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES::
 
@@ -322,15 +320,13 @@ def family_three(input_data):
 
     - ``input_data`` -- list. consists of [n, backend = None]:
       - ``n`` -- integer. (n-1)/2 must be even. and n >= 9.
-      - ``backend`` -- string (default = None). The backend to use.
+      - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES::
 
         sage: from cn_hyperarr import *
         sage: f3_9 = family_three([9,'normaliz']); f3_9    # optional - pynormaliz
         Vector configuration of 9 vectors in dimension 3
-
-    TESTS:
 
     The number of lines minus one should be zero mod 4::
 
@@ -360,15 +356,13 @@ def family_three_matroid(input_data):
 
     - ``input_data`` -- list. consists of [n, backend = None]:
       - ``n`` -- integer. (``n``-1) must be 0 mod 4, and ``n``>= 9.
-      - ``backend`` -- string (default = None). The backend to use.
+      - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES::
 
         sage: from cn_hyperarr import *
         sage: f3_9_mat = family_three_matroid([9, 'normaliz']); f3_9_mat  # optional - pynormaliz
         Matroid of rank 3 on 9 elements with 68 bases
-
-    TESTS::
 
         sage: f13 = family_three_matroid([13, None]); f13
         Matroid of rank 3 on 13 elements with 242 bases
@@ -403,15 +397,13 @@ def family_three_hypergraph(input_data):
 
     - ``input_data`` -- list. consists of [n, backend = None]:
       - ``n`` -- integer. (``n``-1) must be 0 mod 4 and ``n``>= 9.
-      - ``backend`` -- string (default = None). The backend to use.
+      - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES::
 
         sage: from cn_hyperarr import *
         sage: f3_9 = family_three_hypergraph([9, 'normaliz']); f3_9   # optional - pynormaliz
         Incidence structure with 9 points and 13 blocks
-
-    TESTS:
 
     The square has four vertices where three lines intersect. The center of the
     square and two points at infinity also have 4 lines intersecting. All other

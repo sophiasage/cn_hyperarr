@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 r"""
-Module for vector configurations and covectors. 
+Module for vector configurations and covectors. It also contains methods 
+for examining congruence uniformity/normality of posets of regions 
+of hyperplane arrangements.
 
 EXAMPLES::
 
@@ -8,6 +10,12 @@ EXAMPLES::
     sage: tau = AA((1+sqrt(5))/2)
     sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]
     sage: ncn_conf = VectorConfiguration(ncn);
+    sage: len(ncn_conf.shard_covectors())
+    29
+    sage: ncn_conf.forcing_oriented_graph()
+    Digraph on 29 vertices
+    sage: ncn_conf.is_congruence_normal()
+    False
 
 REFERENCES:
 
@@ -123,7 +131,7 @@ class VectorConfiguration():
 
         - ``vector_list`` -- a list of vectors
 
-        - ``backend`` -- a string, a polyhedral backend
+        - ``backend`` -- a string, a polyhedral backend or``None`` (default)
 
         EXAMPLES::
 
@@ -267,7 +275,7 @@ class VectorConfiguration():
 
         EXAMPLES:
 
-        The default backend is None::
+        The default backend is ``None``::
 
             sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
@@ -445,8 +453,6 @@ class VectorConfiguration():
             ...
             AssertionError: The ambient dimension is not 3
 
-        TESTS:
-
         Three linearly dependent vectors in dimension 3 form a cocircuit::
 
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[2,-1,0]])
@@ -497,8 +503,6 @@ class VectorConfiguration():
             sage: vc.underlying_matroid()
             Matroid of rank 3 on 6 elements with 16 bases
 
-        TESTS:
-
         For a set of three linearly independent vectors in dimension three,
         there is just one basis::
 
@@ -528,8 +532,6 @@ class VectorConfiguration():
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
             sage: vc.underlying_hypergraph()
             Incidence structure with 6 points and 7 blocks
-
-        TESTS:
 
         For a set of three linearly dependent vectors in dimension three there
         is just one cocicuit and thus one block::
@@ -574,8 +576,6 @@ class VectorConfiguration():
              7: set(),
              8: set(),
              9: {(2, 8)}}
-
-        TESTS:
 
         The vector [0,0,1] is in the positive linear span of [-1,0,1] and
         [1,0,1]::
@@ -633,8 +633,6 @@ class VectorConfiguration():
             sage: vc.line_vertices()
             [(0, 1), (1, 2), (2, 3), (0, 4)]
 
-        TESTS:
-
         The vectors [-1,0,1] and [1,0,1] are the vertices of the line containing
         [0,0,1]::
 
@@ -688,8 +686,6 @@ class VectorConfiguration():
              (-1, 3, -1, 1, 1, 0),
              (3, 1, -1, 3, 0, 3))
 
-        TESTS:
-
         The following vector configuration is not congruence normal and has 29
         shards::
 
@@ -699,7 +695,7 @@ class VectorConfiguration():
             sage: len(ncn_conf.shard_covectors())
             29
 
-        The vector configuration [[-1,0,1],[1,0,1],[0,0,1]] has five shards::
+        The vector configuration [[-1,0,1],[1,0,1],[0,0,1],[0,1,0]] has five shards::
 
             sage: vc = VectorConfiguration([[-1,0,1],[1,0,1],[0,0,1],[0,1,0]])
             sage: len(vc.shard_covectors())
@@ -951,6 +947,9 @@ class VectorConfiguration():
         The arrangement should be acyclic::
 
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1],[-1,0,0]])
+            Traceback (most recent call last):
+            ...
+            IndexError: list index out of range
 
         This doesn't work for a non-simplicial arrangement::
 
@@ -1018,8 +1017,6 @@ class Covector(tuple):
             sage: from cn_hyperarr import *
             sage: Covector([1,3,1,0,-1])
             (1, 3, 1, 0, -1)
-
-        TESTS::
 
             sage: Covector([1, 3, 1, 0, -1]) == Covector([[4], [3], [0, 2]],5)
             True
@@ -1102,8 +1099,6 @@ class Covector(tuple):
             sage: Covector([[0, 2], [5], [4, 3]], 6)
             (-1, 3, -1, 1, 1, 0)
 
-        TESTS::
-
             sage: Covector([1,-1,0,3]) == Covector([[1],[2],[0]],4)  # indirect doctest
             True
         """
@@ -1140,8 +1135,6 @@ class Covector(tuple):
             sage: Covector([0,3,3,0,-1,1]).stars()
             (1, 2)
 
-        TESTS:
-
         A covector with no stars::
 
             sage: Covector([1,-1,0,0,1]).stars()
@@ -1156,11 +1149,9 @@ class Covector(tuple):
         EXAMPLES::
 
             sage: from cn_hyperarr import *
-            sage: Covector([0,3,3,0,-1,1]).as_vector()
+            sage: v = Covector([0,3,3,0,-1,1]).as_vector();v
             (0, 3, 3, 0, -1, 1)
-
-        TESTS::
-            sage: v = Covector([0,3,3,0,-1,1]).as_vector();3*v
+            sage: 3*v
             (0, 9, 9, 0, -3, 3)
         """
         return self._covector

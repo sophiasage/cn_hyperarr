@@ -65,7 +65,7 @@ def vectorconf_to_hyperplane_arrangement(vector_conf, backend=None):
 
     - ``vector_conf`` -- a vector configuration
     
-    - ``backend`` -- string (default = None). The backend to use.
+    - ``backend`` -- string (default = ``None``). The backend to use.
 
     OUTPUT:
 
@@ -297,12 +297,12 @@ def launch_verification(indices=None, folder=None, main_out=None):
 
     INPUT:
 
-    - ``indices`` - a list (default=None). the indices in the file to check.
+    - ``indices`` - a list (default=``None``). the indices in the file to check.
 
-    - ``folder`` - a string (default=None). The folder to save the output. By 
+    - ``folder`` - a string (default=``None``). The folder to save the output. By 
       default the folder is named ``'output'``.
 
-    - ``main_out`` - a string (default=None). The name of the file where the 
+    - ``main_out`` - a string (default=``None``). The name of the file where the 
       main standard output is written. By defualt the file is 
       called ``'main_out'``.
     """
