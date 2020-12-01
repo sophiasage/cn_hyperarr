@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 r"""
-Module for computing the three infinite families of simplicial arrangements
-of rank three.
+Library containing the three infinite families of simplicial arrangements of rank three.
 
 EXAMPLES:
 
@@ -102,7 +101,6 @@ def near_pencil_family(input_data):
     vecs = [[(z**k).real(), (z**k).imag(), 0] for k in range(1, n)]
     vecs += [vector([0, -1, 1])]
     return VectorConfiguration(vecs, backend=backend)
-
 
 def near_pencil_matroid(input_data):
     r"""

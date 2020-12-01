@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 r"""
-Module for vector configurations and covectors towards examining congruence
-uniformity/normality of posets of regions of hyperplane arrangements.
+Module for vector configurations and covectors. 
 
 EXAMPLES::
 
@@ -9,13 +8,6 @@ EXAMPLES::
     sage: tau = AA((1+sqrt(5))/2)
     sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]
     sage: ncn_conf = VectorConfiguration(ncn);
-    sage: len(ncn_conf.shard_covectors())
-    29
-    sage: ncn_conf.forcing_oriented_graph()
-    Digraph on 29 vertices
-    sage: ncn_conf.is_congruence_normal()
-    False
-
 
 REFERENCES:
 
