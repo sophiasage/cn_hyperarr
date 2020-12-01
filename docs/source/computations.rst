@@ -1,7 +1,7 @@
 .. nodoctest
 
-Ultimate question
-=================
+Congruence Normality of Hyperplane Arrangements
+===============================================
 
 .. automodule:: cn_hyperarr.main
    :members:

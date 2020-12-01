@@ -299,10 +299,6 @@ def launch_verification(indices=None, folder=None, main_out=None):
     - ``main_out`` - a string (default=None). The name of the file where the 
       main standard output is written. By defualt the file is 
       called ``'main_out'``.
-
-    EXAMPLES::
-
-    TESTS::
     """
     if not folder:
         folder = 'output'

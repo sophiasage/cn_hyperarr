@@ -273,7 +273,7 @@ class VectorConfiguration():
         r"""
         Return the backend used for the computations
 
-        EXAMPLES::
+        EXAMPLES:
 
         The default backend is None::
 
@@ -323,7 +323,7 @@ class VectorConfiguration():
         A vector configuration is acyclic if the origin is not in the relative
         interior of the cone spanned by the vectors.
 
-        SEEALSO::
+        SEEALSO:
 
         EXAMPLES::
 
@@ -1238,11 +1238,11 @@ class Covector(tuple):
 @cached_function
 def inter_binary(left, right):
     r"""
-    Intersection operation on -,0,+,*
+    Intersection operation on -,0,+,3, the 3 plays the role of a star.
 
     The commutative intersection operation is defined as follows:
-    0 & {0, +, -, *} = 0,
-    * & {+, -, *} = {+, -, *}
+    0 & {0, +, -, 3} = 0,
+    * & {+, -, 3} = {+, -, 3}
     + & {+, -} = {+, 0}
 
     INPUT:
