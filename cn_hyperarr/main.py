@@ -3,9 +3,9 @@ r"""
 Module for the computations related to congruence normality/uniformity of posets of
 regions of hyperplane arrangements.
 
-This module has methods to test simplicial hyperplane arrangements of rank 3 
+This module has methods to test simplicial hyperplane arrangements of rank 3
 for congruence normality. Every region of each arrangement is tested to see
-if the corresponding poset is congruence normal. 
+if the corresponding poset is congruence normal.
 There are also methods to double check the output and sort the arrangements into
 categories of always, sometimes, and never congruence normal.
 
@@ -19,10 +19,10 @@ the corresponding hyperplane arrangement::
     sage: h = vectorconf_to_hyperplane_arrangement(vc);
     sage: h.n_regions()
     24
-    sage: check_result = check_all_regions(vc);
-    sage: check_result[0].values()
+    sage: check_result = RegionsCongruenceNormality(vc);
+    sage: check_result.values()
     dict_values([True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True])
-    sage: len(check_result[0].values())
+    sage: len(check_result.values())
     24
 
 REFERENCES:
@@ -46,7 +46,8 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 ##############################################################################
 
-import time, multiprocessing
+import time
+import multiprocessing
 from .vector_classes import *
 from .infinite_families import *
 from sage.rings.integer_ring import ZZ
@@ -56,15 +57,16 @@ from sage.geometry.hyperplane_arrangement.arrangement import HyperplaneArrangeme
 # Helper functions
 ##############################################################################
 
+
 def vectorconf_to_hyperplane_arrangement(vector_conf, backend=None):
     r"""
     Return the hyperplane arrangement associated to the vector configuration
     ``vector_conf``.
-    
+
     INPUT:
 
     - ``vector_conf`` -- a vector configuration
-    
+
     - ``backend`` -- string (default = ``None``). The backend to use.
 
     OUTPUT:
@@ -73,9 +75,9 @@ def vectorconf_to_hyperplane_arrangement(vector_conf, backend=None):
 
     EXAMPLES:
 
-    This arrangement with 10 hyperplanes is the smallest rank-three simplicial 
+    This arrangement with 10 hyperplanes is the smallest rank-three simplicial
     arrangement that is not congruence normal::
-    
+
         sage: from cn_hyperarr import *
         sage: tau = AA((1+sqrt(5))/2)
         sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]
@@ -89,22 +91,23 @@ def vectorconf_to_hyperplane_arrangement(vector_conf, backend=None):
         sage: ncn_conf_norm.backend()                                # optional - pynormaliz
         'normaliz'
     """
-    if not isinstance(vector_conf,VectorConfiguration):
+    if not isinstance(vector_conf, VectorConfiguration):
         vector_conf = VectorConfiguration(vector_conf, backend=backend)
     if vector_conf.base_ring() == ZZ:
-        H = HyperplaneArrangements(QQ,names='xyz')
+        H = HyperplaneArrangements(QQ, names='xyz')
     else:
-        H = HyperplaneArrangements(vector_conf.base_ring(),names='xyz')
-    x,y,z = H.gens()
+        H = HyperplaneArrangements(vector_conf.base_ring(), names='xyz')
+    x, y, z = H.gens()
     A = H(backend=vector_conf.backend())
     for v in vector_conf:
-        a,b,c = v
+        a, b, c = v
         A = A.add_hyperplane(a*x + b*y + c*z)
     return A
 
+
 def wrapper_forcing_acyclic(vectorconf):
     r"""
-    Return whether the vector configuration coming from a specific choice 
+    Return whether the vector configuration coming from a specific choice
     of base region gives rise to a congruence normal poset of regions.
 
     INPUT:
@@ -113,7 +116,7 @@ def wrapper_forcing_acyclic(vectorconf):
 
     OUTPUT:
 
-    A tuple. The first entry says if the forcing_orient_graph is acyclic. The 
+    A tuple. The first entry says if the forcing_orient_graph is acyclic. The
     second says the number of vertices.
 
     EXAMPLES:
@@ -131,23 +134,24 @@ def wrapper_forcing_acyclic(vectorconf):
     A congruence normal arrangement, with an acyclic forcing_oriented_graph::
 
         sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
-        sage: wrapper_forcing_acyclic(vc) 
+        sage: wrapper_forcing_acyclic(vc)
         (True, 11)
     """
     forcing = vectorconf.forcing_oriented_graph()
-    return forcing.is_directed_acyclic(),forcing.num_verts()
+    return forcing.is_directed_acyclic(), forcing.num_verts()
 
 ##############################################################################
 # Verification functions
 ##############################################################################
 
+
 def RegionsCongruenceNormality(vector_conf, backend=None, verbose=False):
     r"""
     Return whether regions in the hyperplane arrangement generated by the
     vector configuration lead to congruence normal lattice of regions.
-    
+
     INPUT:
-    
+
     - ``vectorconf`` -- a vector configuration
 
     - ``backend`` -- string (default = ``None``).
@@ -171,24 +175,24 @@ def RegionsCongruenceNormality(vector_conf, backend=None, verbose=False):
         sage: h = vectorconf_to_hyperplane_arrangement(vc);
         sage: h.n_regions()
         24
-        sage: check_result = check_all_regions(vc);
-        sage: check_result[0].values()
+        sage: check_result = RegionsCongruenceNormality(vc);
+        sage: check_result.values()
         dict_values([True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True])
-        sage: len(check_result[0].values())
+        sage: len(check_result.values())
         24
-    
+
     An arrangement that is not always congruence normal::
 
         sage: tau = AA((1+sqrt(5))/2)
         sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]
         sage: ncn_conf = VectorConfiguration(ncn);
-        sage: check = check_all_regions(ncn_conf)
-        sage: vals_list = list(check[0].values())
+        sage: check = RegionsCongruenceNormality(ncn_conf)
+        sage: vals_list = list(check.values())
         sage: [vals_list.count(True), vals_list.count(False)]
         [40, 20]
     """
     A = vectorconf_to_hyperplane_arrangement(vector_conf, backend)
-    
+
     if verbose:
         print("The arrangement has {} hyperplanes.".format(len(A)))
         print("The normal vectors are:\n {}".format(vector_conf))
@@ -197,7 +201,7 @@ def RegionsCongruenceNormality(vector_conf, backend=None, verbose=False):
     if verbose:
         print("Found {} regions".format(len(R)), flush=True)
     repr_vector = [c.representative_point() for c in R]
-    
+
     the_vector_configs = []
     for rc in repr_vector:
         list_of_normals = []
@@ -224,8 +228,9 @@ def RegionsCongruenceNormality(vector_conf, backend=None, verbose=False):
     for i in range(len(R)):
         rc = repr_vector[i]
         vc = the_vector_configs[i]
-        acyclic_dict[tuple([rc,vc])] = forcings[i][0]
+        acyclic_dict[tuple([rc, vc])] = forcings[i][0]
     return acyclic_dict
+
 
 def report_on_congnorm(vector_conf, cuntz_index, folder):
     r"""
@@ -260,20 +265,20 @@ def report_on_congnorm(vector_conf, cuntz_index, folder):
         sage: from cn_hyperarr import *
         sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
     """
-    sys.stdout = open('{}/arr_{}.txt'.format(folder,cuntz_index), 'w')
+    sys.stdout = open('{}/arr_{}.txt'.format(folder, cuntz_index), 'w')
     verbose = True
     backend = 'normaliz'
     nb_hyp = len(vector_conf)
-    the_res_dict,nb_shards = check_all_regions(vector_conf, backend=backend, verbose=verbose)
-    save(the_res_dict,'{}/dict_result_{}.sobj'.format(folder,cuntz_index))
-    save(nb_shards,'{}/nb_reg_result_{}.sobj'.format(folder,cuntz_index))
+    the_res_dict, nb_shards = RegionsCongruenceNormality(vector_conf, backend=backend, verbose=verbose)
+    save(the_res_dict, '{}/dict_result_{}.sobj'.format(folder, cuntz_index))
+    save(nb_shards, '{}/nb_reg_result_{}.sobj'.format(folder, cuntz_index))
     print("Saved the results.")
 
     nb_reg = len(the_res_dict.values())
     nb_true = sum(the_res_dict.values())
     all_true = all(the_res_dict.values())
     if verbose:
-        print("The number of shards are: {}".format(nb_shards), flush=True)        
+        print("The number of shards are: {}".format(nb_shards), flush=True)
         if all_true:
             print("The lattice is always congruence normal: {}".format(all_true), flush=True)
         else:
@@ -282,13 +287,14 @@ def report_on_congnorm(vector_conf, cuntz_index, folder):
     sys.stdout.close()
     return True
 
+
 def launch_verification(indices=None, folder=None, main_out=None):
     r"""
     This check congruence normality for all of the arrangements in
     the normal vectors list.
 
-    The function computes the given indices (by default all indices) and 
-    writes the output in the given ``folder``. The main standard output 
+    The function computes the given indices (by default all indices) and
+    writes the output in the given ``folder``. The main standard output
     is written in ``main_out``
 
     TODO:
@@ -299,11 +305,11 @@ def launch_verification(indices=None, folder=None, main_out=None):
 
     - ``indices`` - a list (default=``None``). the indices in the file to check.
 
-    - ``folder`` - a string (default=``None``). The folder to save the output. By 
+    - ``folder`` - a string (default=``None``). The folder to save the output. By
       default the folder is named ``'output'``.
 
-    - ``main_out`` - a string (default=``None``). The name of the file where the 
-      main standard output is written. By defualt the file is 
+    - ``main_out`` - a string (default=``None``). The name of the file where the
+      main standard output is written. By defualt the file is
       called ``'main_out'``.
     """
     if not folder:
@@ -311,7 +317,7 @@ def launch_verification(indices=None, folder=None, main_out=None):
     if not main_out:
         main_out = '{}/main_out.txt'.format(folder)
     else:
-        main_out = '{}/{}.txt'.format(folder,main_out)
+        main_out = '{}/{}.txt'.format(folder, main_out)
     sys.stdout = open(main_out, 'w')
     print("Started computations on {}.".format(time.ctime()))
     print("Loading Cuntz's list...")
@@ -327,7 +333,7 @@ def launch_verification(indices=None, folder=None, main_out=None):
     for new_index in range(nb):
         cuntz_index = indices[new_index]
         vector_conf = arrangements_list[cuntz_index]
-        print("Shipping index {} (Cuntz's index: {}) on {}".format(new_index,cuntz_index,time.ctime()))
+        print("Shipping index {} (Cuntz's index: {}) on {}".format(new_index, cuntz_index, time.ctime()))
         sys.stdout.close()
         report_on_congnorm(vector_conf, cuntz_index, folder)
         sys.stdout = open(main_out, 'a')
@@ -337,32 +343,33 @@ def launch_verification(indices=None, folder=None, main_out=None):
     print("Finished the FULL computations on {}.".format(time.ctime()), flush=True)
     return True
 
+
 def check_output_dict(the_dict):
     r"""
     Checks whether the output fits Sage's results.
 
-    Another way to check for congruence normality is to see if the poset is 
+    Another way to check for congruence normality is to see if the poset is
     obtainable through doublings of intervals.
 
     INPUT:
 
     - ``the_dict`` -- a dictionary. keys are tuples consisting of a vector
-      and a vector configuration. 
+      and a vector configuration.
     """
     print("Start a check")
     out_list = []
     prob_list = []
-    for the_v,vc in the_dict.keys():
-        the_ha = vectorconf_to_hyperplane_arrangement(vc,backend='normaliz')
+    for the_v, vc in the_dict.keys():
+        the_ha = vectorconf_to_hyperplane_arrangement(vc, backend='normaliz')
         the_base_region = the_ha.region_containing_point(the_v)
         try:
             the_lattice = LatticePoset(the_ha.poset_of_regions(the_base_region))
             if the_lattice.is_semidistributive():
-                our_res = the_dict[the_v,vc]
+                our_res = the_dict[the_v, vc]
                 print("Our computation gives: {}".format(our_res))
                 sage_res = the_lattice.is_constructible_by_doublings('interval')
                 print("Sage gives: {}".format(sage_res))
-                the_prob = the_v,vc
+                the_prob = the_v, vc
                 if our_res != sage_res:
                     print("There is a problem!")
                     prob_list += [the_prob]
@@ -370,22 +377,23 @@ def check_output_dict(the_dict):
                     print("We got our prize with {} hyperplanes".format(vc.n_vectors()))
                     out_list += [the_prob]
             else:
-                print("For {}, the lattice is not SD".format(tuple([the_v,vc])))
+                print("For {}, the lattice is not SD".format(tuple([the_v, vc])))
         except:
-            print("For {}, the poset is not a lattice.".format(tuple([the_v,vc])))
+            print("For {}, the poset is not a lattice.".format(tuple([the_v, vc])))
 
     if len(prob_list) == 0:
         print("Finished: all good.")
         if len(out_list) == 0:
-            return True,[]
+            return True, []
         else:
             print("Finished with not CU and tight")
-            return True,out_list
+            return True, out_list
     else:
         print("Finished with problems.")
-        return False,prob_list
+        return False, prob_list
 
-def filter_arrangements_into_families(indices=None,excluded_nb=[],parallel_bound=28):
+
+def filter_arrangements_into_families(indices=None,excluded_nb=[], parallel_bound=28):
     r"""
     Filters the arrangements into the three infinite families or "others".
     """
