@@ -73,6 +73,10 @@ def near_pencil_family(n, backend=None):
     
     - ``backend`` -- string (default = ``None``). The backend to use.
 
+    OUTPUT:
+
+    A vector configuration.
+
     EXAMPLES:
 
     The near pencil with three hyperplanes::
@@ -110,6 +114,11 @@ def near_pencil_matroid(n, backend=None):
     - ``n`` -- integer. $n \geq 3$. The number of lines in the near pencil.
 
     - ``backend`` -- string (default = ``None``). The backend to use.
+
+    OUTPUT:
+
+    a matroid.
+
 
     EXAMPLES:
 
@@ -150,6 +159,10 @@ def near_pencil_hypergraph(n,backend=None):
 
     - ``backend`` -- string (default = ``None``). The backend to use.
 
+    OUTPUT:
+
+    a hypergraph.
+
     EXAMPLES::
 
         sage: from cn_hyperarr import *
@@ -188,6 +201,10 @@ def family_two(n, backend=None):
     - ``n`` -- integer. $n \geq 6$. The number of lines in the arrangement.
     
     - ``backend`` -- string (default = ``None``). The backend to use.
+
+    OUTPUT:
+
+    A vector configuration.
 
     EXAMPLES::
 
@@ -233,6 +250,10 @@ def family_two_matroid(n,backend=None):
  
     - ``backend`` -- string (default = ``None``). The backend to use.
 
+    OUTPUT:
+
+    A matroid.
+
     EXAMPLES::
 
         sage: from cn_hyperarr import *
@@ -272,6 +293,10 @@ def family_two_hypergraph(n,backend=None):
     - ``n`` -- integer. $n \geq 6$. The number of lines in the arrangement.
 
     - ``backend`` -- string (default = ``None``). The backend to use.
+
+    OUTPUT:
+
+    A hypergraph.
 
     EXAMPLES::
 
@@ -316,6 +341,10 @@ def family_three(n, backend=None):
     
     - ``backend`` -- string (default = ``None``). The backend to use.
 
+    OUTPUT:
+
+    A vector configuration.
+
     EXAMPLES::
 
         sage: from cn_hyperarr import *
@@ -350,6 +379,10 @@ def family_three_matroid(n, backend=None):
     - ``n`` -- integer. (``n``-1) must be 0 mod 4, and ``n``>= 9.
 
     - ``backend`` -- string (default = ``None``). The backend to use.
+
+    OUTPUT:
+
+    A matroid.
 
     EXAMPLES::
 
@@ -390,6 +423,10 @@ def family_three_hypergraph(n, backend=None):
     - ``n`` -- integer. (``n``-1) must be 0 mod 4 and ``n``>= 9.
       
     - ``backend`` -- string (default = ``None``). The backend to use.
+
+    OUTPUT:
+
+    a hypergraph.
 
     EXAMPLES::
 

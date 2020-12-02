@@ -133,6 +133,11 @@ class VectorConfiguration():
 
         - ``backend`` -- a string, a polyhedral backend or``None`` (default)
 
+        OUTPUT:
+
+        A vector configuration.
+
+
         EXAMPLES::
 
             sage: from cn_hyperarr import *
@@ -198,6 +203,10 @@ class VectorConfiguration():
 
         - key -- an index
 
+        OUTPUT:
+
+        A vector.
+
         EXAMPLES::
 
             sage: from cn_hyperarr import *
@@ -211,6 +220,10 @@ class VectorConfiguration():
         r"""
         String representation of the vector configuration
 
+        OUTPUT:
+
+        a string that describes the vector configuration.
+
         EXAMPLES::
 
             sage: from cn_hyperarr import *
@@ -223,6 +236,10 @@ class VectorConfiguration():
     def ambient_dimension(self):
         r"""
         Return the ambient dimension of the vector configuration
+
+        OUTPUT:
+
+        An integer.
 
         EXAMPLES::
 
@@ -238,6 +255,10 @@ class VectorConfiguration():
     def base_ring(self):
         r"""
         Return the base ring of the vector configuration
+
+        OUTPUT:
+
+        A ring.
 
         EXAMPLES::
 
@@ -273,6 +294,10 @@ class VectorConfiguration():
         r"""
         Return the backend used for the computations
 
+        OUTPUT:
+
+        A string stating the backend.
+
         EXAMPLES:
 
         The default backend is ``None``::
@@ -293,6 +318,10 @@ class VectorConfiguration():
         r"""
         Return the list of vectors
 
+        OUTPUT:
+
+        A tuple.
+
         EXAMPLES::
 
             sage: from cn_hyperarr import *
@@ -305,6 +334,10 @@ class VectorConfiguration():
     def n_vectors(self):
         r"""
         Return the number of vectors in the configuration
+
+        OUTPUT:
+
+        An integer.
 
         EXAMPLES::
 
@@ -322,6 +355,10 @@ class VectorConfiguration():
 
         A vector configuration is acyclic if the origin is not in the relative
         interior of the cone spanned by the vectors.
+
+        OUTPUT:
+
+        Boolean. Whether ``self`` is acyclic.
 
         SEEALSO:
 
@@ -378,6 +415,10 @@ class VectorConfiguration():
 
         A vector configuration is totally cyclic if the origin is in the relative
         interior of the cone spanned by the vectors.
+
+        OUTPUT:
+
+        Boolian. Whether ``self`` is totally cyclic.
 
         EXAMPLES::
 
@@ -886,6 +927,11 @@ class VectorConfiguration():
         An acyclic vector configuration corresponds to a hyperplane arrangement
         with selected base region.
 
+        OUTPUT:
+
+        Boolean. Whether the poset of regions is congruence normal with respect
+        to implicitly chosen base region.
+
         EXAMPLES::
 
             sage: from cn_hyperarr import *
@@ -921,6 +967,11 @@ class VectorConfiguration():
 
         These are the rays of the cone spanned by the vectors.
         This only works for simplicial vector configurations.
+
+        OUTPUT:
+
+        A set. The indices of the vectors that form the rays of the cone spanned
+        by the vectors..
 
         EXAMPLES:
 
@@ -1019,6 +1070,10 @@ class Covector(tuple):
         - ``data`` -- either a tuple (vector_conf,c,a,starred), a vector of
           signs, or a tuple ((-,0,+),size) describing the sign vector.
 
+        OUTPUT:
+
+        a covector.
+
         EXAMPLES::
 
             sage: from cn_hyperarr import *
@@ -1053,6 +1108,10 @@ class Covector(tuple):
 
         - ``data`` -- tuple of length 4 containing a vector configuration, a
           vector, a scalar constant and a set of starred values
+
+        OUTPUT:
+
+        A covector.
 
         EXAMPLES::
 
@@ -1099,6 +1158,10 @@ class Covector(tuple):
 
         - ``data`` -- tuple of length 2 containing a triple (-,0,+) and the
           size of the vector
+
+        OUTPUT:
+
+        A covector.
 
         EXAMPLES::
 
@@ -1153,6 +1216,10 @@ class Covector(tuple):
         r"""
         Return the covector as a vector object
 
+        OUTPUT:
+
+        A vector.
+
         EXAMPLES::
 
             sage: from cn_hyperarr import *
@@ -1166,7 +1233,7 @@ class Covector(tuple):
     @cached_method
     def intersection(self, other):
         r"""
-        Return the intersection of self with other.
+        Return the intersection of ``self`` with ``other``.
 
         INPUT:
 
@@ -1174,7 +1241,7 @@ class Covector(tuple):
 
         OUTPUT:
 
-        The intersection
+        A covector. The intersection of ``self`` with ``other``.
 
         EXAMPLES::
 
