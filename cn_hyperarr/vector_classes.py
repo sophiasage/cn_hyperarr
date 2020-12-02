@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 r"""
-Module for vector configurations and covectors. It also contains methods 
-for examining congruence uniformity/normality of posets of regions 
+Module for vector configurations and covectors. It also contains methods
+for examining congruence uniformity/normality of posets of regions
 of hyperplane arrangements.
 
 EXAMPLES::
@@ -942,23 +942,40 @@ class VectorConfiguration():
             sage: vc.affine_basis()
             {0, 1, 2}
 
+        The cone spanned by the vectors should be simplicial::
+
+            sage: vc = VectorConfiguration([[0,0,1],[1,0,1],[1,1,1],[0,1,1]])
+            sage: vc.affine_basis()
+            Traceback (most recent call last):
+            ...
+            AssertionError: The cone is not simplicial
+
         TESTS:
 
         The arrangement should be acyclic::
 
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1],[-1,0,0]])
+            sage: vc.affine_basis()
             Traceback (most recent call last):
             ...
-            IndexError: list index out of range
+            AssertionError: The vector configuration should be acyclic
 
-        This doesn't work for a non-simplicial arrangement::
+        The ambient dimension should be three::
 
-            sage: vc = VectorConfiguration([[0,0,1],[1,0,1],[1,1,1],[0,1,1]])
+            sage: vc = VectorConfiguration([[2,0,0,0],[0,2,0,0],[0,0,1,0],[0,0,0,1]])
             sage: vc.affine_basis()
-            {0, 1}
+            Traceback (most recent call last):
+            ...
+            AssertionError: The ambient dimension is not 3
         """
+        # the arrangement should be acyclic and three dimensional
+        assert self.is_acyclic(), "The vector configuration should be acyclic"
+        assert self.ambient_dimension() == 3, "The ambient dimension is not 3"
+
         tdc = self.three_dim_cocircuits()
         border_lines = [set(c[1]) for c in tdc if len(c[0]) == 0]
+        # check that the cone is simplicial
+        assert len(border_lines) == 3, "The cone is not simplicial"
         return (border_lines[0] & border_lines[1]).union(border_lines[0] & border_lines[2]).union(border_lines[1] & border_lines[2])
 
 

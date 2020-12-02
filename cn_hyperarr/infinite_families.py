@@ -8,9 +8,9 @@ The first infinite family is the family of near pencils. All lines except for
 one share a common intersection point, as may be seen in the hypergraph::
 
     sage: from cn_hyperarr import *
-    sage: np4 = near_pencil_family([4,'normaliz']); np4             # optional - pynormaliz
+    sage: np4 = near_pencil_family(4,'normaliz'); np4             # optional - pynormaliz
     Vector configuration of 4 vectors in dimension 3
-    sage: np4_hypergraph = near_pencil_hypergraph([4, 'normaliz']); # optional - pynormaliz
+    sage: np4_hypergraph = near_pencil_hypergraph(4, 'normaliz'); # optional - pynormaliz
     sage: np4_hypergraph.block_sizes()                              # optional - pynormaliz
     [3, 2, 2, 2]
 
@@ -18,15 +18,15 @@ The second infinite family comes from regular polygons and their lines of
 mirror symmetry. They are defined by the total number of hyperplanes, equal to
 twice the number of edges of the polygon::
 
-    sage: ftwo_6 = family_two([6,'normaliz']); ftwo_6               # optional - pynormaliz
+    sage: ftwo_6 = family_two(6,'normaliz'); ftwo_6               # optional - pynormaliz
     Vector configuration of 6 vectors in dimension 3
-    sage: ftwo_10 = family_two([10,'normaliz']); ftwo_10            # optional - pynormaliz
+    sage: ftwo_10 = family_two(10,'normaliz'); ftwo_10            # optional - pynormaliz
     Vector configuration of 10 vectors in dimension 3
 
 The third infinite family comes from regular polygons with an even number of
 edges and their lines of mirror symmetry along with the line at infinity::
 
-    sage: fthree_17 = family_three([17, 'normaliz']); fthree_17     # optional - pynormaliz
+    sage: fthree_17 = family_three(17, 'normaliz'); fthree_17     # optional - pynormaliz
     Vector configuration of 17 vectors in dimension 3
 
 REFERENCES:
@@ -63,28 +63,28 @@ from sage.rings.rational_field import QQ
 from sage.combinat.designs.incidence_structures import IncidenceStructure
 
 
-def near_pencil_family(input_data):
+def near_pencil_family(n, backend=None):
     r"""
     Return the vector configuration of the near pencil with $n$ lines.
 
     INPUT:
 
-    - ``input_data`` -- list. consists of [n, backend = None]:
-      - ``n`` -- integer. $n \geq 3$. The number of lines in the near pencil.
-      - ``backend`` -- string (default = ``None``). The backend to use.
+    - ``n`` -- integer. $n \geq 3$. The number of lines in the near pencil.
+    
+    - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES:
 
     The near pencil with three hyperplanes::
 
         sage: from cn_hyperarr import *
-        sage: np = near_pencil_family([3,'normaliz']); np         # optional - pynormaliz
+        sage: np = near_pencil_family(3,'normaliz'); np         # optional - pynormaliz
         Vector configuration of 3 vectors in dimension 3
 
     The near pencil arrangements are always congruence normal. Note, this test
     just shows there exists a region such that they are CN::
 
-        sage: near_pencils = [near_pencil_family([n,'normaliz']) for n in range(3,6)] # optional - pynormaliz
+        sage: near_pencils = [near_pencil_family(n,'normaliz') for n in range(3,6)] # optional - pynormaliz
         sage: [ np.is_congruence_normal() for np in near_pencils] # optional - pynormaliz
         [True, True, True]
 
@@ -92,54 +92,52 @@ def near_pencil_family(input_data):
 
     Test that the backend is normaliz::
 
-        sage: np = near_pencil_family([3,'normaliz']);            # optional - pynormaliz
+        sage: np = near_pencil_family(3,'normaliz');            # optional - pynormaliz
         sage: np.backend()                                        # optional - pynormaliz
         'normaliz'
     """
-    n, backend = input_data
     z = QQbar.zeta(2*n)
     vecs = [[(z**k).real(), (z**k).imag(), 0] for k in range(1, n)]
     vecs += [vector([0, -1, 1])]
     return VectorConfiguration(vecs, backend=backend)
 
-def near_pencil_matroid(input_data):
+def near_pencil_matroid(n, backend=None):
     r"""
     Return the matroid of the near pencil with $n$ lines.
 
     INPUT:
 
-    - ``input_data`` -- list. consists of [n, backend = None]:
-      - ``n`` -- integer. $n \geq 3$. The number of lines in the near pencil.
-      - ``backend`` -- string (default = ``None``). The backend to use.
+    - ``n`` -- integer. $n \geq 3$. The number of lines in the near pencil.
+
+    - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES:
 
     The matroid of the near pencil with three hyperplanes::
 
         sage: from cn_hyperarr import *
-        sage: np_mat = near_pencil_matroid([3, 'normaliz']); np_mat   # optional - pynormaliz
+        sage: np_mat = near_pencil_matroid(3, 'normaliz'); np_mat   # optional - pynormaliz
         Matroid of rank 3 on 3 elements with 1 bases
 
     TESTS::
 
-        sage: list(np_mat.cocircuits())                               # optional - pynormaliz
+        sage: list(np_mat.cocircuits())                             # optional - pynormaliz
         [frozenset({0}), frozenset({1}), frozenset({2})]
     """
-    n, backend = input_data
     try:
         # print("Try loading near pencil matroid {} from library".format(n))
         mat = load('pencil_matroid_{}'.format(n))
         # print("Found it.")
     except FileNotFoundError:
         # print("Failed. Compute {}.".format(n))
-        mat = near_pencil_family(input_data).underlying_matroid()
+        mat = near_pencil_family(n, backend).underlying_matroid()
         # print("Finished computing np {}: {}. Saving...".format(n, mat))
         save(mat, "pencil_matroid_{}.sobj".format(n))
         # print("Finished saving {}.".format(n))
     return mat
 
 
-def near_pencil_hypergraph(input_data):
+def near_pencil_hypergraph(n,backend=None):
     r"""
     Return the hypergraph of the near pencil with $n$ lines.
 
@@ -148,22 +146,21 @@ def near_pencil_hypergraph(input_data):
 
     INPUT:
 
-    - ``input_data`` -- list. consists of [n, backend = None]:
-      - ``n`` -- integer. $n \geq 3$. The number of lines in the near pencil.
-      - ``backend`` -- string (default = ``None``). The backend to use.
+    - ``n`` -- integer. $n \geq 3$. The number of lines in the near pencil.
+
+    - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES::
 
         sage: from cn_hyperarr import *
-        sage: np_hyp = near_pencil_hypergraph([3,'normaliz']); np_hyp   # optional - pynormaliz
+        sage: np_hyp = near_pencil_hypergraph(3,'normaliz'); np_hyp   # optional - pynormaliz
         Incidence structure with 3 points and 3 blocks
 
     TESTS::
 
-        sage: near_pencil_hypergraph([6,None]).blocks()                  # optional - pynormaliz
+        sage: near_pencil_hypergraph(6, None).blocks()                  # optional - pynormaliz
         [[0, 1, 2, 3, 4], [0, 5], [1, 5], [2, 5], [3, 5], [4, 5]]
     """
-    n, backend = input_data
     try:
         # print("Try loading near pencil hg {} from library".format(n))
         hg = load('pencil_hg_{}'.format(n))
@@ -171,14 +168,14 @@ def near_pencil_hypergraph(input_data):
     except FileNotFoundError:
         # print("Failed. Compute {}.".format(n))
         hg = IncidenceStructure([(n-1, i) for i in range(n-1)] + [tuple(range(n-1))])
-#        hg = near_pencil_family(input_data).underlying_hypergraph()
+        # hg = near_pencil_family(n, backend).underlying_hypergraph()
         # print("Finished computing np {}: {}. Saving...".format(n, hg))
         save(hg, "pencil_hg_{}.sobj".format(n))
         # print("Finished saving {}.".format(n))
     return hg
 
 
-def family_two(input_data):
+def family_two(n, backend=None):
     r"""
     Return the vector configuration of the simplicial arrangement
     `\A(n,1)` from the family `\mathcal R(1)` in Grunbaum's list.
@@ -188,31 +185,30 @@ def family_two(input_data):
 
     INPUT:
 
-    - ``input_data`` -- list. consists of [n, backend = None]:
-      - ``n`` -- integer. $n \geq 6$. The number of lines in the arrangement.
-      - ``backend`` -- string (default = ``None``). The backend to use.
+    - ``n`` -- integer. $n \geq 6$. The number of lines in the arrangement.
+    
+    - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES::
 
         sage: from cn_hyperarr import *
-        sage: pf = family_two([8,'normaliz']); pf   # optional - pynormaliz
+        sage: pf = family_two(8,'normaliz'); pf   # optional - pynormaliz
         Vector configuration of 8 vectors in dimension 3
 
     The number of lines must be even::
 
-        sage: pf3 = family_two([3,'normaliz']);     # optional - pynormaliz
+        sage: pf3 = family_two(3,'normaliz');     # optional - pynormaliz
         Traceback (most recent call last):
         ...
         AssertionError: n must be even
 
     The number of lines must be at least 6::
 
-        sage: pf4 = family_two([4,'normaliz'])      # optional - pynormaliz
+        sage: pf4 = family_two(4,'normaliz')      # optional - pynormaliz
         Traceback (most recent call last):
         ...
         ValueError: n (=2) must be an integer greater than 2
     """
-    n, backend = input_data
     assert n % 2 == 0, "n must be even"
     reg_poly = polytopes.regular_polygon(n/QQ(2), backend='normaliz')
     reg_cone = Polyhedron(rays=[list(v.vector()) + [1] for v in reg_poly.vertices()], backend=backend)
@@ -223,7 +219,7 @@ def family_two(input_data):
     return VectorConfiguration(vecs, backend=backend)
 
 
-def family_two_matroid(input_data):
+def family_two_matroid(n,backend=None):
     r"""
     Return the matroid of the simplicial arrangement
     `\A(n,1)` from the family `\mathcal R(1)` in Grunbaum's list.
@@ -233,36 +229,35 @@ def family_two_matroid(input_data):
 
     INPUT:
 
-    - ``input_data`` -- list. consists of [n, backend = None]:
-      - ``n`` -- integer. $n \geq 6$. The number of lines in the arrangement.
-      - ``backend`` -- string (default = ``None``). The backend to use.
+    - ``n`` -- integer. $n \geq 6$. The number of lines in the arrangement.
+ 
+    - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES::
 
         sage: from cn_hyperarr import *
-        sage: pm = family_two_matroid([6,'normaliz']); pm        # optional - pynormaliz
+        sage: pm = family_two_matroid(6,'normaliz'); pm        # optional - pynormaliz
         Matroid of rank 3 on 6 elements with 16 bases
 
     TESTS::
 
-        sage: pm10 = family_two_matroid([10, 'normaliz']); pm10  # optional - pynormaliz
+        sage: pm10 = family_two_matroid(10, 'normaliz'); pm10  # optional - pynormaliz
         Matroid of rank 3 on 10 elements with 100 bases
     """
-    n, backend = input_data
     try:
         # print("Try loading polygon matroid {} from library".format(n))
         mat = load('polygon_matroid_{}'.format(n))
         # print("Found it.")
     except FileNotFoundError:
         # print("Failed. Compute {}.".format(n))
-        mat = family_two(input_data).underlying_matroid()
+        mat = family_two(n,backend).underlying_matroid()
         # print("Finished computing poly {}: {}. Saving...".format(n, mat))
         save(mat, "polygon_matroid_{}.sobj".format(n))
         # print("Finished saving {}.".format(n))
     return mat
 
 
-def family_two_hypergraph(input_data):
+def family_two_hypergraph(n,backend=None):
     r"""
     Return the hypergraph of the simplicial arrangement
     `\A(n,1)` from the family `\mathcal R(1)` in Grunbaum's list.
@@ -274,14 +269,14 @@ def family_two_hypergraph(input_data):
 
     INPUT:
 
-    - ``input_data`` -- list. consists of [n, backend = None]:
-      - ``n`` -- integer. $n \geq 6$. The number of lines in the arrangement.
-      - ``backend`` -- string (default = ``None``). The backend to use.
+    - ``n`` -- integer. $n \geq 6$. The number of lines in the arrangement.
+
+    - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES::
 
         sage: from cn_hyperarr import *
-        sage: ph6 = family_two_hypergraph([6, 'normaliz']); ph6   # optional - pynormaliz
+        sage: ph6 = family_two_hypergraph(6, 'normaliz'); ph6   # optional - pynormaliz
         Incidence structure with 6 points and 7 blocks
         sage: ph6.blocks()                                        # optional - pynormaliz
         [[0, 1, 4], [0, 2, 3], [0, 5], [1, 2, 5], [1, 3], [2, 4], [3, 4, 5]]
@@ -291,14 +286,13 @@ def family_two_hypergraph(input_data):
         sage: ph6.ground_set()                                    # optional - pynormaliz
         [0, 1, 2, 3, 4, 5]
     """
-    n, backend = input_data
     try:
         # print("Try loading polygon hg {} from library".format(n))
         hg = load('polygon_hg_{}'.format(n))
         # print("Found it.")
     except FileNotFoundError:
         # print("Failed. Compute {}.".format(n))
-        hg = family_two(input_data).underlying_hypergraph()
+        hg = family_two(n,backend).underlying_hypergraph()
         # print("Finished computing poly {}: {}. Saving...".format(n, hg))
         save(hg, "polygon_hg_{}.sobj".format(n))
         # print("Finished saving {}.".format(n))
@@ -306,7 +300,7 @@ def family_two_hypergraph(input_data):
     return hg
 
 
-def family_three(input_data):
+def family_three(n, backend=None):
     r"""
     Return the vector configuration of the arrangement $\A(n,2)$ from the
     family $\mathcal R(2)$ in Grunbaum's list.
@@ -318,31 +312,30 @@ def family_three(input_data):
 
     INPUT:
 
-    - ``input_data`` -- list. consists of [n, backend = None]:
-      - ``n`` -- integer. (n-1)/2 must be even. and n >= 9.
-      - ``backend`` -- string (default = ``None``). The backend to use.
+    - ``n`` -- integer. (n-1)/2 must be even. and n >= 9.
+    
+    - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES::
 
         sage: from cn_hyperarr import *
-        sage: f3_9 = family_three([9,'normaliz']); f3_9    # optional - pynormaliz
+        sage: f3_9 = family_three(9,'normaliz'); f3_9    # optional - pynormaliz
         Vector configuration of 9 vectors in dimension 3
 
     The number of lines minus one should be zero mod 4::
 
-        sage: f3_8 = family_three([8, 'normaliz'])         # optional - pynormaliz
+        sage: f3_8 = family_three(8, 'normaliz')         # optional - pynormaliz
         Traceback (most recent call last):
         ...
         AssertionError: (n-1) must be 0 mod 4
     """
-    n, backend = input_data
     assert (n-1) % 4 == 0, "(n-1) must be 0 mod 4"
-    li = family_two(tuple([n-1, backend])).vectors()
+    li = family_two(n-1, backend).vectors()
     li += tuple([vector([0, 0, 1])])
     return VectorConfiguration(li, backend=backend)
 
 
-def family_three_matroid(input_data):
+def family_three_matroid(n, backend=None):
     r"""
     Return the matroid of the arrangement $\A(n,2)$ from the
     family $\mathcal R(2)$ in Grunbaum's list.
@@ -354,34 +347,33 @@ def family_three_matroid(input_data):
 
     INPUT:
 
-    - ``input_data`` -- list. consists of [n, backend = None]:
-      - ``n`` -- integer. (``n``-1) must be 0 mod 4, and ``n``>= 9.
-      - ``backend`` -- string (default = ``None``). The backend to use.
+    - ``n`` -- integer. (``n``-1) must be 0 mod 4, and ``n``>= 9.
+
+    - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES::
 
         sage: from cn_hyperarr import *
-        sage: f3_9_mat = family_three_matroid([9, 'normaliz']); f3_9_mat  # optional - pynormaliz
+        sage: f3_9_mat = family_three_matroid(9, 'normaliz'); f3_9_mat  # optional - pynormaliz
         Matroid of rank 3 on 9 elements with 68 bases
 
-        sage: f13 = family_three_matroid([13, None]); f13
+        sage: f13 = family_three_matroid(13, None); f13
         Matroid of rank 3 on 13 elements with 242 bases
     """
-    n, backend = input_data
     try:
         # print("Try loading polygon inf matroid {} from library".format(n))
         mat = load('polygon_inf_matroid_{}'.format(n))
         # print("Found it.")
     except FileNotFoundError:
         # print("Failed. Compute {}.".format(n))
-        mat = family_three(input_data).underlying_matroid()
+        mat = family_three(n,backend).underlying_matroid()
         # print("Finished computing poly inf {}: {}. Saving...".format(n, mat))
         save(mat, "polygon_inf_matroid_{}.sobj".format(n))
         # print("Finished saving {}.".format(n))
     return mat
 
 
-def family_three_hypergraph(input_data):
+def family_three_hypergraph(n, backend=None):
     r"""
     Return the hypergraph of the arrangement $\A(n,2)$ from the
     family $\mathcal R(2)$ in Grunbaum's list.
@@ -395,14 +387,14 @@ def family_three_hypergraph(input_data):
 
     INPUT:
 
-    - ``input_data`` -- list. consists of [n, backend = None]:
-      - ``n`` -- integer. (``n``-1) must be 0 mod 4 and ``n``>= 9.
-      - ``backend`` -- string (default = ``None``). The backend to use.
+    - ``n`` -- integer. (``n``-1) must be 0 mod 4 and ``n``>= 9.
+      
+    - ``backend`` -- string (default = ``None``). The backend to use.
 
     EXAMPLES::
 
         sage: from cn_hyperarr import *
-        sage: f3_9 = family_three_hypergraph([9, 'normaliz']); f3_9   # optional - pynormaliz
+        sage: f3_9 = family_three_hypergraph(9, 'normaliz'); f3_9   # optional - pynormaliz
         Incidence structure with 9 points and 13 blocks
 
     The square has four vertices where three lines intersect. The center of the
@@ -412,14 +404,13 @@ def family_three_hypergraph(input_data):
         sage: f3_9.block_sizes()                                      # optional - pynormaliz
         [3, 3, 4, 2, 4, 3, 2, 3, 2, 2, 4, 2, 2]
     """
-    n, backend = input_data
     try:
         # print("Try loading polygon inf hg {} from library".format(n))
         hg = load('polygon_inf_hg_{}'.format(n))
         # print("Found it.")
     except FileNotFoundError:
         # print("Failed. Compute {}.".format(n))
-        hg = family_three(input_data).underlying_hypergraph()
+        hg = family_three(n,backend).underlying_hypergraph()
         # print("Finished computing poly inf {}: {}. Saving...".format(n, hg))
         save(hg, "polygon_inf_hg_{}.sobj".format(n))
         # print("Finished saving {}.".format(n))
