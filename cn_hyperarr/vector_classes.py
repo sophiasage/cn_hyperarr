@@ -1,8 +1,38 @@
 # -*- coding: utf-8 -*-
 r"""
-Module for vector configurations and covectors. It also contains methods
-for examining congruence uniformity/normality of posets of regions
-of hyperplane arrangements.
+Module for vector configurations and covectors. 
+A vector configuration is a labeled set of vectors `\{v_i~:~i\in I\}` in a
+common vector space `V`. In the :class:`~vector_classes.VectorConfiguration` 
+class, there are methods to test if a vector configuration is acyclic or totally 
+acyclic, and also to return the underlying matroid and hypergraph. 
+When the vector configuration is three dimensional, 
+one can compute its cocircuits, i.e. maximal covectors.
+
+A covector is a vector of signs -1,0,+1 (3=*, for restricted covectors)
+obtained by an affine linear map on a vector configuration.
+
+.. MATH::
+
+    C_{c,a}:= (sign(c\cdot p_i+a))_{i\in[m]}
+
+where `c` is a vector, `a` is a scalar, and `\{p_i\}_{i\in[m]}` is a vector
+configuration. Members of the :class:`~vector_classes.Covector` class can be 
+constructed either by declaring their entries or by passing a vector, scalar, 
+and vector configuration. This class also has the 
+:func:`~vector_classes.Covector.intersection` method as defined in [1].
+
+There are also methods for examining congruence uniformity/normality of 
+posets of regions of hyperplane arrangements.
+A vector configuration can be seen as the set of normals to a hyperplane
+arrangement. A simplicial hyperplane arrangement has a lattice of regions 
+associated to each chamber. To check whether this lattice is obtainable through
+a sequence of doublings of convex sets, i.e. is congruence normal, we use the 
+theory developed in [1]. For each choice of chamber, there is an associated 
+acyclic vector configuration. In this module, we compute the shard covectors
+and the forcing oriented graph on the shard covectors. If this oriented 
+graph is acyclic, then the arrangement is congruence normal with 
+respect to the chosen chamber; this property is tested in the method 
+:func:`~vector_classes.VectorConfiguration.is_congruence_normal`.
 
 EXAMPLES::
 
@@ -360,7 +390,9 @@ class VectorConfiguration():
 
         Boolean. Whether ``self`` is acyclic.
 
-        SEEALSO:
+        .. SEEALSO::
+
+            :meth:`is_totally_cyclic`.
 
         EXAMPLES::
 
@@ -419,6 +451,10 @@ class VectorConfiguration():
         OUTPUT:
 
         Boolian. Whether ``self`` is totally cyclic.
+
+        .. SEEALSO::
+
+            :meth:`is_acyclic`.
 
         EXAMPLES::
 
