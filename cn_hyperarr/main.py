@@ -4,8 +4,20 @@ Module for the computations related to congruence normality/uniformity of posets
 regions of hyperplane arrangements.
 
 This module has methods to test simplicial hyperplane arrangements of rank 3
-for congruence normality. Every region of each arrangement is tested to see
-if the corresponding poset is congruence normal.
+for congruence normality. 
+A hyperplane arrangement is congruence normal if each of its posets of regions 
+is obtainable from the one element lattice through a finite sequence of 
+doublings of convex sets.
+Equivalently, one can create a directed graph on shards of the arrangement
+for each base region and check if it is acyclic, see 
+:class:`~vector_classes.VectorConfiguration` and 
+:func:`~vector_classes.VectorConfiguration.is_congruence_normal`.
+The method :func:`~main.vectorconf_to_hyperplane_arrangement` creates a 
+hyperplane arrangement from a three-dimensional vector configuration.
+Every region of each arrangement is then tested to determine if the 
+corresponding poset is congruence normal in the 
+:func:`~main.RegionsCongruenceNormal` method.
+
 There are also methods to double check the output and sort the arrangements into
 categories of always, sometimes, and never congruence normal.
 
@@ -24,6 +36,15 @@ the corresponding hyperplane arrangement::
     dict_values([True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True])
     sage: len(check_result.values())
     24
+
+This vector configuration of ten vectors is sometimes congruence normal::
+
+    sage: from cn_hyperarr import *
+    sage: tau = AA((1+sqrt(5))/2)
+    sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]
+    sage: ncn_conf = VectorConfiguration(ncn);
+    sage: check_result = RegionsCongruenceNormality(ncn_conf)
+    sage: check_result.values()
 
 REFERENCES:
 
