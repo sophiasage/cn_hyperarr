@@ -65,11 +65,11 @@ from sage.combinat.designs.incidence_structures import IncidenceStructure
 
 def near_pencil_family(n, backend=None):
     r"""
-    Return the vector configuration of the near pencil with $n$ lines.
+    Return the vector configuration of the near pencil with ``n`` lines.
 
     INPUT:
 
-    - ``n`` -- integer. $n \geq 3$. The number of lines in the near pencil.
+    - ``n`` -- integer. ``n`` `\geq 3`. The number of lines in the near pencil.
     
     - ``backend`` -- string (default = ``None``). The backend to use.
 
@@ -107,11 +107,11 @@ def near_pencil_family(n, backend=None):
 
 def near_pencil_matroid(n, backend=None):
     r"""
-    Return the matroid of the near pencil with $n$ lines.
+    Return the matroid of the near pencil with ``n`` lines.
 
     INPUT:
 
-    - ``n`` -- integer. $n \geq 3$. The number of lines in the near pencil.
+    - ``n`` -- integer.  ``n`` `\geq 3`. The number of lines in the near pencil.
 
     - ``backend`` -- string (default = ``None``). The backend to use.
 
@@ -148,14 +148,14 @@ def near_pencil_matroid(n, backend=None):
 
 def near_pencil_hypergraph(n,backend=None):
     r"""
-    Return the hypergraph of the near pencil with $n$ lines.
+    Return the hypergraph of the near pencil with ``n`` lines.
 
-    This hypergraph has $n$ vertices corresponding to the $n$ lines of the
+    This hypergraph has ``n`` vertices corresponding to the ``n`` lines of the
     arrangement. The blocks correspond to the intersections.
 
     INPUT:
 
-    - ``n`` -- integer. $n \geq 3$. The number of lines in the near pencil.
+    - ``n`` -- integer. ` ``n`` \geq 3`. The number of lines in the near pencil.
 
     - ``backend`` -- string (default = ``None``). The backend to use.
 
@@ -194,11 +194,12 @@ def family_two(n, backend=None):
     `\A(n,1)` from the family `\mathcal R(1)` in Grunbaum's list.
 
     The arrangement will have an even number of hyperplanes consisting
-    of the edges of the regular $n/2$-gon and the $n/2$ lines of mirror symmetry.
+    of the edges of the regular ` ``n/2`-gon and the ` ``n``/2` lines of 
+    mirror symmetry.
 
     INPUT:
 
-    - ``n`` -- integer. $n \geq 6$. The number of lines in the arrangement.
+    - ``n`` -- integer. ` ``n`` \geq 6`. The number of lines in the arrangement.
     
     - ``backend`` -- string (default = ``None``). The backend to use.
 
@@ -242,11 +243,11 @@ def family_two_matroid(n,backend=None):
     `\A(n,1)` from the family `\mathcal R(1)` in Grunbaum's list.
 
     The arrangement will have an even number of hyperplanes consisting
-    of the edges of the regular $n/2$-gon and the $n/2$ lines of mirror symmetry.
+    of the edges of the regular ``n``/2-gon and the ``n``/2 lines of mirror symmetry.
 
     INPUT:
 
-    - ``n`` -- integer. $n \geq 6$. The number of lines in the arrangement.
+    - ``n`` -- integer. ``n`` `\geq 6`. The number of lines in the arrangement.
  
     - ``backend`` -- string (default = ``None``). The backend to use.
 
@@ -284,13 +285,13 @@ def family_two_hypergraph(n,backend=None):
     `\A(n,1)` from the family `\mathcal R(1)` in Grunbaum's list.
 
     The arrangement will have an even number of hyperplanes consisting
-    of the edges of the regular $n/2$-gon and the $n/2$ lines of mirror symmetry.
+    of the edges of the regular ``n``/2-gon and the ``n``/2 lines of mirror symmetry.
 
     The blocks of the hypergraph correspond to intersections of the lines.
 
     INPUT:
 
-    - ``n`` -- integer. $n \geq 6$. The number of lines in the arrangement.
+    - ``n`` -- integer. ``n`` `\geq 6`. The number of lines in the arrangement.
 
     - ``backend`` -- string (default = ``None``). The backend to use.
 
@@ -327,17 +328,17 @@ def family_two_hypergraph(n,backend=None):
 
 def family_three(n, backend=None):
     r"""
-    Return the vector configuration of the arrangement $\A(n,2)$ from the
-    family $\mathcal R(2)$ in Grunbaum's list.
+    Return the vector configuration of the arrangement `A`(``n``,2) from the
+    family `\mathcal R(2)` in Grunbaum's list.
 
-    The arrangement will have $n$ hyperplanes consisting of the edges of the
-    regular even $(n-1)/2$-gon and the $(n-1)/2$ lines of mirror symmetry
+    The arrangement will have ``n`` hyperplanes consisting of the edges of the
+    regular even (``n``-1)/2-gon and the (``n``-1)/2 lines of mirror symmetry
     together with the line at infinity.
-    Grunbaum's notation is $\A(n,2)$ for the resulting arrangement.
+    Grunbaum's notation is `A`(``n``,2) for the resulting arrangement.
 
     INPUT:
 
-    - ``n`` -- integer. (n-1)/2 must be even. and n >= 9.
+    - ``n`` -- integer. (``n``-1)/2 must be even. and ``n`` `\geq` 9.
     
     - ``backend`` -- string (default = ``None``). The backend to use.
 
@@ -366,13 +367,13 @@ def family_three(n, backend=None):
 
 def family_three_matroid(n, backend=None):
     r"""
-    Return the matroid of the arrangement $\A(n,2)$ from the
-    family $\mathcal R(2)$ in Grunbaum's list.
+    Return the matroid of the arrangement `A`(``n``,2) from the
+    family `\mathcal R`(2) in Grunbaum's list.
 
-    The arrangement will have $n$ hyperplanes consisting of the edges of the
-    regular even $(n-1)/2$-gon and the $(n-1)/2$ lines of mirror symmetry
+    The arrangement will have ``n`` hyperplanes consisting of the edges of the
+    regular even (``n``-1)/2-gon and the (``n``-1)/2 lines of mirror symmetry
     together with the line at infinity.
-    Grunbaum's notation is $\A(n,2)$ for the resulting arrangement.
+    Grunbaum's notation is `A`(``n``,2) for the resulting arrangement.
 
     INPUT:
 
@@ -408,19 +409,19 @@ def family_three_matroid(n, backend=None):
 
 def family_three_hypergraph(n, backend=None):
     r"""
-    Return the hypergraph of the arrangement $\A(n,2)$ from the
-    family $\mathcal R(2)$ in Grunbaum's list.
+    Return the hypergraph of the arrangement `A`(``n``,2) from the
+    family `\mathcal R(2)` in Grunbaum's list.
 
-    The arrangement will have $n$ hyperplanes consisting of the edges of the
-    regular even $(n-1)/2$-gon and the $(n-1)/2$ lines of mirror symmetry
+    The arrangement will have ``n`` hyperplanes consisting of the edges of the
+    regular even (``n``-1)/2-gon and the (``n``-1)/2 lines of mirror symmetry
     together with the line at infinity.
-    Grunbaum's notation is $\A(n,2)$ for the resulting arrangement.
+    Grunbaum's notation is `A`(``n``,2) for the resulting arrangement.
 
     The hypergraph has blocks corresponding to the intersections of the lines.
 
     INPUT:
 
-    - ``n`` -- integer. (``n``-1) must be 0 mod 4 and ``n``>= 9.
+    - ``n`` -- integer. (``n``-1) must be 0 mod 4 and ``n`` `\geq` 9.
       
     - ``backend`` -- string (default = ``None``). The backend to use.
 
