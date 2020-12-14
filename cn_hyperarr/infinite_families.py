@@ -78,7 +78,7 @@ def near_pencil_family(n, backend=None):
 
     The near pencil with three hyperplanes::
 
-        sage: from cn_hyperarr import *
+        sage: from cn_hyperarr.infinite_families import *
         sage: np = near_pencil_family(3,'normaliz'); np         # optional - pynormaliz
         Vector configuration of 3 vectors in dimension 3
 
@@ -124,7 +124,7 @@ def family_two(n, backend=None):
 
     EXAMPLES::
 
-        sage: from cn_hyperarr import *
+        sage: from cn_hyperarr.infinite_families import *
         sage: pf = family_two(8,'normaliz'); pf   # optional - pynormaliz
         Vector configuration of 8 vectors in dimension 3
 
@@ -174,7 +174,7 @@ def family_three(n, backend=None):
 
     EXAMPLES::
 
-        sage: from cn_hyperarr import *
+        sage: from cn_hyperarr.infinite_families import *
         sage: f3_9 = family_three(9,'normaliz'); f3_9    # optional - pynormaliz
         Vector configuration of 9 vectors in dimension 3
 

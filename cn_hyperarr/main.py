@@ -8,22 +8,20 @@ for congruence normality.  A hyperplane arrangement is congruence normal if
 each of its posets of regions is obtainable from the one element lattice
 through a finite sequence of doublings of convex sets.  Equivalently, one can
 create a directed graph on shards of the arrangement for each base region and
-check if it is acyclic, see :class:`~vector_classes.VectorConfiguration` and
+check if it is acyclic, see the module 
+:class:`~vector_classes.VectorConfiguration` and its method
 :func:`~vector_classes.VectorConfiguration.is_congruence_normal`.  The method
 :func:`~main.vectorconf_to_hyperplane_arrangement` creates a hyperplane
 arrangement from a three-dimensional vector configuration.  Every region of
 each arrangement is then tested to determine if the corresponding poset is
 congruence normal in the :func:`~main.RegionsCongruenceNormal` method.
 
-There are also methods to double check the output and sort the arrangements
-into categories of always, sometimes, and never congruence normal.
-
 EXAMPLES:
 
 This vector configuration is congruence normal for any choice of base region in
 the corresponding hyperplane arrangement::
 
-    sage: from cn_hyperarr import *
+    sage: from cn_hyperarr.main import *
     sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]]);
     sage: h = vectorconf_to_hyperplane_arrangement(vc);
     sage: h.n_regions()
@@ -35,9 +33,11 @@ the corresponding hyperplane arrangement::
     sage: len(check_result.values())
     24
 
-This vector configuration of ten vectors is sometimes congruence normal::
+This vector configuration of ten vectors is sometimes congruence normal.
+It is the smallest simplicial arrangement of rank three that is not always
+congruence normal and is referred to as A(10,60)`_3` in [CEL]_ ::
 
-    sage: from cn_hyperarr import *
+    sage: from cn_hyperarr.main import *
     sage: tau = AA((1+sqrt(5))/2)
     sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]
     sage: ncn_conf = VectorConfiguration(ncn);
@@ -47,7 +47,7 @@ This vector configuration of ten vectors is sometimes congruence normal::
 
 REFERENCES:
 
-    - [1] Michael Cuntz, Sophia Elia, and Jean-Philippe Labbé. Congruence normality of simplicial hyperplane arrangements via oriented matroids, 2020. arXiv:2009.14152.
+.. [CEL] Michael Cuntz, Sophia Elia, and Jean-Philippe Labbé. Congruence normality of simplicial hyperplane arrangements via oriented matroids, 2020. arXiv:2009.14152.
 
 AUTHORS:
 
@@ -96,10 +96,10 @@ def vectorconf_to_hyperplane_arrangement(vector_conf, backend=None):
 
     EXAMPLES:
 
-    This arrangement with 10 hyperplanes is the smallest rank-three simplicial
-    arrangement that is not congruence normal::
+    The arrangement A(10,60)`_3` with 10 hyperplanes is the smallest rank-three 
+    simplicial arrangement that is not congruence normal::
 
-        sage: from cn_hyperarr import *
+        sage: from cn_hyperarr.main import *
         sage: tau = AA((1+sqrt(5))/2)
         sage: ncn = [[2*tau + 1, 2*tau, tau], [2*tau + 2, 2*tau + 1, tau + 1], 
         ....:        [1, 1, 1], [tau + 1, tau + 1, tau], [2*tau, 2*tau, tau], 
@@ -145,10 +145,10 @@ def wrapper_forcing_acyclic(vectorconf):
 
     EXAMPLES:
 
-    This arrangement with 10 hyperplanes is not congruence normal for the
-    implicit choice of base region::
+    The arrangement A(10,60)`_3` with 10 hyperplanes is not congruence 
+    normal for the implicit choice of base region::
 
-        sage: from cn_hyperarr import *
+        sage: from cn_hyperarr.main import *
         sage: tau = AA((1+sqrt(5))/2)
         sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]
         sage: ncn_conf = VectorConfiguration(ncn);
@@ -198,7 +198,7 @@ def RegionsCongruenceNormality(vector_conf, backend=None, verbose=False, nb_proc
 
     An example of an arrangement that is always congruence normal::
 
-        sage: from cn_hyperarr import *
+        sage: from cn_hyperarr.main import *
         sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
         sage: h = vectorconf_to_hyperplane_arrangement(vc);
         sage: h.n_regions()
@@ -209,7 +209,9 @@ def RegionsCongruenceNormality(vector_conf, backend=None, verbose=False, nb_proc
         sage: len(check_result.values())
         24
 
-    An arrangement that is not always congruence normal::
+    This vector configuration of ten vectors is sometimes congruence normal.
+    It is the smallest simplicial arrangement of rank three that is not always
+    congruence normal and is referred to as A(10,60)`_3` in [CEL]_ ::
 
         sage: tau = AA((1+sqrt(5))/2)
         sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]
