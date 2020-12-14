@@ -5,7 +5,7 @@ Library containing the three infinite families of simplicial arrangements of ran
 EXAMPLES:
 
 The first infinite family is the family of near pencils. All lines except for
-one share a common intersection point, as may be seen in the hypergraph::
+one share a common intersection point::
 
     sage: from cn_hyperarr.infinite_families import *
     sage: np4 = near_pencil_family(4,'normaliz'); np4             # optional - pynormaliz
@@ -62,6 +62,8 @@ def near_pencil_family(n, backend=None):
     r"""
     Return the vector configuration of the near pencil with ``n`` lines.
 
+    All lines except for one share a common intersection point.
+
     INPUT:
 
     - ``n`` -- integer. ``n`` `\geq 3`. The number of lines in the near pencil.
@@ -104,15 +106,15 @@ def near_pencil_family(n, backend=None):
 def family_two(n, backend=None):
     r"""
     Return the vector configuration of the simplicial arrangement
-    `\A(n,1)` from the family `\mathcal R(1)` in Grunbaum's list.
+    `A(n,1)` from the family `\mathcal R(1)` in Grunbaum's list.
 
-    The arrangement will have an even number of hyperplanes consisting
-    of the edges of the regular ` ``n/2`-gon and the ` ``n``/2` lines of 
+    The arrangement will have an ``n`` hyperplanes, with ``n`` even, consisting
+    of the edges of the regular `n/2`-gon and the `n/2` lines of 
     mirror symmetry.
 
     INPUT:
 
-    - ``n`` -- integer. ` ``n`` \geq 6`. The number of lines in the arrangement.
+    - ``n`` -- integer. ``n`` `\geq 6`. The number of lines in the arrangement.
     
     - ``backend`` -- string (default = ``None``). The backend to use.
 
@@ -152,17 +154,17 @@ def family_two(n, backend=None):
 
 def family_three(n, backend=None):
     r"""
-    Return the vector configuration of the arrangement `A`(``n``,2) from the
+    Return the vector configuration of the arrangement `A(n,2)` from the
     family `\mathcal R(2)` in Grunbaum's list.
 
     The arrangement will have ``n`` hyperplanes consisting of the edges of the
-    regular even (``n``-1)/2-gon and the (``n``-1)/2 lines of mirror symmetry
+    regular, even `(n-1)/2`-gon and the `(n-1)/2` lines of mirror symmetry
     together with the line at infinity.
-    Grunbaum's notation is `A`(``n``,2) for the resulting arrangement.
+    Grunbaum's notation is `A(n,2)` for the resulting arrangement.
 
     INPUT:
 
-    - ``n`` -- integer. (``n``-1)/2 must be even. and ``n`` `\geq` 9.
+    - ``n`` -- integer. (``n``-1)/2 must be even, and ``n`` `\geq` 9.
     
     - ``backend`` -- string (default = ``None``). The backend to use.
 

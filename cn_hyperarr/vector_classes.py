@@ -568,11 +568,6 @@ class VectorConfiguration():
 
         A matroid
 
-        NOTE:
-
-        Doesn't work if the matrix is not full dimensional
-        why not use Matroid(matrix = mat) to define?
-
         EXAMPLES::
 
             sage: from cn_hyperarr import *
@@ -737,6 +732,11 @@ class VectorConfiguration():
         r"""
         Return the shard covectors for the given planar vector configuraton.
 
+        The shard covectors are defined in [CEL]_ and shown to be in bijection
+        with the shards of the hyperplane arrangement with specified base 
+        region. A shard covector of a shard on hyperplane `i` is a restricted
+        covector with a unique zero in position `i`.
+
         NOTE:
 
         An acyclic vector configuration corresponds to a hyperplane arrangement
@@ -843,8 +843,6 @@ class VectorConfiguration():
              {0, 3}: ((0, 0, 1, 0, 1, 1), (0, 0, -1, 0, -1, -1)),
              {0, 2}: ((0, -1, 0, -1, -1, -1), (0, 1, 0, 1, 1, 1)),
              {0, 1}: ((0, 0, 1, 0, 1, 1), (0, 0, -1, 0, -1, -1))}
-            sage: tau = AA((1+sqrt(5))/2)
-            sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]
 
         TESTS:
 
@@ -997,7 +995,7 @@ class VectorConfiguration():
         forcing_graph = self.forcing_oriented_graph()
         return forcing_graph.is_directed_acyclic()
 
-    def affine_basis(self):
+    def cone_rays(self):
         r"""
         Return the basis of an acylic vector configuration.
 
@@ -1007,7 +1005,7 @@ class VectorConfiguration():
         OUTPUT:
 
         A set. The indices of the vectors that form the rays of the cone spanned
-        by the vectors..
+        by the vectors.
 
         EXAMPLES:
 
@@ -1016,13 +1014,13 @@ class VectorConfiguration():
 
             sage: from cn_hyperarr import *
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]])
-            sage: vc.affine_basis()
+            sage: vc.cone_rays()
             {0, 1, 2}
 
         The cone spanned by the vectors should be simplicial::
 
             sage: vc = VectorConfiguration([[0,0,1],[1,0,1],[1,1,1],[0,1,1]])
-            sage: vc.affine_basis()
+            sage: vc.cone_rays()
             Traceback (most recent call last):
             ...
             AssertionError: The cone is not simplicial
@@ -1032,7 +1030,7 @@ class VectorConfiguration():
         The arrangement should be acyclic::
 
             sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1],[-1,0,0]])
-            sage: vc.affine_basis()
+            sage: vc.cone_rays()
             Traceback (most recent call last):
             ...
             AssertionError: The vector configuration should be acyclic
@@ -1040,7 +1038,7 @@ class VectorConfiguration():
         The ambient dimension should be three::
 
             sage: vc = VectorConfiguration([[2,0,0,0],[0,2,0,0],[0,0,1,0],[0,0,0,1]])
-            sage: vc.affine_basis()
+            sage: vc.cone_rays()
             Traceback (most recent call last):
             ...
             AssertionError: The ambient dimension is not 3
@@ -1081,8 +1079,8 @@ class Covector(tuple):
         sage: c.stars()
         (1, 5)
 
-    The second possibility is giving the signs of the indices [-,0,+] and the
-    length. The unspecified indices will have the star symbol::
+    The second possibility is giving the signs of the indices [-1,0,+1] and the
+    length. The unspecified indices will have the star symbol (3=*)::
 
         sage: d = Covector([[1,3,5],[2,8],[4,7]],10); d
         (3, -1, 0, -1, 1, -1, 3, 1, 0, 3)
@@ -1229,7 +1227,9 @@ class Covector(tuple):
 
     def stars(self):
         r"""
-        Return the indices with stars
+        Return the indices with stars.
+
+        A starred entry is represented as a 3 in a restricted covector (3=*).
 
         OUTPUT:
 
@@ -1270,6 +1270,19 @@ class Covector(tuple):
     def intersection(self, other):
         r"""
         Return the intersection of ``self`` with ``other``.
+
+        The intersection of two restricted covectors is defined in [CEL]_ as 
+        the commutative, associative, component-wise operation such that 
+        
+        .. math:: 
+
+            + \cap + := +,  \\
+            + \cap - = - \cap + := 0, \\ 
+            - \cap - := -, \\
+            0 \cap \epsilon = \epsilon \cap 0 := 0, \\
+            * \cap \epsilon = \epsilon \cap * := \epsilon` \\
+
+        where `\epsilon \in \{0,+,-,*\}`.
 
         INPUT:
 
@@ -1334,9 +1347,16 @@ def inter_binary(left, right):
     Intersection operation on -,0,+,3, the 3 plays the role of a star.
 
     The commutative intersection operation is defined as follows:
-    0 & {0, +, -, 3} = 0,
-    * & {+, -, 3} = {+, -, 3}
-    + & {+, -} = {+, 0}
+    
+    .. math:: 
+
+       + \cap + := +,  \\
+       + \cap - = - \cap + := 0, \\ 
+       - \cap - := -, \\
+       0 \cap \epsilon = \epsilon \cap 0 := 0, \\
+       * \cap \epsilon = \epsilon \cap * := \epsilon,
+
+    where `\epsilon \in \{0,+,-,*\}`.
 
     INPUT:
 
