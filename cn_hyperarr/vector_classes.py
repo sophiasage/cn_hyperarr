@@ -19,7 +19,7 @@ where `c` is a vector, `a` is a scalar, and `\{p_i\}_{i\in[m]}` is a vector
 configuration. Members of the :class:`~vector_classes.Covector` class can be 
 constructed either by declaring their entries or by passing a vector, scalar, 
 and vector configuration. This class also has the 
-:func:`~vector_classes.Covector.intersection` method as defined in [1].
+:func:`~vector_classes.Covector.intersection` method as defined in [CEL]_.
 
 There are also methods for examining congruence uniformity/normality of 
 posets of regions of hyperplane arrangements.
@@ -27,7 +27,7 @@ A vector configuration can be seen as the set of normals to a hyperplane
 arrangement. A simplicial hyperplane arrangement has a lattice of regions 
 associated to each chamber. To check whether this lattice is obtainable through
 a sequence of doublings of convex sets, i.e. is congruence normal, we use the 
-theory developed in [1]. For each choice of chamber, there is an associated 
+theory developed in [CEL]_. For each choice of chamber, there is an associated 
 acyclic vector configuration. In this module, we compute the shard covectors
 and the forcing oriented graph on the shard covectors. If this oriented 
 graph is acyclic, then the arrangement is congruence normal with 
@@ -49,7 +49,7 @@ EXAMPLES::
 
 REFERENCES:
 
-    - [1] Michael Cuntz, Sophia Elia, and Jean-Philippe Labbé. Congruence normality of simplicial hyperplane arrangements via oriented matroids, 2020. arXiv:2009.14152.
+.. [CEL] Michael Cuntz, Sophia Elia, and Jean-Philippe Labbé. Congruence normality of simplicial hyperplane arrangements via oriented matroids, 2020. arXiv:2009.14152.
 
 AUTHORS:
 
@@ -129,7 +129,7 @@ class VectorConfiguration():
          ((6, 7), (1, 2, 4, 5), (0, 3)))
 
     The vector configuration of an arrangement of hyperplanes that is not
-    congruence normal. It is the arrangement A(10,60)_3 in [1]::
+    congruence normal. It is the arrangement A(10,60)_3 in [CEL]_::
 
         sage: tau = AA((1+sqrt(5))/2)
         sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]

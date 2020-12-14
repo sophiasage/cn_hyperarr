@@ -35,3 +35,7 @@ You can test whether a hyperplane arrangement is congruence normal as follows::
     dict_values([True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True])
 
 To load the list of normals in sage::
+
+    sage: from cn_hyperarr.database import *
+    sage: db_normals_CEL[(7,32,1)]
+    ((0, 0, 1), (0, 1, 0), (0, 1, 1), (1, 0, 0), (1, 0, 1), (1, 1, 0), (1, 1, 1))
