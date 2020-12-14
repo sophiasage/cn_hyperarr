@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 r"""
 Module for vector configurations and covectors. 
-A vector configuration is a labeled set of vectors `\{v_i~:~i\in I\}` in a
+A vector configuration is a labeled set of vectors :math:`\{v_i~:~i\in I\}` in a
 common vector space `V`. In the :class:`~vector_classes.VectorConfiguration` 
 class, there are methods to test if a vector configuration is acyclic or totally 
 acyclic, and also to return the underlying matroid and hypergraph. 
@@ -11,7 +11,7 @@ one can compute its cocircuits, i.e. maximal covectors.
 A covector is a vector of signs -1,0,+1 (3=*, for restricted covectors)
 obtained by an affine linear map on a vector configuration.
 
-.. MATH::
+.. math::
 
     C_{c,a}:= (sign(c\cdot p_i+a))_{i\in[m]}
 

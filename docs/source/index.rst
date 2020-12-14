@@ -13,7 +13,7 @@ A vector configuration can be seen as the set of normals to a hyperplane
 arrangement. A simplicial hyperplane arrangement has a lattice of regions 
 associated to each chamber. To check whether this lattice is obtainable through
 a sequence of doublings of convex sets, i.e. is congruence normal, we use the 
-theory developed in [1]. For each choice of chamber, there is an associated 
+theory developed in [1]_. For each choice of chamber, there is an associated 
 acyclic vector configuration. We compute the shard covectors
 and the forcing oriented graph on the shard covectors. If this oriented 
 graph is acyclic, then the arrangement is congruence normal with 
@@ -28,7 +28,7 @@ rank-3 simplicial arrangements.
 
 REFERENCES:
 
-    - [1] Michael Cuntz, Sophia Elia, and Jean-Philippe Labbé. Congruence normality of simplicial hyperplane arrangements via oriented matroids, 2020. arXiv:2009.14152.
+.. [1] Michael Cuntz, Sophia Elia, and Jean-Philippe Labbé. Congruence normality of simplicial hyperplane arrangements via oriented matroids, 2020. arXiv:2009.14152.
 
 AUTHORS:
 
@@ -43,8 +43,9 @@ Congruence Normality for Hyperplane Arrangements
 
    installation
    computations
-   vector_conf
    inf_fam
+   database
+   vector_conf
 
 .. automodule:: cn_hyperarr
    :members:
