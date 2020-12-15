@@ -19,7 +19,7 @@ depending on whether its lattices of regions are congruence normal.
 Here are examples of arrangements that are always, sometimes, and never
 congruence normal. 
 First we load the normals of the three arrangements from the database. 
-The entries of the database are labeled in the same way as in [CEL]_ ::
+The entries of the database are labeled in the same way as in [CEL]_::
 
     sage: from cn_hyperarr import *
     sage: always_normals = db_normals_CEL[(6,24,1)] 
@@ -49,6 +49,12 @@ The entries of the database are labeled in the same way as in [CEL]_ ::
 
 The full documentation for the package can be found at https://sophiasage.github.io/cn_hyperarr/doc/html/
 
+REFERENCES
+----------
+
+.. [CEL] Michael Cuntz, Sophia Elia, and Jean-Philippe Labbé. Congruence normality of simplicial hyperplane arrangements via oriented matroids, 2020. arXiv:2009.14152.
+
+.. [Gru] Branko Grunbaum. A catalogue of simplicial arrangements in the real projective plane, 2009. Ars Math. Contemp. 2, no. 1, 1-25.
 
 Installation
 ------------
