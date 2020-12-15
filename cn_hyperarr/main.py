@@ -19,10 +19,13 @@ congruence normal in the :func:`~main.RegionsCongruenceNormal` method.
 EXAMPLES:
 
 This vector configuration is congruence normal for any choice of base region in
-the corresponding hyperplane arrangement::
+the corresponding hyperplane arrangement. We load it from the database::
 
     sage: from cn_hyperarr.main import *
-    sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]]);
+    sage: always_normals = db_normals_CEL[(6,24,1)]
+    sage: always_normals
+    ((0, 0, 1), (0, 1, 0), (0, 1, 1), (1, 0, 0), (1, 0, 1), (1, 1, 1))
+    sage: vc = VectorConfiguration(list(vector(x) for x in always_normals));
     sage: h = vectorconf_to_hyperplane_arrangement(vc);
     sage: h.n_regions()
     24
