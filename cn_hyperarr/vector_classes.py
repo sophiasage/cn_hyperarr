@@ -8,12 +8,12 @@ acyclic, and also to return the underlying matroid and hypergraph.
 When the vector configuration is three dimensional, 
 one can compute its cocircuits, i.e. maximal covectors.
 
-A covector is a vector of signs -1,0,+1 (3=*, for restricted covectors)
-obtained by an affine linear map on a vector configuration.
+A covector is a vector of signs :math:`-1,0,+1` (:math:`3=*`, for restricted
+covectors) obtained by an affine linear map on a vector configuration.
 
 .. math::
 
-    C_{c,a}:= (sign(c\cdot p_i+a))_{i\in[m]}
+    C_{c,a}:= (\operatorname{sign}(c\cdot p_i+a))_{i\in[m]}
 
 where `c` is a vector, `a` is a scalar, and `\{p_i\}_{i\in[m]}` is a vector
 configuration. Members of the :class:`~vector_classes.Covector` class can be 
