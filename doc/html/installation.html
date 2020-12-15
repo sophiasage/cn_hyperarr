@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation &amp; Usage &#8212; Congruence Normality for Hyperplane Arrangements 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="_static/MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Congruence Normality of Hyperplane Arrangements" href="computations.html" />
+    <link rel="prev" title="Welcome to cn_hyperarr’s documentation!" href="index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="computations.html" title="Congruence Normality of Hyperplane Arrangements"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to cn_hyperarr’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Congruence Normality for Hyperplane Arrangements 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Installation &amp; Usage</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="installation-usage">
+<h1>Installation &amp; Usage<a class="headerlink" href="#installation-usage" title="Permalink to this headline">¶</a></h1>
+<p><strong>Local install from source</strong></p>
+<p>Download the source from the git repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/sophiasage/cn_hyperarr.git
+</pre></div>
+</div>
+<p>Change to the root directory and run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sage -pip install --upgrade --no-index -v .
+</pre></div>
+</div>
+<p>For convenience this package contains a [makefile](makefile) with this
+and other often used commands. Should you wish too, you can use the
+shorthand:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make install
+</pre></div>
+</div>
+<p><strong>Usage</strong></p>
+<p>Once the package is installed, you can use it in Sage. To do so you have to import it with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="n">You</span> <span class="n">can</span> <span class="n">test</span> <span class="n">whether</span> <span class="n">a</span> <span class="n">hyperplane</span> <span class="n">arrangement</span> <span class="ow">is</span> <span class="n">congruence</span> <span class="n">normal</span> <span class="k">as</span> <span class="n">follows</span><span class="p">::</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]]);</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">check_result</span> <span class="o">=</span> <span class="n">RegionsCongruenceNormality</span><span class="p">(</span><span class="n">vc</span><span class="p">);</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">check_result</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="n">dict_values</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+
+<span class="n">To</span> <span class="n">load</span> <span class="n">the</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">normals</span> <span class="ow">in</span> <span class="n">sage</span><span class="p">::</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.database</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">db_normals_CEL</span><span class="p">[(</span><span class="mi">7</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">1</span><span class="p">)]</span>
+<span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to cn_hyperarr’s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="computations.html"
+                        title="next chapter">Congruence Normality of Hyperplane Arrangements</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/installation.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="computations.html" title="Congruence Normality of Hyperplane Arrangements"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to cn_hyperarr’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Congruence Normality for Hyperplane Arrangements 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Installation &amp; Usage</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Sophia Elia.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+  </body>
+</html>

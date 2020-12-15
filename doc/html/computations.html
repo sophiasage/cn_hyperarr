@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congruence Normality of Hyperplane Arrangements &#8212; Congruence Normality for Hyperplane Arrangements 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="_static/MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Three Infinite Families" href="inf_fam.html" />
+    <link rel="prev" title="Installation &amp; Usage" href="installation.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="inf_fam.html" title="The Three Infinite Families"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation &amp; Usage"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Congruence Normality for Hyperplane Arrangements 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Congruence Normality of Hyperplane Arrangements</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-cn_hyperarr.main">
+<span id="congruence-normality-of-hyperplane-arrangements"></span><h1>Congruence Normality of Hyperplane Arrangements<a class="headerlink" href="#module-cn_hyperarr.main" title="Permalink to this headline">¶</a></h1>
+<p>Module for the computations related to congruence normality/uniformity of
+posets of regions of hyperplane arrangements.</p>
+<p>This module has methods to test simplicial hyperplane arrangements of rank 3
+for congruence normality.  A hyperplane arrangement is congruence normal if
+each of its posets of regions is obtainable from the one element lattice
+through a finite sequence of doublings of convex sets.  Equivalently, one can
+create a directed graph on shards of the arrangement for each base region and
+check if it is acyclic, see the module 
+<code class="xref py py-class docutils literal notranslate"><span class="pre">VectorConfiguration</span></code> and its method
+<code class="xref py py-func docutils literal notranslate"><span class="pre">is_congruence_normal()</span></code>.  The method
+<code class="xref py py-func docutils literal notranslate"><span class="pre">vectorconf_to_hyperplane_arrangement()</span></code> creates a hyperplane
+arrangement from a three-dimensional vector configuration.  Every region of
+each arrangement is then tested to determine if the corresponding poset is
+congruence normal in the <code class="xref py py-func docutils literal notranslate"><span class="pre">RegionsCongruenceNormal()</span></code> method.</p>
+<p>EXAMPLES:</p>
+<p>This vector configuration is congruence normal for any choice of base region in
+the corresponding hyperplane arrangement. We load it from the database:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.main</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">always_normals</span> <span class="o">=</span> <span class="n">db_normals_CEL</span><span class="p">[(</span><span class="mi">6</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">1</span><span class="p">)];</span> <span class="n">always_normals</span>
+<span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([</span><span class="n">vector</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">always_normals</span><span class="p">]);</span><span class="n">vc</span>
+<span class="n">Vector</span> <span class="n">configuration</span> <span class="n">of</span> <span class="mi">6</span> <span class="n">vectors</span> <span class="ow">in</span> <span class="n">dimension</span> <span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">h</span> <span class="o">=</span> <span class="n">vectorconf_to_hyperplane_arrangement</span><span class="p">(</span><span class="n">vc</span><span class="p">);</span><span class="n">h</span>
+<span class="n">Arrangement</span> <span class="n">of</span> <span class="mi">6</span> <span class="n">hyperplanes</span> <span class="n">of</span> <span class="n">dimension</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">rank</span> <span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">h</span><span class="o">.</span><span class="n">n_regions</span><span class="p">()</span>
+<span class="mi">24</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A6_24</span> <span class="o">=</span> <span class="n">RegionsCongruenceNormality</span><span class="p">(</span><span class="n">vc</span><span class="p">);</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A6_24</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="n">dict_values</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> 
+<span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>This vector configuration of ten vectors is sometimes congruence normal.
+It is the smallest simplicial arrangement of rank three that is not always
+congruence normal and is referred to as <span class="math notranslate nohighlight">\(A(10,60)_3\)</span> in <a class="reference internal" href="index.html#cel" id="id1"><span>[CEL]</span></a>. We also
+load it from the database:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.main</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">sometimes_normals</span> <span class="o">=</span> <span class="n">db_normals_CEL</span><span class="p">[(</span><span class="mi">10</span><span class="p">,</span><span class="mi">60</span><span class="p">,</span><span class="mi">3</span><span class="p">)];</span> <span class="n">sometimes_normals</span>
+<span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span> <span class="n">tau</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">tau</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tau</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+ <span class="p">(</span><span class="n">tau</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tau</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tau</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span> <span class="n">tau</span><span class="p">),</span>
+ <span class="p">(</span><span class="n">tau</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tau</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+ <span class="p">(</span><span class="n">tau</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">tau</span><span class="p">))</span>
+ <span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([</span><span class="n">vector</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sometimes_normals</span><span class="p">]);</span><span class="n">ncn_conf</span>
+ <span class="n">Vector</span> <span class="n">configuration</span> <span class="n">of</span> <span class="mi">10</span> <span class="n">vectors</span> <span class="ow">in</span> <span class="n">dimension</span> <span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A10_60_3</span> <span class="o">=</span> <span class="n">RegionsCongruenceNormality</span><span class="p">(</span><span class="n">ncn_conf</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">A10_60_3</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="n">dict_values</span><span class="p">([</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt id="cn_hyperarr.main.RegionsCongruenceNormality">
+<code class="sig-prename descclassname">cn_hyperarr.main.</code><code class="sig-name descname">RegionsCongruenceNormality</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vector_conf</span></em>, <em class="sig-param"><span class="n">backend</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">nb_proc</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.main.RegionsCongruenceNormality" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether regions in the hyperplane arrangement generated by the
+vector configuration <code class="docutils literal notranslate"><span class="pre">vector_conf</span></code> lead to congruence normal lattice of
+regions.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vectorconf</span></code> – a vector configuration</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">backend</span></code> – string (default = <code class="docutils literal notranslate"><span class="pre">None</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">verbose</span></code> – (default = False). If <code class="docutils literal notranslate"><span class="pre">True</span></code> return number of
+hyperplanes, normal vectors, number of regions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nb_proc</span></code> – (default = <code class="docutils literal notranslate"><span class="pre">4</span></code>). The number of processors to use to
+verify.</p></li>
+</ul>
+<p>OUTPUT:</p>
+<p>A dictionary whose keys are tuple (vector,vc) where vector is a
+representative vector of a region of the hyperplane arrangement and vc is
+the corresponding acyclic vector configuration which is a reorientation of
+<code class="docutils literal notranslate"><span class="pre">vector_conf</span></code>.</p>
+<p>EXAMPLES:</p>
+<p>An example of an arrangement that is always congruence normal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.main</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">h</span> <span class="o">=</span> <span class="n">vectorconf_to_hyperplane_arrangement</span><span class="p">(</span><span class="n">vc</span><span class="p">);</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">h</span><span class="o">.</span><span class="n">n_regions</span><span class="p">()</span>
+<span class="mi">24</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">check_result</span> <span class="o">=</span> <span class="n">RegionsCongruenceNormality</span><span class="p">(</span><span class="n">vc</span><span class="p">);</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">check_result</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+<span class="n">dict_values</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">check_result</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="mi">24</span>
+</pre></div>
+</div>
+<p>This vector configuration of ten vectors is sometimes congruence normal.
+It is the smallest simplicial arrangement of rank three that is not always
+congruence normal and is referred to as <span class="math notranslate nohighlight">\(A(10,60)_3\)</span> in <a class="reference internal" href="index.html#cel" id="id2"><span>[CEL]</span></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">tau</span> <span class="o">=</span> <span class="n">AA</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">]]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">(</span><span class="n">ncn</span><span class="p">);</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">check</span> <span class="o">=</span> <span class="n">RegionsCongruenceNormality</span><span class="p">(</span><span class="n">ncn_conf</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vals_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">check</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="n">sage</span><span class="p">:</span> <span class="p">[</span><span class="n">vals_list</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="kc">True</span><span class="p">),</span> <span class="n">vals_list</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="kc">False</span><span class="p">)]</span>
+<span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="cn_hyperarr.main.vectorconf_to_hyperplane_arrangement">
+<code class="sig-prename descclassname">cn_hyperarr.main.</code><code class="sig-name descname">vectorconf_to_hyperplane_arrangement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vector_conf</span></em>, <em class="sig-param"><span class="n">backend</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.main.vectorconf_to_hyperplane_arrangement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the hyperplane arrangement associated to the vector configuration
+<code class="docutils literal notranslate"><span class="pre">vector_conf</span></code>.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vector_conf</span></code> – a vector configuration</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">backend</span></code> – string (default = <code class="docutils literal notranslate"><span class="pre">None</span></code>). The backend to use.</p></li>
+</ul>
+<p>OUTPUT:</p>
+<p>A hyperplane arrangement</p>
+<p>EXAMPLES:</p>
+<p>The arrangement <span class="math notranslate nohighlight">\(A(10,60)_3\)</span> with 10 hyperplanes is the smallest rank-three 
+simplicial arrangement that is not congruence normal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.main</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">tau</span> <span class="o">=</span> <span class="n">AA</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span> <span class="n">tau</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">tau</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tau</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> 
+<span class="o">....</span><span class="p">:</span>        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">tau</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tau</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tau</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span> <span class="n">tau</span><span class="p">],</span> 
+<span class="o">....</span><span class="p">:</span>        <span class="p">[</span><span class="n">tau</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tau</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> 
+<span class="o">....</span><span class="p">:</span>        <span class="p">[</span><span class="n">tau</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">tau</span><span class="p">]]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">(</span><span class="n">ncn</span><span class="p">);</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_arr</span> <span class="o">=</span> <span class="n">vectorconf_to_hyperplane_arrangement</span><span class="p">(</span><span class="n">ncn_conf</span><span class="p">);</span> <span class="n">ncn_arr</span>
+<span class="n">Arrangement</span> <span class="n">of</span> <span class="mi">10</span> <span class="n">hyperplanes</span> <span class="n">of</span> <span class="n">dimension</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">rank</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>Using normaliz as backend:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf_norm</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">(</span><span class="n">ncn</span><span class="p">,</span> <span class="s1">&#39;normaliz&#39;</span><span class="p">)</span>   <span class="c1"># optional - pynormaliz</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf_norm</span><span class="o">.</span><span class="n">backend</span><span class="p">()</span>                                <span class="c1"># optional - pynormaliz</span>
+<span class="s1">&#39;normaliz&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="cn_hyperarr.main.wrapper_forcing_acyclic">
+<code class="sig-prename descclassname">cn_hyperarr.main.</code><code class="sig-name descname">wrapper_forcing_acyclic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vectorconf</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.main.wrapper_forcing_acyclic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether the vector configuration coming from a specific choice
+of base region gives rise to a congruence normal poset of regions.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">vectorconf</span></code> – a vector configuration</p></li>
+</ul>
+<p>OUTPUT:</p>
+<p>A tuple. The first entry says if the forcing_orient_graph is acyclic. The
+second says the number of vertices.</p>
+<p>EXAMPLES:</p>
+<p>The arrangement <span class="math notranslate nohighlight">\(A(10,60)_3\)</span> with 10 hyperplanes is not congruence 
+normal for the implicit choice of base region:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.main</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">tau</span> <span class="o">=</span> <span class="n">AA</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">]]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">(</span><span class="n">ncn</span><span class="p">);</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">wrapper_forcing_acyclic</span><span class="p">(</span><span class="n">ncn_conf</span><span class="p">);</span>
+<span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="mi">29</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A congruence normal arrangement, with an acyclic forcing_oriented_graph:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">wrapper_forcing_acyclic</span><span class="p">(</span><span class="n">vc</span><span class="p">)</span>
+<span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installation.html"
+                        title="previous chapter">Installation &amp; Usage</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="inf_fam.html"
+                        title="next chapter">The Three Infinite Families</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/computations.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="inf_fam.html" title="The Three Infinite Families"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation &amp; Usage"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Congruence Normality for Hyperplane Arrangements 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Congruence Normality of Hyperplane Arrangements</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Sophia Elia.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Three Infinite Families &#8212; Congruence Normality for Hyperplane Arrangements 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="_static/MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Database of Simplicial Hyperplane Arrangements of Rank 3" href="database.html" />
+    <link rel="prev" title="Congruence Normality of Hyperplane Arrangements" href="computations.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="database.html" title="The Database of Simplicial Hyperplane Arrangements of Rank 3"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="computations.html" title="Congruence Normality of Hyperplane Arrangements"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Congruence Normality for Hyperplane Arrangements 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">The Three Infinite Families</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-cn_hyperarr.infinite_families">
+<span id="the-three-infinite-families"></span><h1>The Three Infinite Families<a class="headerlink" href="#module-cn_hyperarr.infinite_families" title="Permalink to this headline">¶</a></h1>
+<p>Library containing the three infinite families of simplicial arrangements of rank three.</p>
+<p>EXAMPLES:</p>
+<p>The first infinite family is the family of near pencils. All lines except for
+one share a common intersection point:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.infinite_families</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">np4</span> <span class="o">=</span> <span class="n">near_pencil_family</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s1">&#39;normaliz&#39;</span><span class="p">);</span> <span class="n">np4</span>             <span class="c1"># optional - pynormaliz</span>
+<span class="n">Vector</span> <span class="n">configuration</span> <span class="n">of</span> <span class="mi">4</span> <span class="n">vectors</span> <span class="ow">in</span> <span class="n">dimension</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>The second infinite family comes from regular polygons and their lines of
+mirror symmetry. They are defined by the total number of hyperplanes, equal to
+twice the number of edges of the polygon:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">ftwo_6</span> <span class="o">=</span> <span class="n">family_two</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="s1">&#39;normaliz&#39;</span><span class="p">);</span> <span class="n">ftwo_6</span>               <span class="c1"># optional - pynormaliz</span>
+<span class="n">Vector</span> <span class="n">configuration</span> <span class="n">of</span> <span class="mi">6</span> <span class="n">vectors</span> <span class="ow">in</span> <span class="n">dimension</span> <span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ftwo_10</span> <span class="o">=</span> <span class="n">family_two</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="s1">&#39;normaliz&#39;</span><span class="p">);</span> <span class="n">ftwo_10</span>            <span class="c1"># optional - pynormaliz</span>
+<span class="n">Vector</span> <span class="n">configuration</span> <span class="n">of</span> <span class="mi">10</span> <span class="n">vectors</span> <span class="ow">in</span> <span class="n">dimension</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>The third infinite family comes from regular polygons with an even number of
+edges and their lines of mirror symmetry along with the line at infinity:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">fthree_17</span> <span class="o">=</span> <span class="n">family_three</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="s1">&#39;normaliz&#39;</span><span class="p">);</span> <span class="n">fthree_17</span>     <span class="c1"># optional - pynormaliz</span>
+<span class="n">Vector</span> <span class="n">configuration</span> <span class="n">of</span> <span class="mi">17</span> <span class="n">vectors</span> <span class="ow">in</span> <span class="n">dimension</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<dl class="py function">
+<dt id="cn_hyperarr.infinite_families.family_three">
+<code class="sig-prename descclassname">cn_hyperarr.infinite_families.</code><code class="sig-name descname">family_three</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em>, <em class="sig-param"><span class="n">backend</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.infinite_families.family_three" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the vector configuration of the arrangement <span class="math notranslate nohighlight">\(A(n,2)\)</span> from the
+family <span class="math notranslate nohighlight">\(\mathcal R(2)\)</span> in Grunbaum’s list.</p>
+<p>The arrangement will have <code class="docutils literal notranslate"><span class="pre">n</span></code> hyperplanes consisting of the edges of the
+regular, even <span class="math notranslate nohighlight">\((n-1)/2\)</span>-gon and the <span class="math notranslate nohighlight">\((n-1)/2\)</span> lines of mirror symmetry
+together with the line at infinity.
+Grunbaum’s notation is <span class="math notranslate nohighlight">\(A(n,2)\)</span> for the resulting arrangement.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code> – integer. (<code class="docutils literal notranslate"><span class="pre">n</span></code>-1)/2 must be even, and <code class="docutils literal notranslate"><span class="pre">n</span></code> <span class="math notranslate nohighlight">\(\geq\)</span> 9.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">backend</span></code> – string (default = <code class="docutils literal notranslate"><span class="pre">None</span></code>). The backend to use.</p></li>
+</ul>
+<p>OUTPUT:</p>
+<p>A vector configuration.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.infinite_families</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">f3_9</span> <span class="o">=</span> <span class="n">family_three</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="s1">&#39;normaliz&#39;</span><span class="p">);</span> <span class="n">f3_9</span>    <span class="c1"># optional - pynormaliz</span>
+<span class="n">Vector</span> <span class="n">configuration</span> <span class="n">of</span> <span class="mi">9</span> <span class="n">vectors</span> <span class="ow">in</span> <span class="n">dimension</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>The number of lines minus one should be zero mod 4:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">f3_8</span> <span class="o">=</span> <span class="n">family_three</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;normaliz&#39;</span><span class="p">)</span>         <span class="c1"># optional - pynormaliz</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">AssertionError</span><span class="p">:</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">must</span> <span class="n">be</span> <span class="mi">0</span> <span class="n">mod</span> <span class="mi">4</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="cn_hyperarr.infinite_families.family_two">
+<code class="sig-prename descclassname">cn_hyperarr.infinite_families.</code><code class="sig-name descname">family_two</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em>, <em class="sig-param"><span class="n">backend</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.infinite_families.family_two" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the vector configuration of the simplicial arrangement
+<span class="math notranslate nohighlight">\(A(n,1)\)</span> from the family <span class="math notranslate nohighlight">\(\mathcal R(1)\)</span> in Grunbaum’s list <a class="reference internal" href="index.html#gru" id="id1"><span>[Gru]</span></a>.</p>
+<p>The arrangement will have an <code class="docutils literal notranslate"><span class="pre">n</span></code> hyperplanes, with <code class="docutils literal notranslate"><span class="pre">n</span></code> even, consisting
+of the edges of the regular <span class="math notranslate nohighlight">\(n/2\)</span>-gon and the <span class="math notranslate nohighlight">\(n/2\)</span> lines of 
+mirror symmetry.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code> – integer. <code class="docutils literal notranslate"><span class="pre">n</span></code> <span class="math notranslate nohighlight">\(\geq 6\)</span>. The number of lines in the arrangement.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">backend</span></code> – string (default = <code class="docutils literal notranslate"><span class="pre">None</span></code>). The backend to use.</p></li>
+</ul>
+<p>OUTPUT:</p>
+<p>A vector configuration.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.infinite_families</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">pf</span> <span class="o">=</span> <span class="n">family_two</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="s1">&#39;normaliz&#39;</span><span class="p">);</span> <span class="n">pf</span>   <span class="c1"># optional - pynormaliz</span>
+<span class="n">Vector</span> <span class="n">configuration</span> <span class="n">of</span> <span class="mi">8</span> <span class="n">vectors</span> <span class="ow">in</span> <span class="n">dimension</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>The number of lines must be even:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">pf3</span> <span class="o">=</span> <span class="n">family_two</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;normaliz&#39;</span><span class="p">);</span>     <span class="c1"># optional - pynormaliz</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">AssertionError</span><span class="p">:</span> <span class="n">n</span> <span class="n">must</span> <span class="n">be</span> <span class="n">even</span>
+</pre></div>
+</div>
+<p>The number of lines must be at least 6:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">pf4</span> <span class="o">=</span> <span class="n">family_two</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s1">&#39;normaliz&#39;</span><span class="p">)</span>      <span class="c1"># optional - pynormaliz</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">ValueError</span><span class="p">:</span> <span class="n">n</span> <span class="p">(</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="n">must</span> <span class="n">be</span> <span class="n">an</span> <span class="n">integer</span> <span class="n">greater</span> <span class="n">than</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="cn_hyperarr.infinite_families.near_pencil_family">
+<code class="sig-prename descclassname">cn_hyperarr.infinite_families.</code><code class="sig-name descname">near_pencil_family</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">n</span></em>, <em class="sig-param"><span class="n">backend</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.infinite_families.near_pencil_family" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the vector configuration of the near pencil with <code class="docutils literal notranslate"><span class="pre">n</span></code> lines.</p>
+<p>All lines except for one share a common intersection point.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code> – integer. <code class="docutils literal notranslate"><span class="pre">n</span></code> <span class="math notranslate nohighlight">\(\geq 3\)</span>. The number of lines in the near pencil.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">backend</span></code> – string (default = <code class="docutils literal notranslate"><span class="pre">None</span></code>). The backend to use.</p></li>
+</ul>
+<p>OUTPUT:</p>
+<p>A vector configuration.</p>
+<p>EXAMPLES:</p>
+<p>The near pencil with three hyperplanes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.infinite_families</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">np</span> <span class="o">=</span> <span class="n">near_pencil_family</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;normaliz&#39;</span><span class="p">);</span> <span class="n">np</span>         <span class="c1"># optional - pynormaliz</span>
+<span class="n">Vector</span> <span class="n">configuration</span> <span class="n">of</span> <span class="mi">3</span> <span class="n">vectors</span> <span class="ow">in</span> <span class="n">dimension</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>The near pencil arrangements are always congruence normal. Note, this test
+just shows there exists a region such that they are CN:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">near_pencils</span> <span class="o">=</span> <span class="p">[</span><span class="n">near_pencil_family</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="s1">&#39;normaliz&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">)]</span> <span class="c1"># optional - pynormaliz</span>
+<span class="n">sage</span><span class="p">:</span> <span class="p">[</span> <span class="n">np</span><span class="o">.</span><span class="n">is_congruence_normal</span><span class="p">()</span> <span class="k">for</span> <span class="n">np</span> <span class="ow">in</span> <span class="n">near_pencils</span><span class="p">]</span> <span class="c1"># optional - pynormaliz</span>
+<span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>TESTS:</p>
+<p>Test that the backend is normaliz:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">np</span> <span class="o">=</span> <span class="n">near_pencil_family</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;normaliz&#39;</span><span class="p">);</span>            <span class="c1"># optional - pynormaliz</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">backend</span><span class="p">()</span>                                        <span class="c1"># optional - pynormaliz</span>
+<span class="s1">&#39;normaliz&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="computations.html"
+                        title="previous chapter">Congruence Normality of Hyperplane Arrangements</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="database.html"
+                        title="next chapter">The Database of Simplicial Hyperplane Arrangements of Rank 3</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/inf_fam.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="database.html" title="The Database of Simplicial Hyperplane Arrangements of Rank 3"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="computations.html" title="Congruence Normality of Hyperplane Arrangements"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Congruence Normality for Hyperplane Arrangements 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">The Three Infinite Families</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Sophia Elia.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+  </body>
+</html>

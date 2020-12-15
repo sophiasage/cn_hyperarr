@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to cn_hyperarr’s documentation! &#8212; Congruence Normality for Hyperplane Arrangements 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="_static/MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation &amp; Usage" href="installation.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation &amp; Usage"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Congruence Normality for Hyperplane Arrangements 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to cn_hyperarr’s documentation!</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-cn-hyperarr-s-documentation">
+<h1>Welcome to cn_hyperarr’s documentation!<a class="headerlink" href="#welcome-to-cn-hyperarr-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>cn_hyperarr is a package for the computation of congruence normality of
+three-dimensional hyperplane arrangements.</p>
+<p>A dictionary containing the normal vectors to all currently known simplicial
+arrangements of rank 3 is available.</p>
+<p>There is a module for vector configurations which could be useful independently.
+A vector configuration can be seen as the set of normals to a hyperplane
+arrangement. A simplicial hyperplane arrangement has a lattice of regions
+associated to each chamber. To check whether this lattice is obtainable through
+a sequence of doublings of convex sets, i.e. is congruence normal, we use the
+theory developed in <a class="reference internal" href="#cel" id="id1"><span>[CEL]</span></a>. For each choice of chamber, there is an associated
+acyclic vector configuration. We compute the shard covectors
+and the forcing oriented graph on the shard covectors. If this oriented
+graph is acyclic, then the arrangement is congruence normal with
+respect to the chosen chamber; this property is tested in the method
+<code class="xref py py-func docutils literal notranslate"><span class="pre">is_congruence_normal()</span></code>.</p>
+<p>In the computations module, we test congruence normality for each region
+of a hyperplane arrangement.</p>
+<p>Finally there is a module for constructing the three infinite families of
+rank-3 simplicial arrangements.</p>
+<p>With this package, you can compute the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>vector configurations</p></li>
+<li><p>covectors and shard covectors</p></li>
+<li><p>forcing oriented graph on shards</p></li>
+<li><p>congruence normality of the poset of regions</p></li>
+<li><p>hyperplane arrangements from vector configurations</p></li>
+<li><p>the vector configurations of the three infinite families of simplicial
+rank-three arrangements <a class="reference internal" href="#gru" id="id2"><span>[Gru]</span></a></p></li>
+</ul>
+</div></blockquote>
+<p>With this package, you can load:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>normals of all known simplicial arrangements of rank-three</p></li>
+<li><p>invariants of all known simplicial arrangements of rank-three</p></li>
+<li><p>wiring diagrams of all known simplicial arrangements of rank-three</p></li>
+</ul>
+</div></blockquote>
+<p>Here is an example of the arrangement <span class="math notranslate nohighlight">\(A(10,60)_3\)</span> that is sometimes
+congruence normal.</p>
+<p>EXAMPLES:</p>
+<blockquote>
+<div><p>First we load the normals of the arrangement from the database.
+The entries of the database are labeled in the same way as in <a class="reference internal" href="#cel" id="id3"><span>[CEL]</span></a>:</p>
+<p>sage: from cn_hyperarr import *
+sage: s_normals = db_normals_CEL[(10,60,3)]</p>
+<p>Now we make the normals into a vector configuration:</p>
+<p>sage: s_vc = VectorConfiguration([vector(x) for x in s_normals])</p>
+<p>To test congruence normality, use the <code class="xref py py-func docutils literal notranslate"><span class="pre">RegionsCongruenceNormal()</span></code> method:</p>
+<p>sage: somet_check = RegionsCongruenceNormality(s_vc)
+sage: somet_vals_list = list(somet_check.values())
+sage: [somet_vals_list.count(True), somet_vals_list.count(False)]
+[40,20]</p>
+</div></blockquote>
+<p>REFERENCES:</p>
+<dl class="citation">
+<dt class="label" id="cel"><span class="brackets">CEL</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>)</span></dt>
+<dd><p>Michael Cuntz, Sophia Elia, and Jean-Philippe Labbé. Congruence normality of simplicial hyperplane arrangements via oriented matroids, 2020. arXiv:2009.14152.</p>
+</dd>
+<dt class="label" id="gru"><span class="brackets"><a class="fn-backref" href="#id2">Gru</a></span></dt>
+<dd><p>Branko Grunbaum. A catalogue of simplicial arrangements in the real projective plane, 2009. Ars Math. Contemp. 2, no. 1, 1-25.</p>
+</dd>
+</dl>
+<p>AUTHORS:</p>
+<ul class="simple">
+<li><p>Michael Cuntz (2020): Initial version</p></li>
+<li><p>Sophia Elia (2020): Initial version</p></li>
+<li><p>Jean-Philippe Labbé (2020): Initial version</p></li>
+</ul>
+<div class="section" id="congruence-normality-for-hyperplane-arrangements">
+<h2>Congruence Normality for Hyperplane Arrangements<a class="headerlink" href="#congruence-normality-for-hyperplane-arrangements" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation &amp; Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="computations.html">Congruence Normality of Hyperplane Arrangements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inf_fam.html">The Three Infinite Families</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">The Database of Simplicial Hyperplane Arrangements of Rank 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vector_conf.html">Vector Configurations Module</a></li>
+</ul>
+</div>
+<span class="target" id="module-cn_hyperarr"></span></div>
+<div class="section" id="indices-and-tables">
+<h2>Indices and Tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Welcome to cn_hyperarr’s documentation!</a><ul>
+<li><a class="reference internal" href="#congruence-normality-for-hyperplane-arrangements">Congruence Normality for Hyperplane Arrangements</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and Tables</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="installation.html"
+                        title="next chapter">Installation &amp; Usage</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation &amp; Usage"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Congruence Normality for Hyperplane Arrangements 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to cn_hyperarr’s documentation!</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Sophia Elia.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,968 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Configurations Module &#8212; Congruence Normality for Hyperplane Arrangements 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="_static/MathJax.js?config=TeX-AMS_HTML-full,../mathjax_sage.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="The Database of Simplicial Hyperplane Arrangements of Rank 3" href="database.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="database.html" title="The Database of Simplicial Hyperplane Arrangements of Rank 3"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Congruence Normality for Hyperplane Arrangements 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Vector Configurations Module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-cn_hyperarr.vector_classes">
+<span id="vector-configurations-module"></span><h1>Vector Configurations Module<a class="headerlink" href="#module-cn_hyperarr.vector_classes" title="Permalink to this headline">¶</a></h1>
+<p>Module for vector configurations and covectors. 
+A vector configuration is a labeled set of vectors <span class="math notranslate nohighlight">\(\{v_i~:~i\in I\}\)</span> in a
+common vector space <span class="math notranslate nohighlight">\(V\)</span>. In the <code class="xref py py-class docutils literal notranslate"><span class="pre">VectorConfiguration</span></code> 
+class, there are methods to test if a vector configuration is acyclic or totally 
+acyclic, and also to return the underlying matroid and hypergraph. 
+When the vector configuration is three dimensional, 
+one can compute its cocircuits, i.e. maximal covectors.</p>
+<p>A covector is a vector of signs <span class="math notranslate nohighlight">\(-1,0,+1\)</span> (<span class="math notranslate nohighlight">\(3=*\)</span>, for restricted
+covectors) obtained by an affine linear map on a vector configuration.</p>
+<div class="math notranslate nohighlight">
+\[C_{c,a}:= (\operatorname{sign}(c\cdot p_i+a))_{i\in[m]}\]</div>
+<p>where <span class="math notranslate nohighlight">\(c\)</span> is a vector, <span class="math notranslate nohighlight">\(a\)</span> is a scalar, and <span class="math notranslate nohighlight">\(\{p_i\}_{i\in[m]}\)</span> is a vector
+configuration. Members of the <code class="xref py py-class docutils literal notranslate"><span class="pre">Covector</span></code> class can be 
+constructed either by declaring their entries or by passing a vector, scalar, 
+and vector configuration. This class also has the 
+<code class="xref py py-func docutils literal notranslate"><span class="pre">intersection()</span></code> method as defined in <a class="reference internal" href="index.html#cel" id="id1"><span>[CEL]</span></a>.</p>
+<p>There are also methods for examining congruence uniformity/normality of 
+posets of regions of hyperplane arrangements.
+A vector configuration can be seen as the set of normals to a hyperplane
+arrangement. A simplicial hyperplane arrangement has a lattice of regions 
+associated to each chamber. To check whether this lattice is obtainable through
+a sequence of doublings of convex sets, i.e. is congruence normal, we use the 
+theory developed in <a class="reference internal" href="index.html#cel" id="id2"><span>[CEL]</span></a>. For each choice of chamber, there is an associated 
+acyclic vector configuration. In this module, we compute the shard covectors
+and the forcing oriented graph on the shard covectors. If this oriented 
+graph is acyclic, then the arrangement is congruence normal with 
+respect to the chosen chamber; this property is tested in the method 
+<code class="xref py py-func docutils literal notranslate"><span class="pre">is_congruence_normal()</span></code>.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">tau</span> <span class="o">=</span> <span class="n">AA</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">]]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">(</span><span class="n">ncn</span><span class="p">);</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">ncn_conf</span><span class="o">.</span><span class="n">shard_covectors</span><span class="p">())</span>
+<span class="mi">29</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf</span><span class="o">.</span><span class="n">forcing_oriented_graph</span><span class="p">()</span>
+<span class="n">Digraph</span> <span class="n">on</span> <span class="mi">29</span> <span class="n">vertices</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf</span><span class="o">.</span><span class="n">is_congruence_normal</span><span class="p">()</span>
+<span class="kc">False</span>
+</pre></div>
+</div>
+<p>AUTHORS:</p>
+<ul class="simple">
+<li><p>Jean-Philippe Labbé (2020): Initial version</p></li>
+<li><p>Sophia Elia (2020): Initial version</p></li>
+</ul>
+<dl class="py class">
+<dt id="cn_hyperarr.vector_classes.Covector">
+<em class="property">class </em><code class="sig-prename descclassname">cn_hyperarr.vector_classes.</code><code class="sig-name descname">Covector</code><a class="headerlink" href="#cn_hyperarr.vector_classes.Covector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<p>A covector</p>
+<p>A covector is a vector of signs <span class="math notranslate nohighlight">\(-1,0,+1,3=*\)</span> for restricted covectors
+obtained by an affine linear map on a vector configuration.</p>
+<div class="math notranslate nohighlight">
+\[C_{c,a}:= (\operatorname{sign}(c\cdot p_i+a))_{i\in[m]}\]</div>
+<p>where <span class="math notranslate nohighlight">\(c\)</span> is a vector, <span class="math notranslate nohighlight">\(a\)</span> is a scalar, and <span class="math notranslate nohighlight">\(\{p_i\}_{i\in[m]}\)</span> is a vector
+configuration.</p>
+<p>EXAMPLES:</p>
+<p>It is possible to create a covector from various input. The first
+possibility is a list of signs and stars:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Covector</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]);</span> <span class="n">c</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">stars</span><span class="p">()</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The second possibility is giving the signs of the indices [-1,0,+1] and the
+length. The unspecified indices will have the star symbol (3=*):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">d</span> <span class="o">=</span> <span class="n">Covector</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">8</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">]],</span><span class="mi">10</span><span class="p">);</span> <span class="n">d</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, one may specify a vector configuration, a vector, a constant, and
+the starred indices:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span> <span class="o">=</span> <span class="n">vector</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">stars</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Covector</span><span class="p">(</span><span class="n">vc</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">stars</span><span class="p">)</span>
+<span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.Covector.as_vector">
+<code class="sig-name descname">as_vector</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.Covector.as_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the covector as a vector object</p>
+<p>OUTPUT:</p>
+<p>A vector.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="n">Covector</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">as_vector</span><span class="p">();</span><span class="n">v</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="mi">3</span><span class="o">*</span><span class="n">v</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.Covector.intersection">
+<code class="sig-name descname">intersection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">other</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.Covector.intersection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the intersection of <code class="docutils literal notranslate"><span class="pre">self</span></code> with <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p>
+<p>The intersection of two restricted covectors is defined in <a class="reference internal" href="index.html#cel" id="id3"><span>[CEL]</span></a> as 
+the commutative, associative, component-wise operation such that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}+ \cap + := +,  \\
++ \cap - = - \cap + := 0, \\ 
+- \cap - := -, \\
+0 \cap \varepsilon = \varepsilon \cap 0 := 0, \\
+* \cap \varepsilon = \varepsilon \cap * := \varepsilon, \\\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\varepsilon \in \{0,+,-,*\}\)</span>.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">other</span></code> – a <a class="reference internal" href="#cn_hyperarr.vector_classes.Covector" title="cn_hyperarr.vector_classes.Covector"><code class="xref py py-class docutils literal notranslate"><span class="pre">Covector</span></code></a></p></li>
+</ul>
+<p>OUTPUT:</p>
+<p>A covector. The intersection of <code class="docutils literal notranslate"><span class="pre">self</span></code> with <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span> <span class="o">=</span> <span class="n">Covector</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Covector</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Covector</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span> <span class="o">&amp;</span> <span class="n">c</span>
+<span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span> <span class="o">&amp;</span> <span class="n">c</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span> <span class="o">&amp;</span> <span class="n">b</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span> <span class="o">&amp;</span> <span class="n">a</span>
+<span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span> <span class="o">&amp;</span> <span class="n">c</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span> <span class="o">&amp;</span> <span class="n">c</span> <span class="o">&amp;</span> <span class="n">a</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">d</span> <span class="o">=</span> <span class="n">Covector</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span> <span class="o">&amp;</span> <span class="n">d</span>
+<span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span> <span class="o">&amp;</span> <span class="n">d</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">c</span> <span class="o">&amp;</span> <span class="n">d</span>
+<span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>TESTS:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">a</span> <span class="o">=</span> <span class="n">Covector</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Covector</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">a</span> <span class="o">&amp;</span> <span class="n">b</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">ValueError</span><span class="p">:</span> <span class="n">The</span> <span class="n">covectors</span> <span class="n">don</span><span class="s1">&#39;t have the same length</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.Covector.stars">
+<code class="sig-name descname">stars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.Covector.stars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the indices with stars.</p>
+<p>A starred entry is represented as a 3 in a restricted covector (3=*).</p>
+<p>OUTPUT:</p>
+<p>A tuple</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">Covector</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">stars</span><span class="p">()</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A covector with no stars:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">Covector</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">stars</span><span class="p">()</span>
+<span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration">
+<em class="property">class </em><code class="sig-prename descclassname">cn_hyperarr.vector_classes.</code><code class="sig-name descname">VectorConfiguration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vector_list</span></em>, <em class="sig-param"><span class="n">backend</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A vector configuration.</p>
+<p>A vector configuration is a labeled set of vectors <span class="math notranslate nohighlight">\(\{v_i~:~i\in I\}\)</span> in a
+common vector space <span class="math notranslate nohighlight">\(V\)</span>.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="o">....</span><span class="p">:</span>  <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">(</span><span class="n">v</span><span class="p">);</span> <span class="n">vc</span>
+<span class="n">Vector</span> <span class="n">configuration</span> <span class="n">of</span> <span class="mi">8</span> <span class="n">vectors</span> <span class="ow">in</span> <span class="n">dimension</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>You can ask different things:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">vectors</span><span class="p">()</span>
+<span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+ <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+ <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+ <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+ <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+ <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">ambient_dimension</span><span class="p">()</span>
+<span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">three_dim_cocircuits</span><span class="p">()</span>
+<span class="p">(((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>The vector configuration of an arrangement of hyperplanes that is not
+congruence normal. It is the arrangement <span class="math notranslate nohighlight">\(A(10,60)_3\)</span> in <a class="reference internal" href="index.html#cel" id="id4"><span>[CEL]</span></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">tau</span> <span class="o">=</span> <span class="n">AA</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">]]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">(</span><span class="n">ncn</span><span class="p">);</span> <span class="n">ncn_conf</span>
+<span class="n">Vector</span> <span class="n">configuration</span> <span class="n">of</span> <span class="mi">10</span> <span class="n">vectors</span> <span class="ow">in</span> <span class="n">dimension</span> <span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf</span><span class="o">.</span><span class="n">base_ring</span><span class="p">()</span>
+<span class="n">Algebraic</span> <span class="n">Real</span> <span class="n">Field</span>
+</pre></div>
+</div>
+<p>TESTS:</p>
+<p>The vectors should all have the same dimension:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">AssertionError</span><span class="p">:</span> <span class="n">The</span> <span class="n">vectors</span> <span class="n">are</span> <span class="ow">not</span> <span class="nb">all</span> <span class="n">of</span> <span class="n">the</span> <span class="n">same</span> <span class="n">dimension</span>
+</pre></div>
+</div>
+<p>The list of vectors can have repeats:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span>
+<span class="n">Vector</span> <span class="n">configuration</span> <span class="n">of</span> <span class="mi">2</span> <span class="n">vectors</span> <span class="ow">in</span> <span class="n">dimension</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.ambient_dimension">
+<code class="sig-name descname">ambient_dimension</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.ambient_dimension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the ambient dimension of the vector configuration</p>
+<p>OUTPUT:</p>
+<p>An integer.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">ambient_dimension</span><span class="p">()</span>
+<span class="mi">3</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">VectorConfiguration</span><span class="p">([])</span><span class="o">.</span><span class="n">ambient_dimension</span><span class="p">()</span>
+<span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.backend">
+<code class="sig-name descname">backend</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.backend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the backend used for the computations</p>
+<p>OUTPUT:</p>
+<p>A string stating the backend.</p>
+<p>EXAMPLES:</p>
+<p>The default backend is <code class="docutils literal notranslate"><span class="pre">None</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">backend</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can specify any backend that Polyhedron objects accept:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]],</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;normaliz&#39;</span><span class="p">)</span>    <span class="c1"># optional - pynormaliz</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">backend</span><span class="p">()</span>   <span class="c1"># optional - pynormaliz</span>
+<span class="s1">&#39;normaliz&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.base_ring">
+<code class="sig-name descname">base_ring</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.base_ring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the base ring of the vector configuration</p>
+<p>OUTPUT:</p>
+<p>A ring.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sage: from cn_hyperarr.vector_classes import *
+sage: vc1 = VectorConfiguration([[1,0,0],[0,1,0],[3,0,0]])
+sage: vc1.base_ring()
+Integer Ring
+
+sage: vc2 = VectorConfiguration([[1/2,0,0],[0,1/3,0],[3,0,0]])
+sage: vc2.base_ring()
+Rational Field
+
+sage: vc3 = VectorConfiguration([[sqrt(2),1,0],[0,1,0],[0,0,1]])
+sage: vc3.base_ring()
+Symbolic Ring
+
+sage: K.&lt;a&gt; = QuadraticField(-5)
+sage: vc4 = VectorConfiguration([[a,1/2],[2,0],[4,5/6]])
+sage: vc4.base_ring()
+Number Field in a with defining polynomial x^2 + 5 with a = 2.236067977499790?*I
+
+sage: vc5 = VectorConfiguration([[1,0,0],[0,1,0],[3,0,1e-10]])
+sage: vc5.base_ring()
+Real Field with 53 bits of precision
+
+sage: vc6 = VectorConfiguration([])
+sage: vc6.base_ring()
+Category of objects
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.cone_rays">
+<code class="sig-name descname">cone_rays</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.cone_rays" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the basis of an acylic vector configuration.</p>
+<p>These are the rays of the cone spanned by the vectors.
+This only works for simplicial vector configurations.</p>
+<p>OUTPUT:</p>
+<p>A set. The indices of the vectors that form the rays of the cone spanned
+by the vectors.</p>
+<p>EXAMPLES:</p>
+<p>The standard basis vectors are the rays of the following acyclic
+configuration:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">cone_rays</span><span class="p">()</span>
+<span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The cone spanned by the vectors should be simplicial:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">cone_rays</span><span class="p">()</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">AssertionError</span><span class="p">:</span> <span class="n">The</span> <span class="n">cone</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">simplicial</span>
+</pre></div>
+</div>
+<p>TESTS:</p>
+<p>The arrangement should be acyclic:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">cone_rays</span><span class="p">()</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">AssertionError</span><span class="p">:</span> <span class="n">The</span> <span class="n">vector</span> <span class="n">configuration</span> <span class="n">should</span> <span class="n">be</span> <span class="n">acyclic</span>
+</pre></div>
+</div>
+<p>The ambient dimension should be three:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">cone_rays</span><span class="p">()</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">AssertionError</span><span class="p">:</span> <span class="n">The</span> <span class="n">ambient</span> <span class="n">dimension</span> <span class="ow">is</span> <span class="ow">not</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.dominating_pairs">
+<code class="sig-name descname">dominating_pairs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.dominating_pairs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the dominating pairs for each point in a 3-d acyclic vector_configuration.</p>
+<p>A point p has a dominating pair (a,b) when p lies in the positive
+linear span of a and b.</p>
+<p>OUTPUT:</p>
+<p>A dictionary where keys are the indices of the vectors and the values
+are the associated dominating pairs.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">dominating_pairs</span><span class="p">()</span>
+<span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span> <span class="mi">1</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span> <span class="mi">2</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span> <span class="mi">3</span><span class="p">:</span> <span class="p">{(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)},</span> <span class="mi">4</span><span class="p">:</span> <span class="p">{(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)},</span> <span class="mi">5</span><span class="p">:</span> <span class="p">{(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)}}</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">tau</span> <span class="o">=</span> <span class="n">AA</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">]]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">(</span><span class="n">ncn</span><span class="p">);</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf</span><span class="o">.</span><span class="n">dominating_pairs</span><span class="p">()</span>
+<span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">{(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">)},</span>
+ <span class="mi">1</span><span class="p">:</span> <span class="p">{(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">)},</span>
+ <span class="mi">2</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
+ <span class="mi">3</span><span class="p">:</span> <span class="p">{(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">)},</span>
+ <span class="mi">4</span><span class="p">:</span> <span class="p">{(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">)},</span>
+ <span class="mi">5</span><span class="p">:</span> <span class="p">{(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">)},</span>
+ <span class="mi">6</span><span class="p">:</span> <span class="p">{(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">)},</span>
+ <span class="mi">7</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
+ <span class="mi">8</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
+ <span class="mi">9</span><span class="p">:</span> <span class="p">{(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">)}}</span>
+</pre></div>
+</div>
+<p>The vector [0,0,1] is in the positive linear span of [-1,0,1] and
+[1,0,1]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">dominating_pairs</span><span class="p">()</span>
+<span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">{(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)},</span>
+ <span class="mi">1</span><span class="p">:</span> <span class="nb">set</span><span class="p">(),</span>
+ <span class="mi">2</span><span class="p">:</span> <span class="nb">set</span><span class="p">()}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.forcing_oriented_graph">
+<code class="sig-name descname">forcing_oriented_graph</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.forcing_oriented_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the forcing oriented graph for a 3-dimensional vector
+configuration.</p>
+<p>This is the directed graph on shards. The hyperplane arrangement with
+base region corresponding to the acyclic vector configuration is
+congruence normal if and only if the directed graph on shards
+is acyclic.</p>
+<p>OUTPUT:</p>
+<p>An oriented graph</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">fog</span> <span class="o">=</span> <span class="n">vc</span><span class="o">.</span><span class="n">forcing_oriented_graph</span><span class="p">();</span> <span class="n">fog</span>
+<span class="n">Digraph</span> <span class="n">on</span> <span class="mi">11</span> <span class="n">vertices</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">fog</span><span class="o">.</span><span class="n">num_edges</span><span class="p">()</span>
+<span class="mi">24</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">tau</span> <span class="o">=</span> <span class="n">AA</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">]]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">(</span><span class="n">ncn</span><span class="p">);</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_fog</span> <span class="o">=</span> <span class="n">ncn_conf</span><span class="o">.</span><span class="n">forcing_oriented_graph</span><span class="p">();</span> <span class="n">ncn_fog</span>
+<span class="n">Digraph</span> <span class="n">on</span> <span class="mi">29</span> <span class="n">vertices</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_fog</span><span class="o">.</span><span class="n">num_edges</span><span class="p">()</span>
+<span class="mi">96</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_fog</span><span class="o">.</span><span class="n">is_directed_acyclic</span><span class="p">()</span>
+<span class="kc">False</span>
+</pre></div>
+</div>
+<p>TESTS:</p>
+<p>The ambient dimension should be 3:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">forcing_oriented_graph</span><span class="p">()</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">AssertionError</span><span class="p">:</span> <span class="n">The</span> <span class="n">ambient</span> <span class="n">dimension</span> <span class="ow">is</span> <span class="ow">not</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.is_acyclic">
+<code class="sig-name descname">is_acyclic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.is_acyclic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether <code class="docutils literal notranslate"><span class="pre">self</span></code> is acyclic.</p>
+<p>A vector configuration is acyclic if the origin is not in the relative
+interior of the cone spanned by the vectors.</p>
+<p>OUTPUT:</p>
+<p>Boolean. Whether <code class="docutils literal notranslate"><span class="pre">self</span></code> is acyclic.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#cn_hyperarr.vector_classes.VectorConfiguration.is_totally_cyclic" title="cn_hyperarr.vector_classes.VectorConfiguration.is_totally_cyclic"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_totally_cyclic()</span></code></a>.</p>
+</div>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">is_acyclic</span><span class="p">()</span>
+<span class="kc">True</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="o">....</span><span class="p">:</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="o">....</span><span class="p">:</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="o">....</span><span class="p">:</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="o">....</span><span class="p">:</span>      <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="o">....</span><span class="p">:</span>      <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="o">....</span><span class="p">:</span>      <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="o">....</span><span class="p">:</span>      <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">is_acyclic</span><span class="p">()</span>
+<span class="kc">False</span>
+</pre></div>
+</div>
+<p>TESTS:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">is_acyclic</span><span class="p">()</span>
+<span class="kc">True</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc2</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc2</span><span class="o">.</span><span class="n">is_acyclic</span><span class="p">()</span>
+<span class="kc">False</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc3</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc3</span><span class="o">.</span><span class="n">is_acyclic</span><span class="p">()</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">ValueError</span><span class="p">:</span> <span class="n">PPL</span><span class="p">::</span><span class="n">ray</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+<span class="n">e</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">but</span> <span class="n">the</span> <span class="n">origin</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">a</span> <span class="n">ray</span><span class="o">.</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">is_acyclic</span><span class="p">()</span>
+<span class="kc">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.is_congruence_normal">
+<code class="sig-name descname">is_congruence_normal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.is_congruence_normal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether the poset of regions of the corresponding hyperplane
+arrangement is congruence normal.</p>
+<p>An acyclic vector configuration corresponds to a hyperplane arrangement
+with selected base region.</p>
+<p>OUTPUT:</p>
+<p>Boolean. Whether the poset of regions is congruence normal with respect
+to implicitly chosen base region.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">is_congruence_normal</span><span class="p">()</span>
+<span class="kc">True</span>
+</pre></div>
+</div>
+<p>The first arrangement that is not congruence normal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">tau</span> <span class="o">=</span> <span class="n">AA</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">]]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">(</span><span class="n">ncn</span><span class="p">);</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf</span><span class="o">.</span><span class="n">is_congruence_normal</span><span class="p">()</span>
+<span class="kc">False</span>
+</pre></div>
+</div>
+<p>TESTS:</p>
+<p>The arrangement should be acyclic:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">is_congruence_normal</span><span class="p">()</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">AssertionError</span><span class="p">:</span> <span class="n">The</span> <span class="n">vector</span> <span class="n">configuration</span> <span class="n">should</span> <span class="n">be</span> <span class="n">acyclic</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.is_totally_cyclic">
+<code class="sig-name descname">is_totally_cyclic</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.is_totally_cyclic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether <code class="docutils literal notranslate"><span class="pre">self</span></code> is totally cyclic.</p>
+<p>A vector configuration is totally cyclic if the origin is in the relative
+interior of the cone spanned by the vectors.</p>
+<p>OUTPUT:</p>
+<p>Boolian. Whether <code class="docutils literal notranslate"><span class="pre">self</span></code> is totally cyclic.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#cn_hyperarr.vector_classes.VectorConfiguration.is_acyclic" title="cn_hyperarr.vector_classes.VectorConfiguration.is_acyclic"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_acyclic()</span></code></a>.</p>
+</div>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">is_totally_cyclic</span><span class="p">()</span>
+<span class="kc">False</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">v</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="o">....</span><span class="p">:</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="o">....</span><span class="p">:</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="o">....</span><span class="p">:</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="o">....</span><span class="p">:</span>      <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="o">....</span><span class="p">:</span>      <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="o">....</span><span class="p">:</span>      <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+<span class="o">....</span><span class="p">:</span>      <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">is_totally_cyclic</span><span class="p">()</span>
+<span class="kc">True</span>
+</pre></div>
+</div>
+<p>TESTS:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">is_totally_cyclic</span><span class="p">()</span>
+<span class="kc">False</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc2</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc2</span><span class="o">.</span><span class="n">is_totally_cyclic</span><span class="p">()</span>
+<span class="kc">True</span>
+
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc3</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc3</span><span class="o">.</span><span class="n">is_totally_cyclic</span><span class="p">()</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">ValueError</span><span class="p">:</span> <span class="n">PPL</span><span class="p">::</span><span class="n">ray</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+<span class="n">e</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">but</span> <span class="n">the</span> <span class="n">origin</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">a</span> <span class="n">ray</span><span class="o">.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.line_covectors">
+<code class="sig-name descname">line_covectors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.line_covectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary with pairs of normal vectors as keys and a list
+containing the line covectors as value (up to multiplication by -1).</p>
+<p>The line covectors encode the sign pattern of all the vectors in
+<code class="docutils literal notranslate"><span class="pre">self</span></code> on the intersection of two hyperplanes for vector
+configurations in dimension 3.</p>
+<p>OUTPUT</p>
+<p>a dictionary.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">line_covectors</span><span class="p">()</span>
+<span class="p">{{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}:</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+ <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">}:</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+ <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">}:</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span>
+ <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">}:</span> <span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+ <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">}:</span> <span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+ <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}:</span> <span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+ <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">}:</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+ <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">}:</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span>
+ <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">}:</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+ <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">}:</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span>
+ <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">}:</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+ <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">}:</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+ <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">}:</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span>
+ <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">}:</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+ <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">}:</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))}</span>
+</pre></div>
+</div>
+<p>TESTS:</p>
+<p>The ambient dimension should be 3:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">line_covectors</span><span class="p">()</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">AssertionError</span><span class="p">:</span> <span class="n">The</span> <span class="n">ambient</span> <span class="n">dimension</span> <span class="n">should</span> <span class="n">be</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>TODO:</p>
+<blockquote>
+<div><p>Make it work in higher dimension.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.line_vertices">
+<code class="sig-name descname">line_vertices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.line_vertices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the vertices for each line in a 3-d acyclic vector_configuration.</p>
+<p>NOTE:</p>
+<p>An acyclic vector configuration corresponds to the normal vectors of
+a hyperplane arrangement with a selected base region.</p>
+<p>OUTPUT:</p>
+<p>A list of pairs.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">line_vertices</span><span class="p">()</span>
+<span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>The vectors [-1,0,1] and [1,0,1] are the vertices of the line containing
+[0,0,1]:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">line_vertices</span><span class="p">()</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.n_vectors">
+<code class="sig-name descname">n_vectors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.n_vectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of vectors in the configuration</p>
+<p>OUTPUT:</p>
+<p>An integer.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">n_vectors</span><span class="p">()</span>
+<span class="mi">6</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.shard_covectors">
+<code class="sig-name descname">shard_covectors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.shard_covectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the shard covectors for the given planar vector configuraton.</p>
+<p>The shard covectors are defined in <a class="reference internal" href="index.html#cel" id="id5"><span>[CEL]</span></a> and shown to be in bijection
+with the shards of the hyperplane arrangement with specified base 
+region. A shard covector of a shard on hyperplane <span class="math notranslate nohighlight">\(i\)</span> is a restricted
+covector with a unique zero in position <span class="math notranslate nohighlight">\(i\)</span>.</p>
+<p>NOTE:</p>
+<p>An acyclic vector configuration corresponds to a hyperplane arrangement
+with selected base region.</p>
+<p>OUTPUT:</p>
+<p>A tuple of covectors as sequences of -1,0,1,‘3’.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">vc</span><span class="o">.</span><span class="n">shard_covectors</span><span class="p">())</span>
+<span class="mi">11</span>
+</pre></div>
+</div>
+<p>The following vector configuration is not congruence normal and has 29
+shards:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">tau</span> <span class="o">=</span> <span class="n">AA</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="n">tau</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">tau</span><span class="p">,</span><span class="n">tau</span><span class="p">]]</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">ncn_conf</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">(</span><span class="n">ncn</span><span class="p">);</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">ncn_conf</span><span class="o">.</span><span class="n">shard_covectors</span><span class="p">())</span>
+<span class="mi">29</span>
+</pre></div>
+</div>
+<p>The vector configuration [[-1,0,1],[1,0,1],[0,0,1],[0,1,0]] has five shards:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">vc</span><span class="o">.</span><span class="n">shard_covectors</span><span class="p">())</span>
+<span class="mi">5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.three_dim_cocircuits">
+<code class="sig-name descname">three_dim_cocircuits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.three_dim_cocircuits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the cocircuits of a 3-dimensional vector configuration.</p>
+<p>OUTPUT:</p>
+<p>A tuple of cocircuits in the form (-,0,+).</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">three_dim_cocircuits</span><span class="p">()</span>
+<span class="p">(((),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)),</span>
+ <span class="p">((),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)),</span>
+ <span class="p">((),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">0</span><span class="p">,),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)),</span>
+ <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">()),</span>
+ <span class="p">((</span><span class="mi">1</span><span class="p">,),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,)),</span>
+ <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">()),</span>
+ <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)),</span>
+ <span class="p">((</span><span class="mi">2</span><span class="p">,),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span>
+ <span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">()))</span>
+</pre></div>
+</div>
+<p>The vectors should be 3-dimensional:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">three_dim_cocircuits</span><span class="p">()</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="o">...</span>
+<span class="ne">AssertionError</span><span class="p">:</span> <span class="n">The</span> <span class="n">ambient</span> <span class="n">dimension</span> <span class="ow">is</span> <span class="ow">not</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>Three linearly dependent vectors in dimension 3 form a cocircuit:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">three_dim_cocircuits</span><span class="p">()</span>
+<span class="p">(((),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">()),)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.underlying_hypergraph">
+<code class="sig-name descname">underlying_hypergraph</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.underlying_hypergraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the underlying hypergraph of cocircuits of the vector configuration.</p>
+<p>Edges of the hypergraph correspond to zeros in a cocircuit.</p>
+<p>OUTPUT:</p>
+<p>A hypergraph</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">underlying_hypergraph</span><span class="p">()</span>
+<span class="n">Incidence</span> <span class="n">structure</span> <span class="k">with</span> <span class="mi">6</span> <span class="n">points</span> <span class="ow">and</span> <span class="mi">7</span> <span class="n">blocks</span>
+</pre></div>
+</div>
+<p>For a set of three linearly dependent vectors in dimension three there
+is just one cocicuit and thus one block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">underlying_hypergraph</span><span class="p">()</span>
+<span class="n">Incidence</span> <span class="n">structure</span> <span class="k">with</span> <span class="mi">3</span> <span class="n">points</span> <span class="ow">and</span> <span class="mi">1</span> <span class="n">blocks</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.underlying_matroid">
+<code class="sig-name descname">underlying_matroid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.underlying_matroid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the underlying matroid of the vector configuration.</p>
+<p>OUTPUT:</p>
+<p>A matroid</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">underlying_matroid</span><span class="p">()</span>
+<span class="n">Matroid</span> <span class="n">of</span> <span class="n">rank</span> <span class="mi">3</span> <span class="n">on</span> <span class="mi">6</span> <span class="n">elements</span> <span class="k">with</span> <span class="mi">16</span> <span class="n">bases</span>
+</pre></div>
+</div>
+<p>For a set of three linearly independent vectors in dimension three,
+there is just one basis:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">underlying_matroid</span><span class="p">()</span>
+<span class="n">Matroid</span> <span class="n">of</span> <span class="n">rank</span> <span class="mi">3</span> <span class="n">on</span> <span class="mi">3</span> <span class="n">elements</span> <span class="k">with</span> <span class="mi">1</span> <span class="n">bases</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="cn_hyperarr.vector_classes.VectorConfiguration.vectors">
+<code class="sig-name descname">vectors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.VectorConfiguration.vectors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the list of vectors</p>
+<p>OUTPUT:</p>
+<p>A tuple.</p>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span> <span class="o">=</span> <span class="n">VectorConfiguration</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">vc</span><span class="o">.</span><span class="n">vectors</span><span class="p">()</span>
+<span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="cn_hyperarr.vector_classes.inter_binary">
+<code class="sig-prename descclassname">cn_hyperarr.vector_classes.</code><code class="sig-name descname">inter_binary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">left</span></em>, <em class="sig-param"><span class="n">right</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cn_hyperarr.vector_classes.inter_binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Intersection operation on -,0,+,3, the 3 plays the role of a star.</p>
+<p>The commutative intersection operation is defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}+ \cap + := +,  \\
++ \cap - = - \cap + := 0, \\ 
+- \cap - := -, \\
+0 \cap \varepsilon = \varepsilon \cap 0 := 0, \\
+* \cap \varepsilon = \varepsilon \cap * := \varepsilon,\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\varepsilon \in \{0,+,-,*\}\)</span>.</p>
+<p>INPUT:</p>
+<ul class="simple">
+<li><p>left, right – elements of <span class="math notranslate nohighlight">\(\{-,0,+,3\}\)</span></p></li>
+</ul>
+<p>OUTPUT:</p>
+<ul class="simple">
+<li><p>element of <span class="math notranslate nohighlight">\(\{-,0,+,3\}\)</span></p></li>
+</ul>
+<p>EXAMPLES:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr.vector_classes</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">product</span>
+<span class="n">sage</span><span class="p">:</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">product</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="o">....</span><span class="p">:</span>     <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">inter_binary</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">))</span>
+<span class="o">....</span><span class="p">:</span>
+<span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span>
+<span class="o">-</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="o">-</span><span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span>
+<span class="o">-</span><span class="mi">1</span> <span class="mi">3</span> <span class="o">-</span><span class="mi">1</span>
+<span class="mi">0</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">3</span> <span class="mi">0</span>
+<span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">0</span>
+<span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span>
+<span class="mi">1</span> <span class="mi">3</span> <span class="mi">1</span>
+<span class="mi">3</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">1</span>
+<span class="mi">3</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">3</span> <span class="mi">1</span> <span class="mi">1</span>
+<span class="mi">3</span> <span class="mi">3</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>TESTS:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="n">inter_binary</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">inter_binary</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="mi">0</span>
+<span class="n">sage</span><span class="p">:</span> <span class="n">inter_binary</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="mi">1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="database.html"
+                        title="previous chapter">The Database of Simplicial Hyperplane Arrangements of Rank 3</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/vector_conf.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="database.html" title="The Database of Simplicial Hyperplane Arrangements of Rank 3"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Congruence Normality for Hyperplane Arrangements 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Vector Configurations Module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Sophia Elia.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.1.2.
+    </div>
+  </body>
+</html>
