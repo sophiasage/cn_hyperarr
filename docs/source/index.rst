@@ -44,18 +44,20 @@ With this package, you can load:
 
 Here is an example of the arrangement `A(10,60)_3` that is sometimes 
 congruence normal. 
-First we load the normals of the arrangement from the database. 
-The entries of the database are labeled in the same way as in [CEL]_ ::
+
+EXAMPLES:
+
+    First we load the normals of the arrangement from the database. 
+    The entries of the database are labeled in the same way as in [CEL]_::
 
     sage: from cn_hyperarr import *
     sage: s_normals = db_normals_CEL[(10,60,3)]
 
-Now we make the normals into a vector configuration::
+    Now we make the normals into a vector configuration::
 
-    sage: s_vc = VectorConfiguration((vector(x) for x in s_normals)) 
+    sage: s_vc = VectorConfiguration([vector(x) for x in s_normals]) 
      
-To test congruence normality, use the :func:`~main.RegionsCongruenceNormal`
-method::
+    To test congruence normality, use the :func:`~main.RegionsCongruenceNormal` method::
 
     sage: somet_check = RegionsCongruenceNormality(s_vc)
     sage: somet_vals_list = list(somet_check.values())

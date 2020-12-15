@@ -18,8 +18,10 @@ in the notation of [CEL]_ we do as follows::
 
 To create the hyperplane arrangement, we do as follows::
 
-    sage: vc = VectorConfiguration((vector(x) for x in normals))
+    sage: vc = VectorConfiguration([vector(x) for x in normals]);vc
+    Vector configuration of 7 vectors in dimension 3
     sage: ha = vectorconf_to_hyperplane_arrangement(vc); ha
+    Arrangement of 7 hyperplanes of dimension 3 and rank 3
 """
 
 ##############################################################################

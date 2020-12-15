@@ -26,14 +26,13 @@ The entries of the database are labeled in the same way as in [CEL]_ ::
     sage: somet_normals = db_normals_CEL[(10,60,3)]
     sage: never_normals = db_normals_CEL[(22,288,1)]
 
-Now we make them into vector configurations::
+    Now we make them into vector configurations::
 
     sage: always_vc = VectorConfiguration((vector(x) for x in always_normals)) 
     sage: somet_vc = VectorConfiguration((vector(x) for x in somet_normals)) 
     sage: never_vc = VectorConfiguration((vector(x) for x in never_normals))
      
-To test congruence normality, use the :func:`~main.RegionsCongruenceNormal`
-method::
+    To test congruence normality, use the function `RegionsCongruenceNormal`::
 
     sage: always_check = RegionsCongruenceNormality(always_vc)
     sage: always_vals_list = list(always_check.values())
@@ -70,25 +69,3 @@ and other often used commands. Should you wish too, you can use the
 shorthand::
 
     $ make install
-
-
-Usage
------
-
-
-Once the package is installed, you can use it in Sage. To do so you have to import it with::
-
-    sage: from cn_hyperarr import *
-    
-You can test whether a hyperplane arrangement is congruence normal as follows::
-
-    sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]]);
-    sage: check_result = RegionsCongruenceNormality(vc);
-    sage: check_result.values()
-    dict_values([True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True])
-
-To load the list of normals in sage::
-
-    sage: from cn_hyperarr.database import *
-    sage: db_normals_CEL[(7,32,1)]
-    ((0, 0, 1), (0, 1, 0), (0, 1, 1), (1, 0, 0), (1, 0, 1), (1, 1, 0), (1, 1, 1))

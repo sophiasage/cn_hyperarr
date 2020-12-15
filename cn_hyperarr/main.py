@@ -24,16 +24,16 @@ the corresponding hyperplane arrangement. We load it from the database::
     sage: from cn_hyperarr.main import *
     sage: always_normals = db_normals_CEL[(6,24,1)]; always_normals
     ((0, 0, 1), (0, 1, 0), (0, 1, 1), (1, 0, 0), (1, 0, 1), (1, 1, 1))
-    sage: vc = VectorConfiguration((vector(x) for x in always_normals));
-    sage: h = vectorconf_to_hyperplane_arrangement(vc);
+    sage: vc = VectorConfiguration([vector(x) for x in always_normals]);vc
+    Vector configuration of 6 vectors in dimension 3
+    sage: h = vectorconf_to_hyperplane_arrangement(vc);h
+    Arrangement of 6 hyperplanes of dimension 3 and rank 3
     sage: h.n_regions()
     24
-    sage: check_result = RegionsCongruenceNormality(vc);
-    sage: check_result.values()
+    sage: A6_24 = RegionsCongruenceNormality(vc);
+    sage: A6_24.values()
     dict_values([True, True, True, True, True, True, True, True, True, True, True, 
     True, True, True, True, True, True, True, True, True, True, True, True, True])
-    sage: len(check_result.values())
-    24
 
 This vector configuration of ten vectors is sometimes congruence normal.
 It is the smallest simplicial arrangement of rank three that is not always
@@ -52,9 +52,10 @@ load it from the database::
      (0, 1, 0),
      (1, 0, 0),
      (tau + 1, tau, tau))
-    sage: ncn_conf = VectorConfiguration((vector(x) for x in sometimes_normals));
-    sage: check_result = RegionsCongruenceNormality(ncn_conf)
-    sage: check_result.values()
+     sage: ncn_conf = VectorConfiguration([vector(x) for x in sometimes_normals]);ncn_conf
+     Vector configuration of 10 vectors in dimension 3
+    sage: A10_60_3 = RegionsCongruenceNormality(ncn_conf)
+    sage: A10_60_3.values()
     dict_values([False, False, True, True, True, True, False, False, True, True, False, True, True, False, True, False, True, True, True, True, True, True, False, False, False, True, True, True, True, True, False, False, True, True, True, True, False, False, True, True, False, True, True, False, True, False, True, True, True, True, True, True, False, False, False, True, True, True, True, True])
 """
 

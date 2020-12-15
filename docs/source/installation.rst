@@ -27,14 +27,14 @@ Once the package is installed, you can use it in Sage. To do so you have to impo
 
     sage: from cn_hyperarr import *
     
-You can test whether a hyperplane arrangement is congruence normal as follows::
+    You can test whether a hyperplane arrangement is congruence normal as follows::
 
     sage: vc = VectorConfiguration([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[0,1,1],[1,1,1]]);
     sage: check_result = RegionsCongruenceNormality(vc);
     sage: check_result.values()
     dict_values([True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True])
 
-To load the list of normals in sage::
+    To load the list of normals in sage::
 
     sage: from cn_hyperarr.database import *
     sage: db_normals_CEL[(7,32,1)]
