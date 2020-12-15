@@ -59,10 +59,6 @@ load it from the database::
     sage: check_result.values()
     dict_values([False, False, True, True, True, True, False, False, True, True, False, True, True, False, True, False, True, True, True, True, True, True, False, False, False, True, True, True, True, True, False, False, True, True, True, True, False, False, True, True, False, True, True, False, True, False, True, True, True, True, True, True, False, False, False, True, True, True, True, True])
 
-REFERENCES:
-
-.. [CEL] Michael Cuntz, Sophia Elia, and Jean-Philippe Labbé. Congruence normality of simplicial hyperplane arrangements via oriented matroids, 2020. arXiv:2009.14152.
-
 AUTHORS:
 
 - Jean-Philippe Labbé (2020): Initial version

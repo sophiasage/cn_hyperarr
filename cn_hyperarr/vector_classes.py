@@ -47,10 +47,6 @@ EXAMPLES::
     sage: ncn_conf.is_congruence_normal()
     False
 
-REFERENCES:
-
-.. [CEL] Michael Cuntz, Sophia Elia, and Jean-Philippe Labbé. Congruence normality of simplicial hyperplane arrangements via oriented matroids, 2020. arXiv:2009.14152.
-
 AUTHORS:
 
 - Jean-Philippe Labbé (2020): Initial version
