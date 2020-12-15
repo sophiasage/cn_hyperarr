@@ -28,7 +28,7 @@ cache:
   directories:
   - "$HOME/SageMath"
   - "$HOME/.cache/matplotlib"
-  timeout: 1000
+  timeout: 100
 before_cache:
 - rm -Rf $HOME/SageMath/logs $HOME/SageMath/.BUILDSTART
 after_success:
