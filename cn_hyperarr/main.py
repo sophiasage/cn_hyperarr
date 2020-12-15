@@ -37,7 +37,7 @@ the corresponding hyperplane arrangement. We load it from the database::
 
 This vector configuration of ten vectors is sometimes congruence normal.
 It is the smallest simplicial arrangement of rank three that is not always
-congruence normal and is referred to as A(10,60)_3 in [CEL]_. We also
+congruence normal and is referred to as `A(10,60)_3` in [CEL]_. We also
 load it from the database::
 
     sage: from cn_hyperarr.main import *
@@ -99,7 +99,7 @@ def vectorconf_to_hyperplane_arrangement(vector_conf, backend=None):
 
     EXAMPLES:
 
-    The arrangement A(10,60)`_3` with 10 hyperplanes is the smallest rank-three 
+    The arrangement `A(10,60)_3` with 10 hyperplanes is the smallest rank-three 
     simplicial arrangement that is not congruence normal::
 
         sage: from cn_hyperarr.main import *
@@ -148,7 +148,7 @@ def wrapper_forcing_acyclic(vectorconf):
 
     EXAMPLES:
 
-    The arrangement A(10,60)_3 with 10 hyperplanes is not congruence 
+    The arrangement `A(10,60)_3` with 10 hyperplanes is not congruence 
     normal for the implicit choice of base region::
 
         sage: from cn_hyperarr.main import *
@@ -214,7 +214,7 @@ def RegionsCongruenceNormality(vector_conf, backend=None, verbose=False, nb_proc
 
     This vector configuration of ten vectors is sometimes congruence normal.
     It is the smallest simplicial arrangement of rank three that is not always
-    congruence normal and is referred to as A(10,60)_3 in [CEL]_ ::
+    congruence normal and is referred to as `A(10,60)_3` in [CEL]_ ::
 
         sage: tau = AA((1+sqrt(5))/2)
         sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]

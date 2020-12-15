@@ -1,3 +1,5 @@
 prune cn_hyperarr
 include VERSION
 include cn_hyperarr/*.py
+recursive-include docs/build/html *.html *.inv *.js *.css *.gif *.png
+include docs/build/latex/cn_hyperarr.pdf
