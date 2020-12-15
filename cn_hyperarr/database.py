@@ -1,29 +1,25 @@
 # -*- coding: utf-8 -*-
 r"""
-Database of simplicial hyperplane arrangements of rank 3.
+Database of simplicial hyperplane arrangements of rank 3 [CEL]_, [Gru]_.
 
-EXAMPLES::
+EXAMPLES:
+
+Here is how to access an element in the database. To get the data of the 
+normals, invariants, and wiring for the arrangement `A(7,32)_1`, 
+in the notation of [CEL]_ we do as follows::
 
     sage: from cn_hyperarr import *
-    sage: db_normals_CEL[(7,32,1)]
+    sage: normals = db_normals_CEL[(7,32,1)]; normals
     ((0, 0, 1), (0, 1, 0), (0, 1, 1), (1, 0, 0), (1, 0, 1), (1, 1, 0), (1, 1, 1))
     sage: db_invariants_CEL[(7,32,1)]
     ((7, 1), (9, 24, 16), (3, 6), (0, 4, 3), (48, 48), (24, 12), (1, 3, 3))
     sage: db_wiring_CEL[(7,32,1)]
     ((1, 6, 7, 2, 5, 3, 4), ((1, 3), (5, 6), (3, 5), (5, 7), (2, 3), (3, 5), (5, 6), (1, 3), (3, 5)))
 
-REFERENCES:
+To create the hyperplane arrangement, we do as follows::
 
-    - [1] Michael Cuntz, Sophia Elia, and Jean-Philippe Labbé. Congruence
-      normality of simplicial hyperplane arrangements via oriented matroids,
-      2020. arXiv:2009.14152.
-    - [2] Branko Grunbaum. A catalogue of simplicial arrangements in the real
-      projective plane, 2009. Ars Math. Contemp. 2, no. 1, 1-25.
-
-AUTHORS:
-
-- Jean-Philippe Labbé (2020): Initial version
-- Sophia Elia (2020): Initial version
+    sage: vc = VectorConfiguration((vector(x) for x in normals))
+    sage: ha = vectorconf_to_hyperplane_arrangement(vc); ha
 """
 
 ##############################################################################
