@@ -98,7 +98,7 @@ def near_pencil_family(n, backend=None):
 def family_two(n, backend=None):
     r"""
     Return the vector configuration of the simplicial arrangement
-    `A(n,1)` from the family `\mathcal R(1)` in Grunbaum's list.
+    `A(n,1)` from the family `\mathcal R(1)` in Grunbaum's list [Gru]_.
 
     The arrangement will have an ``n`` hyperplanes, with ``n`` even, consisting
     of the edges of the regular `n/2`-gon and the `n/2` lines of 
