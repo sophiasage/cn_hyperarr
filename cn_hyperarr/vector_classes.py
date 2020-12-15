@@ -125,7 +125,7 @@ class VectorConfiguration():
          ((6, 7), (1, 2, 4, 5), (0, 3)))
 
     The vector configuration of an arrangement of hyperplanes that is not
-    congruence normal. It is the arrangement A(10,60)_3 in [CEL]_::
+    congruence normal. It is the arrangement `A(10,60)_3` in [CEL]_::
 
         sage: tau = AA((1+sqrt(5))/2)
         sage: ncn = [[2*tau+1,2*tau,tau],[2*tau+2,2*tau+1,tau+1],[1,1,1],[tau+1,tau+1,tau],[2*tau,2*tau,tau],[tau+1,tau+1,1],[1,1,0],[0,1,0],[1,0,0],[tau+1,tau,tau]]
@@ -1054,12 +1054,12 @@ class Covector(tuple):
     r"""
     A covector
 
-    A covector is a vector of signs -1,0,+1 (3=*, for restricted covectors)
+    A covector is a vector of signs `-1,0,+1,3=*` for restricted covectors
     obtained by an affine linear map on a vector configuration.
 
     .. MATH::
 
-        C_{c,a}:= (sign(c\cdot p_i+a))_{i\in[m]}
+        C_{c,a}:= (\operatorname{sign}(c\cdot p_i+a))_{i\in[m]}
 
     where `c` is a vector, `a` is a scalar, and `\{p_i\}_{i\in[m]}` is a vector
     configuration.
@@ -1275,10 +1275,10 @@ class Covector(tuple):
             + \cap + := +,  \\
             + \cap - = - \cap + := 0, \\ 
             - \cap - := -, \\
-            0 \cap \epsilon = \epsilon \cap 0 := 0, \\
-            * \cap \epsilon = \epsilon \cap * := \epsilon` \\
+            0 \cap \varepsilon = \varepsilon \cap 0 := 0, \\
+            * \cap \varepsilon = \varepsilon \cap * := \varepsilon, \\
 
-        where `\epsilon \in \{0,+,-,*\}`.
+        where `\varepsilon \in \{0,+,-,*\}`.
 
         INPUT:
 
@@ -1349,10 +1349,10 @@ def inter_binary(left, right):
        + \cap + := +,  \\
        + \cap - = - \cap + := 0, \\ 
        - \cap - := -, \\
-       0 \cap \epsilon = \epsilon \cap 0 := 0, \\
-       * \cap \epsilon = \epsilon \cap * := \epsilon,
+       0 \cap \varepsilon = \varepsilon \cap 0 := 0, \\
+       * \cap \varepsilon = \varepsilon \cap * := \varepsilon,
 
-    where `\epsilon \in \{0,+,-,*\}`.
+    where `\varepsilon \in \{0,+,-,*\}`.
 
     INPUT:
 
