@@ -1,8 +1,8 @@
 ===================================================
 Congruence Normality for Hyperplane Arrangements
 ===================================================
-.. image:: https://travis-ci.org/sophiasage/cn_hyperarr.svg?branch=master
-    :target: https://travis-ci.org/sophiasage/cn_hyperarr
+.. image:: https://travis-ci.com/sophiasage/cn_hyperarr.svg?branch=master
+    :target: https://travis-ci.com/sophiasage/cn_hyperarr
 
 This package is a `SageMath <http://www.sagemath.org>`_ package for computing congruence normality of rank-three, simplicial hyperplane arrangements.
 
