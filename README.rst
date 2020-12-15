@@ -28,9 +28,9 @@ The entries of the database are labeled in the same way as in [CEL]_ ::
 
 Now we make them into vector configurations::
 
-    sage: always_vc = VectorConfiguration(list(vector(x) for x in always_normals)) 
-    sage: somet_vc = VectorConfiguration(list(vector(x) for x in somet_normals)) 
-    sage: never_vc = VectorConfiguration(list(vector(x) for x in never_normals))
+    sage: always_vc = VectorConfiguration((vector(x) for x in always_normals)) 
+    sage: somet_vc = VectorConfiguration((vector(x) for x in somet_normals)) 
+    sage: never_vc = VectorConfiguration((vector(x) for x in never_normals))
      
 To test congruence normality, use the :func:`~main.RegionsCongruenceNormal`
 method::

@@ -22,10 +22,9 @@ This vector configuration is congruence normal for any choice of base region in
 the corresponding hyperplane arrangement. We load it from the database::
 
     sage: from cn_hyperarr.main import *
-    sage: always_normals = db_normals_CEL[(6,24,1)]
-    sage: always_normals
+    sage: always_normals = db_normals_CEL[(6,24,1)]; always_normals
     ((0, 0, 1), (0, 1, 0), (0, 1, 1), (1, 0, 0), (1, 0, 1), (1, 1, 1))
-    sage: vc = VectorConfiguration(list(vector(x) for x in always_normals));
+    sage: vc = VectorConfiguration((vector(x) for x in always_normals));
     sage: h = vectorconf_to_hyperplane_arrangement(vc);
     sage: h.n_regions()
     24
@@ -42,8 +41,7 @@ congruence normal and is referred to as A(10,60)_3 in [CEL]_. We also
 load it from the database::
 
     sage: from cn_hyperarr.main import *
-    sage: sometimes_normals = db_normals_CEL[(10,60,3)]
-    sage: sometimes_normals
+    sage: sometimes_normals = db_normals_CEL[(10,60,3)]; sometimes_normals
     ((2*tau + 1, 2*tau, tau),
      (2*tau + 2, 2*tau + 1, tau + 1),
      (1, 1, 1),
@@ -54,7 +52,7 @@ load it from the database::
      (0, 1, 0),
      (1, 0, 0),
      (tau + 1, tau, tau))
-    sage: ncn_conf = VectorConfiguration(list(vector(x) for x in sometimes_normals));
+    sage: ncn_conf = VectorConfiguration((vector(x) for x in sometimes_normals));
     sage: check_result = RegionsCongruenceNormality(ncn_conf)
     sage: check_result.values()
     dict_values([False, False, True, True, True, True, False, False, True, True, False, True, True, False, True, False, True, True, True, True, True, True, False, False, False, True, True, True, True, True, False, False, True, True, True, True, False, False, True, True, False, True, True, False, True, False, True, True, True, True, True, True, False, False, False, True, True, True, True, True])
