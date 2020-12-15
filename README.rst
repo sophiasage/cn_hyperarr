@@ -49,7 +49,7 @@ The entries of the database are labeled in the same way as in [CEL]_::
 
 The full documentation for the package can be found at https://sophiasage.github.io/cn_hyperarr/doc/html/
 
-REFERENCES
+References
 ----------
 
 .. [CEL] Michael Cuntz, Sophia Elia, and Jean-Philippe Labbé. Congruence normality of simplicial hyperplane arrangements via oriented matroids, 2020. arXiv:2009.14152.
