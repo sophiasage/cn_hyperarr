@@ -56,11 +56,6 @@ load it from the database::
     sage: check_result = RegionsCongruenceNormality(ncn_conf)
     sage: check_result.values()
     dict_values([False, False, True, True, True, True, False, False, True, True, False, True, True, False, True, False, True, True, True, True, True, True, False, False, False, True, True, True, True, True, False, False, True, True, True, True, False, False, True, True, False, True, True, False, True, False, True, True, True, True, True, True, False, False, False, True, True, True, True, True])
-
-AUTHORS:
-
-- Jean-Philippe Labbé (2020): Initial version
-- Sophia Elia (2020): Initial version
 """
 
 ##############################################################################

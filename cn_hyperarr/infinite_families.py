@@ -25,11 +25,6 @@ edges and their lines of mirror symmetry along with the line at infinity::
 
     sage: fthree_17 = family_three(17, 'normaliz'); fthree_17     # optional - pynormaliz
     Vector configuration of 17 vectors in dimension 3
-
-AUTHORS:
-
-- Jean-Philippe Labbé (2020): Initial version
-- Sophia Elia (2020): Initial version
 """
 
 ##############################################################################
