@@ -1,4 +1,5 @@
 .. nodoctest
+.. _Database:
 
 The Database of Simplicial Hyperplane Arrangements of Rank 3
 ============================================================

@@ -1,4 +1,5 @@
 .. nodoctest
+.. _inf_fam:
 
 The Three Infinite Families
 ===============================================

@@ -1,4 +1,5 @@
 .. nodoctest
+.. _computations module:
 
 Congruence Normality of Hyperplane Arrangements
 ===============================================
