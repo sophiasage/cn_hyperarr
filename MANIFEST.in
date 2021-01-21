@@ -4,4 +4,3 @@ exclude .gitignore
 exclude *.sh
 exclude *travis*
 exclude sage_version.py
-recursive-exclude cn_hyperarr.egg-info *
