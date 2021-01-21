@@ -1,4 +1,7 @@
-prune cn_hyperarr
 include VERSION
-include cn_hyperarr/*.py
-recursive-include docs/build/html *.html *.inv *.js *.css *.gif *.png
+recursive-include docs/build/html *.html *.inv *.js *.css *.png
+exclude .gitignore
+exclude *.sh
+exclude *travis*
+exclude sage_version.py
+recursive-exclude cn_hyperarr.egg-info *
