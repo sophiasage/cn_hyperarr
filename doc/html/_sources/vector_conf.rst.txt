@@ -1,4 +1,5 @@
 .. nodoctest
+.. _vector configurations:
 
 Vector Configurations Module
 ===============================================

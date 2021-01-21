@@ -47,12 +47,38 @@
           <div class="body" role="main">
             
   <div class="section" id="module-cn_hyperarr.database">
-<span id="the-database-of-simplicial-hyperplane-arrangements-of-rank-3"></span><h1>The Database of Simplicial Hyperplane Arrangements of Rank 3<a class="headerlink" href="#module-cn_hyperarr.database" title="Permalink to this headline">¶</a></h1>
+<span id="the-database-of-simplicial-hyperplane-arrangements-of-rank-3"></span><span id="database"></span><h1>The Database of Simplicial Hyperplane Arrangements of Rank 3<a class="headerlink" href="#module-cn_hyperarr.database" title="Permalink to this headline">¶</a></h1>
 <p>Database of simplicial hyperplane arrangements of rank 3 <a class="reference internal" href="index.html#cel" id="id1"><span>[CEL]</span></a>, <a class="reference internal" href="index.html#gru" id="id2"><span>[Gru]</span></a>.</p>
+<p>This database contains three dictionaries: db_normals_CEL, db_invariants_CEL,
+and db_wiring_CEL. All three dictionaries have keys following the
+labeling in the article <a class="reference internal" href="index.html#cel" id="id3"><span>[CEL]</span></a>. Namely a key is a 3-tuple (A,B,C) where 
+A is the number of hyperplanes, B is the number of regions, and C is an further
+index for identification.</p>
+<p>The dictionary db_normals_CEL has values which are tuples of 3-tuples. 
+Each 3-tuple gives a normal to the hyperplane arrangement specified by the key.</p>
+<p>The dictionary db_invariants_CEL has values which are 7-tuples of the invariants 
+of the hyperplane arrangement specified by the key.
+The entries are as follows, see Table 5 in <a class="reference internal" href="index.html#cel" id="id4"><span>[CEL]</span></a> for more details:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The first entry is the labeling of Gruenbaum</p></li>
+<li><p>The second entry is the f-vector</p></li>
+<li><p>The third entry is the t-vector</p></li>
+<li><p>The fourth entry is the r-vector</p></li>
+<li><p>The fifth entry is the automorphism group of the CW-complex</p></li>
+<li><p>The sixth entry is the automorphism group of the matroid</p></li>
+<li><p>The seventh entry is the list of roots of the characteristic polynomial, when integers</p></li>
+</ul>
+</div></blockquote>
+<p>The dictionary db_wiring_CEL has values which are tuples describing the wiring
+diagram of the hyperplane arrangement specified by the key.
+The first entry is the permutation and the second is the list of inversions 
+with labels given by the order of the normals in the db_normals_CEL dictionary.
+See Table 15 <a class="reference internal" href="index.html#cel" id="id5"><span>[CEL]</span></a> for more details.</p>
 <p>EXAMPLES:</p>
 <p>Here is how to access an element in the database. To get the data of the 
 normals, invariants, and wiring for the arrangement <span class="math notranslate nohighlight">\(A(7,32)_1\)</span>, 
-in the notation of <a class="reference internal" href="index.html#cel" id="id3"><span>[CEL]</span></a> we do as follows:</p>
+in the notation of <a class="reference internal" href="index.html#cel" id="id6"><span>[CEL]</span></a> we do as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sage</span><span class="p">:</span> <span class="kn">from</span> <span class="nn">cn_hyperarr</span> <span class="k">import</span> <span class="o">*</span>
 <span class="n">sage</span><span class="p">:</span> <span class="n">normals</span> <span class="o">=</span> <span class="n">db_normals_CEL</span><span class="p">[(</span><span class="mi">7</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">1</span><span class="p">)];</span> <span class="n">normals</span>
 <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
