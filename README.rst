@@ -50,6 +50,15 @@ The entries of the database are labeled in the same way as in [CEL]_::
 
 The full documentation for the package can be found at https://sophiasage.github.io/cn_hyperarr/doc/html/
 
+Notebooks
+---------
+
+You can experience this package on a binder notebook (click on the binder image):
+
+.. image:: https://mybinder.org/badge.svg 
+   :target: https://mybinder.org/v2/gh/sophiasage/cn_hyperarr/master?filepath=notebooks/examples.ipynb
+
+
 References
 ----------
 
