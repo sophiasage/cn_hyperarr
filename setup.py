@@ -27,21 +27,7 @@ class SageTest(TestCommand):
         if errno != 0:
             sys.exit(1)
 
-# if __name__ == "__main__":
-
-    # The next block is needed if there are cython files
-#    from setuptools import Extension
-#    from Cython.Build import cythonize
-#    import Cython.Compiler.Options
-#    from sage.env import sage_include_directories
 from sage.misc.banner import version as sage_version
-
-    # Cython modules
-#    ext_modules = [
-             # Extension('cn_hyperarr.one_cython_file',
-             #sources = [os.path.join('cn_hyperarr','one_cython_file.pyx')],
-             #include_dirs=sage_include_directories())
-#    ]
 
 # Specify the required Sage version
 sage_required_version = '>=9.0'

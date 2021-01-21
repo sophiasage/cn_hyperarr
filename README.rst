@@ -4,7 +4,8 @@ Congruence Normality for Hyperplane Arrangements
 .. image:: https://travis-ci.com/sophiasage/cn_hyperarr.svg?branch=master
     :target: https://travis-ci.com/sophiasage/cn_hyperarr
 
-This package is a `SageMath <http://www.sagemath.org>`_ package for computing congruence normality of rank-three, simplicial hyperplane arrangements.
+This package is a `SageMath <http://www.sagemath.org>`_ package for 
+computing congruence normality of rank-three, simplicial hyperplane arrangements.
 
 This package includes a database of known rank-three simplicial hyperplane
 arrangements. It also includes modules for creating vector configurations and 
