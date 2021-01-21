@@ -26,7 +26,7 @@ else
   # Install packages
   #SageMath/sage -i lrslib
   # To initialize matplotlib font manager
-  $HOME/SageMath/sage -python -c 'import matplotlib.pyplot'
+  # $HOME/SageMath/sage -python -c 'import matplotlib.pyplot'
   $HOME/SageMath/sage -pip install --user sphinxcontrib-websupport
 fi
 
