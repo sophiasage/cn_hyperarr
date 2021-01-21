@@ -2,6 +2,33 @@
 r"""
 Database of simplicial hyperplane arrangements of rank 3 [CEL]_, [Gru]_.
 
+This database contains three dictionaries: db_normals_CEL, db_invariants_CEL,
+and db_wiring_CEL. All three dictionaries have keys following the
+labeling in the article [CEL]_. Namely a key is a 3-tuple (A,B,C) where 
+A is the number of hyperplanes, B is the number of regions, and C is an further
+index for identification.
+
+The dictionary db_normals_CEL has values which are tuples of 3-tuples. 
+Each 3-tuple gives a normal to the hyperplane arrangement specified by the key.
+
+The dictionary db_invariants_CEL has values which are 7-tuples of the invariants 
+of the hyperplane arrangement specified by the key.
+The entries are as follows, see Table 5 in [CEL]_ for more details:
+
+    - The first entry is the labeling of Gruenbaum
+    - The second entry is the f-vector
+    - The third entry is the t-vector
+    - The fourth entry is the r-vector
+    - The fifth entry is the automorphism group of the CW-complex
+    - The sixth entry is the automorphism group of the matroid
+    - The seventh entry is the list of roots of the characteristic polynomial, when integers
+
+The dictionary db_wiring_CEL has values which are tuples describing the wiring
+diagram of the hyperplane arrangement specified by the key.
+The first entry is the permutation and the second is the list of inversions 
+with labels given by the order of the normals in the db_normals_CEL dictionary.
+See Table 15 [CEL]_ for more details.
+
 EXAMPLES:
 
 Here is how to access an element in the database. To get the data of the 
@@ -72,7 +99,7 @@ A = NumberField(x**3-3*x-25, 'rho', embedding = 32646329/QQ(10000000)); rho = A.
 A = NumberField(x**4-3*x**3+3*x**2-3*x+1, 'gamma', embedding = 4643/QQ(10000)); gamma = A.gens()[0]
 
 # This is the list of normals to the hyperplanes
-# The key follows the labeling in the article [1]
+# The key follows the labeling in the article [CEL]_
 
 db_normals_CEL = {}
 db_normals_CEL[(6, 24, 1)] = ((0, 0, 1), (0, 1, 0), (0, 1, 1), (1, 0, 0), (1, 0, 1), (1, 1, 1))
@@ -195,7 +222,7 @@ db_normals_CEL[(37, 720, 1)] = ((0, 0, 1), (0, 1, 0), (0, 1, 1), (0, 1, 2), (0, 
 db_normals_CEL[(37, 720, 2)] = ((0, 1, 0), (1, 0, 0), (1, -1, 0), (1, -2/3*r18**2 + 1/3*r18 + 1/3, 0), (1, -r18**2 + r18, 0), (1, -r18, 0), (1, -1/3*r18**2 - 1/3*r18 - 1/3, 0), (1, -r18**2 + 1, 0), (1, -r18**2, 0), (1, -r18**2 + r18 + 1, 0), (1, r18**2 - 2*r18 - 1, 0), (1, -r18**2 + 2, 0), (1, -1/2*r18**2, 0), (1, -2, 0), (1, -2*r18**2 + 2*r18 + 1, 0), (1, -r18 - 1, 0), (1, -r18**2 - r18, 0), (1, r18, 0), (1, 1, -1), (0, 1, -1), (1, -r18**2 + 2, r18**2 - 3), (1, 2*r18**2 - 4*r18 - 1, -r18**2 + 2*r18), (1, -r18**2 + 2, 1/3*r18**2 + 1/3*r18 - 5/3), (1, 4*r18**2 - 2*r18 - 12, -5*r18**2 + 2*r18 + 14), (1, -4*r18**2 + 5*r18 + 3, 3*r18**2 - 4*r18 - 3), (1, -2/3*r18**2 - 1/6*r18 + 5/6, 1/6*r18**2 + 1/6*r18 - 5/6), (1, -2*r18**2 - r18 + 7, 2*r18**2 - 7), (1, -2*r18**2 + 5, 2*r18**2 - 7), (1, -1/2*r18**2 - 1/2*r18 + 1/2, 1/6*r18**2 + 1/6*r18 - 5/6), (1, -5*r18**2 + 6*r18 + 4, 3*r18**2 - 4*r18 - 3), (1, 4*r18**2 - 2*r18 - 13, -5*r18**2 + 2*r18 + 14), (1, -1/3*r18**2 - 4/3*r18 + 2/3, 1/3*r18**2 + 1/3*r18 - 5/3), (1, -2*r18, -r18**2 + 2*r18), (1, -2*r18**2 - r18 + 3, r18**2 - 3), (0, 1, 1/3*r18**2 - 4/3), (1, r18 + 1, -1), (1, -2/3*r18**2 - 2/3*r18 + 4/3, 1/3*r18**2 + 1/3*r18 - 5/3))
 db_normals_CEL[(37, 720, 3)] = ((1, 1/2*sqrt3 + 1/2, -1/2*sqrt3 - 1/2), (1, 1/2*sqrt3 + 1, -1/2), (0, 1, sqrt3 + 2), (0, 0, 1), (0, 1, -sqrt3 - 2), (0, 1, -sqrt3), (0, 1, -1), (0, 1, -1/3*sqrt3), (0, 1, sqrt3 - 2), (0, 1, 0), (0, 1, -sqrt3 + 2), (0, 1, 1/3*sqrt3), (0, 1, 1), (1, -1/2*sqrt3 - 1/2, 1/2*sqrt3 + 1/2), (1, -1/2*sqrt3 - 1, 1/2), (1, -1/2, 1/2*sqrt3 + 1), (1, -1/2*sqrt3 - 1, -1/2), (1, -1/2*sqrt3, 1/2), (1, -1/2, 1/2*sqrt3), (1, -1, 0), (1, 1/2, 1/2*sqrt3 + 1), (1, 0, 1), (1, -1/2*sqrt3, -1/2), (1, -1/2*sqrt3 - 1/2, -1/2*sqrt3 - 1/2), (1, 1/2, 1/2*sqrt3), (1, 0, 0), (1, -1/2, -1/2*sqrt3), (1, 1/2*sqrt3 + 1/2, 1/2*sqrt3 + 1/2), (1, 1/2*sqrt3, 1/2), (1, 0, -1), (1, -1/2, -1/2*sqrt3 - 1), (1, 1, 0), (1, 1/2, -1/2*sqrt3), (1, 1/2*sqrt3, -1/2), (0, 1, sqrt3), (1, 1/2, -1/2*sqrt3 - 1), (1, 1/2*sqrt3 + 1, 1/2))
 
-# This is the list of invariants of the hyperplane arrangements listed in [1] Table 5.
+# This is the list of invariants of the hyperplane arrangements listed in [CEL]_ Table 5.
 # The first entry is the labeling of Gruenbaum
 # The second entry is the f-vector
 # The third entry is the t-vector
@@ -325,7 +352,7 @@ db_invariants_CEL[(37, 720, 1)] = ((37, 3), (181, 540, 360), (72, 72, 24, 0, 10,
 db_invariants_CEL[(37, 720, 2)] = ((37, 1), (181, 540, 360), (27, 144, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1), (0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 9, 0, 0, 0, 0, 0, 19), (72, 17), (108, 26), (1, 17, 19))
 db_invariants_CEL[(37, 720, 3)] = ((37, 2), (181, 540, 360), (72, 72, 12, 24, 0, 0, 0, 0, 0, 0, 1), (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 0, 24), (48, 36), (48, 17), (1, 17, 19))
 
-# This is the list of wiring diagrams of the hyperplane arrangements listed in [1] Table 15.
+# This is the list of wiring diagrams of the hyperplane arrangements listed in [CEL]_ Table 15.
 # The first entry is the permutation and the second is the list of inversions with labels given by the order of the normals in the above dictionary.
 
 db_wiring_CEL = {}
