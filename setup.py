@@ -30,7 +30,7 @@ class SageTest(TestCommand):
 from sage.misc.banner import version as sage_version
 
 # Specify the required Sage version
-sage_required_version = '>=9.0'
+sage_required_version = '>=9.2'
 sage_current_version = sage_version()
 py2 = bool('8.' in sage_current_version or '7.' in sage_current_version)
 
