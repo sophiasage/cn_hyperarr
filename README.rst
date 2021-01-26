@@ -71,10 +71,17 @@ References
 Installation
 ------------
 
+Local install from PyPi
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Option 1: To install the package use the following command:
+
+    $ sage -pip install --user --upgrade cn-hyperarr
+
 Local install from source
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Download the source from the git repository::
+Option 2: To download the source from the git repository::
 
     $ git clone https://github.com/sophiasage/cn_hyperarr.git
 
